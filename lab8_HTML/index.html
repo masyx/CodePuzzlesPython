@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <title>Trivia!</title>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function(){
+                let correct = document.querySelector('#correctBtn');
+                correct.addEventListener('click', function(){
+                    correct.style.backgroundColor = 'green';
+                    document.querySelector('#feedback1').innerHTML = 'Correct';
+                });
+
+                let incorrects = document.querySelectorAll('.incorrect');
+                for(let i = 0; i < incorrects.length; i++){
+                    incorrects[i].addEventListener('click', function(){
+                        incorrects[i].style.backgroundColor = 'red';
+                        document.querySelector('#feedback1').innerHTML = 'Wrong';
+                    });
+                }
+
+                document.querySelector('#check').addEventListener('click', function(){
+                    let pres = document.querySelector("#president");
+                    if(pres.value == "Washington"){
+                        pres.style.backgroundColor = 'green';
+                        document.querySelector('#feedbackPresident').innerHTML = 'Correct';
+                    }
+                    else{
+                        president.style.backgroundColor = 'red';
+                        feedbackPresident.innerHTML = 'Incorrect'; //works toooooooooooooooooooooooooooo
+                        //document.querySelector('#feedbackPresident').innerHTML = 'Incorrect';
+                    }
+                })
+
+            });
+
+        </script>
+
+    </head>
+    <body>
+
+        <div class="jumbotron">
+            <h1>Trivia!</h1>
+        </div>
+        <div class="container">
+
+            <div class="section">
+                <h2>Part 1: Multiple Choice </h2>
+                <hr>
+                <h3>What is the pet dog population in the US?</h3>
+                <button class="correct" id="correctBtn" style="width:33%">330 million</button>
+                <button class="incorrect" id ="wrongBtn1" style="width:33%">78 million</button>
+                <button class="incorrect" id ="wrongBtn2" style="width:33%">1 billion</button>
+                <p id="feedback1"></p>
+
+            </div>
+
+            <div class="section">
+                <h2>Part 2: Free Response</h2>
+                <hr>
+                <h3>Who is the first president of the US?</h3>
+
+                <input id="president" type="text" />
+                <button id="check" >Check Answer</button>
+
+                <p id="feedbackPresident" />
+            </div>
+
+        </div>
+        <!--<script>
+                document.getElementById("correctBtn").addEventListener("click", function(){
+                document.getElementById("feedback1").innerHTML = 'Correct',
+                document.getElementById("correctBtn").style.backgroundColor = 'green';
+            });
+
+
+            document.getElementById("wrongBtn1").addEventListener("click", function(){
+                document.getElementById("feedback1").innerHTML = 'Wrong',
+                document.getElementById("wrongBtn1").style.backgroundColor = 'red';
+            });
+            document.getElementById("wrongBtn2").addEventListener("click", function(){
+                document.getElementById("feedback1").innerHTML = 'Wrong',
+                document.getElementById("wrongBtn2").style.backgroundColor = 'red';
+            });
+        </script> -->
+    </body>
+</html>
