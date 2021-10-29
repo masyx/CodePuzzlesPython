@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+<div class="section">
+
+                <h2>Transaction history</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Symbol</th>
+                            <th>Name</th>
+                            <th>Shares</th>
+                            <th>Price</th>
+                            <th>Transacted</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in transactions %}
+                            <tr>
+                                <td>{{ row["share_symbol"] }}</td>
+                                <td>{{ row["share_name"] }}</td>
+                                <td>{{ row["shares_qty"] }}</td>
+                                <td>${{ row["share_price"] }}</td>
+                                <td>{{ row["transaction_date"]}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+{% endblock %}

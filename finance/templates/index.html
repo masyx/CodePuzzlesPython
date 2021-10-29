@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+<div class="section">
+
+                <h2>My Stocks</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Symbol</th>
+                            <th>Name</th>
+                            <th>Shares</th>
+                            <th>Price</th>
+                            <th>TOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in stocksGroupedByName %}
+                            <tr>
+                                <td>{{ row["share_symbol"] }}</td>
+                                <td>{{ row["share_name"] }}</td>
+                                <td>{{ row["shares_total_qty"] }}</td>
+                                <td>{{ "$%.2f"|format(stockPrices[row["share_symbol"]]) }}</td>
+                                <td>{{ "$%.2f"|format(stockPrices[row["share_symbol"]] * row["shares_total_qty"]) }}</td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td><h5>CASH<h5></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>{{"$%.2f"|format(cash)}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>{{ "$%.2f"|format(totalBalance + cash) }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+{% endblock %}

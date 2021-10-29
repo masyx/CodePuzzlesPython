@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quoted
+{% endblock %}
+
+{% block main %}
+
+    {% if companyInfo is not none %}
+        <h4>A share of {{companyInfo["name"]}} ({{companyInfo["symbol"]}}) costs ${{companyInfo["price"]}}</h4>
+        <form action="/quote">
+            <button class="btn btn-primary" type="quote">Quote again</button>
+        </form>
+    {% else %}
+        <h4>Couldn't find stock with the symbol '{{symbol}}'</h4>
+        <form action="/quote">
+            <button class="btn btn-primary" type="quote">Try again</button>
+        </form>
+    {% endif %}
+{% endblock %}
