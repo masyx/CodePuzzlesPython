@@ -7,12 +7,15 @@ def main():
     result = TwoNumberSum(arr, 10)
     print(result)
     
-    
+
+# O(n^2) time complexity, O(1) space complexity    
 def TwoNumberSum(array, targetSum):
     for i in range(len(array) - 1):
+        firstNum = array[i]
         for j in range(i + 1, len(array)):
-            if array[i] + array[j] == targetSum:
-                return [array[i], array[j]]
+            secondNum = array[j]
+            if firstNum + secondNum == targetSum:
+                return [firstNum, secondNum]
     return [] 
 
 
