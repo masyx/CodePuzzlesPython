@@ -1,10 +1,13 @@
+import numbers
 from random import randrange
 import sys
 
 
 def main():
-    arr = [randrange(0, 99) for i in range(50)]    
-    result = TwoNumberSum(arr, 10)
+    arr = [randrange(-10, 10) for i in range(10)]
+    targetSum = randrange(1, 5)    
+    result = TwoNumberSumHash(arr, targetSum)
+    print(arr, f"Target Sum: {targetSum}")
     print(result)
     
 
@@ -18,6 +21,16 @@ def TwoNumberSum(array, targetSum):
                 return [firstNum, secondNum]
     return [] 
 
+# O(n) time complexity, O(n) space complexity
+def TwoNumberSumHash(array, targetSum):
+    numbers = {}
+    for num in array:
+        potentialMatch = targetSum - num
+        if potentialMatch in numbers:
+            return [num, potentialMatch]
+        else:
+            numbers[num] = True
+    return []
 
 if __name__ == "__main__":
     main()
