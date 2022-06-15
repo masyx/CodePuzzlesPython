@@ -1,6 +1,7 @@
 import numbers
 from random import randrange
 import sys
+from turtle import right
 
 
 def main():
@@ -31,6 +32,22 @@ def TwoNumberSumHash(array, targetSum):
         else:
             numbers[num] = True
     return []
+
+# O(n log(n)) time / O(1) space
+def TwoNumberSumAlgo(array, targetSum):
+    array.sort()
+    left = 0
+    right = len(array) - 1
+    while left < right:
+        currentSum = array[left] + array[right]
+        if currentSum == targetSum:
+            return [array[left], array[right]]
+        elif currentSum > targetSum:
+            right -= 1
+        else:
+            left += 1
+    return []            
+            
 
 if __name__ == "__main__":
     main()
