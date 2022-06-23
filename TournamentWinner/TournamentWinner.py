@@ -7,7 +7,7 @@ def main():
         ["Bears", "Eagles"]
         ]
     results = [0, 0, 0]
-    print(tournamentWinner2(competitions, results))
+    print(tournamentWinnerOptimal(competitions, results))
     
   
 def tournamentWinner(competitions, results):
@@ -43,7 +43,7 @@ def tournamentWinner2(competitions, results):
                 scores[matchWinner] = 3
         else:
             matchWinner = competitions[i][1]
-            if matchWinner in scores:
+            if matchWinner in scores: 
                 scores[matchWinner] += 3
             else:
                 scores[matchWinner] = 3
@@ -52,7 +52,32 @@ def tournamentWinner2(competitions, results):
             bestTeam = matchWinner
         
     return  bestTeam
-  
+
+
+HOME_TEAM_WON = 1
+
+def tournamentWinnerOptimal(competitions, results):
+    currentBestTeam = ""
+    scores = {currentBestTeam: 0}
+    
+    for idx, match in enumerate(competitions):
+        result = results[idx]
+        homeTeam, awayTeam = match
+        
+        matchWinner = homeTeam if result == HOME_TEAM_WON else awayTeam
+        
+        updateScore(matchWinner, 3, scores)
+        
+        if scores[matchWinner] > scores[currentBestTeam]:
+            currentBestTeam = matchWinner
+
+    return currentBestTeam
+
+def updateScore(team, points, scores):
+    if team not in scores:
+        scores[team] = 0
+    
+    scores[team] += points
   
   
   
