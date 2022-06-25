@@ -21,7 +21,7 @@ def bubbleSortBest(arr):
 def bubbleSortMy(array):
     swapCounter = 99
     counter = 0
-    while swapCounter is not 0:
+    while swapCounter != 0:
         swapCounter = 0
         for i in range(len(array) - 1 - counter):
             if array[i] > array[i + 1]:
