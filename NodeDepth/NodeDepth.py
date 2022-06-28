@@ -25,7 +25,7 @@ def main():
     
     print(nodeDepths(tree))
     
-    
+# O(n) time | O(n) space    
 def nodeDepths(root):
     depths = []
     getNodesDepth(root, -1, depths)
