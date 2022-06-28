@@ -25,7 +25,7 @@ def main():
     
     print(nodeDepths(tree))
     
-# O(n) time | O(n) space    
+# O(n) time | O(h) space    
 def nodeDepths(root):
     depths = []
     getNodesDepth(root, -1, depths)
@@ -36,16 +36,16 @@ def getNodesDepth(node, currentDepth, depths):
     if node is None:
         return
     
-    newDepth = currentDepth + 1
-    if newDepth > 0:
-        depths.append(newDepth)
-        print(f"The depth of the node with value {node.value} is: {newDepth}")
+    runningDepth = currentDepth + 1
+    if runningDepth > 0:
+        depths.append(runningDepth)
+        print(f"The depth of the node with value {node.value} is: {runningDepth}")
     
     if node.left is None and node.right is None:
         return
     
-    getNodesDepth(node.left, newDepth, depths)
-    getNodesDepth(node.right, newDepth, depths)
+    getNodesDepth(node.left, runningDepth, depths)
+    getNodesDepth(node.right, runningDepth, depths)
     
     
     
