@@ -28,7 +28,7 @@ def main():
 
     
 # O(n) time | O(n) space    
-def nodeDepths(root):
+def nodeDepthsMy(root):
     depths = []
     getNodesDepth(root, depths)
     return sum(depths)
@@ -37,13 +37,20 @@ def nodeDepths(root):
 def getNodesDepth(node, depths, depth = 0):
     if node is None:
         return
-    
     depths.append(depth)
     print(f"The depth of the node with value {node.value} is: {depth}")
     
     getNodesDepth(node.left, depths, depth + 1)
     getNodesDepth(node.right, depths, depth + 1)
 
+# O(n) time | O(h) space
+def nodeDepths(root, depth = 0):
+    if root is None:
+        return 0
+    left = nodeDepths(root.left, depth + 1)
+    right = nodeDepths(root.right, depth + 1)
+    return depth + left + right
+  
 
     
 if __name__ == "__main__":
