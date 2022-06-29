@@ -4,6 +4,7 @@ class BinaryTree:
         self.left = None
         self.right = None
         
+        
 def initializeBinaryTree():
     tree = BinaryTree(1)
     tree.left = BinaryTree(2)
@@ -20,38 +21,30 @@ def initializeBinaryTree():
     
     return tree
 
+
 def main():
     tree = initializeBinaryTree()
-    
     print(nodeDepths(tree))
+
     
-# O(n) time | O(h) space    
+# O(n) time | O(n) space    
 def nodeDepths(root):
     depths = []
-    getNodesDepth(root, -1, depths)
+    getNodesDepth(root, depths)
     return sum(depths)
-    
-    
-def getNodesDepth(node, currentDepth, depths):
+   
+   
+def getNodesDepth(node, depths, depth = 0):
     if node is None:
         return
     
-    runningDepth = currentDepth + 1
-    if runningDepth > 0:
-        depths.append(runningDepth)
-        print(f"The depth of the node with value {node.value} is: {runningDepth}")
+    depths.append(depth)
+    print(f"The depth of the node with value {node.value} is: {depth}")
     
-    if node.left is None and node.right is None:
-        return
-    
-    getNodesDepth(node.left, runningDepth, depths)
-    getNodesDepth(node.right, runningDepth, depths)
-    
-    
-    
-    
-    
-    
+    getNodesDepth(node.left, depths, depth + 1)
+    getNodesDepth(node.right, depths, depth + 1)
+
+
     
 if __name__ == "__main__":
     main()
