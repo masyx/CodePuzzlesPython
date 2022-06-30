@@ -11,8 +11,17 @@ def selectionSortMyOriginal(array):
             array[i], array[smallestIdx] = array[smallestIdx], array[i]    
     return array
 
-
 def selectionSortMyImproved(array):
+    for i in range(len(array)):
+        smallestIdx = i
+        for j in range(i + 1, len(array)):  
+            if array[j] < array[smallestIdx]:
+                smallestIdx = j
+        array[i], array[smallestIdx] = array[smallestIdx], array[i]    
+    return array
+
+
+def selectionSortMyImproved2(array):
     for i in range(len(array)):
         smallestIdx = i
         for j in range(i + 1, len(array)):  
