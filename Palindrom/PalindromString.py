@@ -5,13 +5,23 @@ def isPalindromeString(str):
     return False
 
 
+def isPalindromeStringIterative(str):
+    reversedStr = ""
+    for char in str:
+        reversedStr = char + reversedStr
+    if reversedStr == str:
+        return True
+    return False
+        
+    
+
 
 
 
 
 def main():
-    myString = "BOB"
-    print(isPalindromeString(myString))
+    myString = "ABC"
+    print(isPalindromeStringIterative(myString))
     
 if __name__ == "__main__":
     main()
