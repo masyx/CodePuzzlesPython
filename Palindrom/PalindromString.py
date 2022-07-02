@@ -45,9 +45,31 @@ def isPalindromeRecursionMyBest(string, start = 0, end = -1):
         return string[start] == string[end] and isPalindromeRecursionMyBest(string, start + 1, end - 1)
     return True
 
+# O(n) time | O(1) space
+def isPalindromeIterativePointers(string):
+    left = 0
+    right = len(string) - 1
+    while left < right:
+        if string[left] != string[right]:
+            return False
+        left += 1
+        right -= 1
+    return True
+
+# O(n) time | O(1) space
+def isPalindromeIterativePointers2(string):
+    left = 0
+    right = -1
+    while left < len(string) // 2:
+        if string[left] != string[right]:
+            return False
+        left += 1
+        right -= 1
+    return True
+
 def main():
-    myString = "abcfcba"
-    print(isPalindromeRecursionMyBest(myString))
+    myString = "abcdfcba"
+    print(isPalindromeIterativePointers(myString))
     
 if __name__ == "__main__":
     main()
