@@ -5,21 +5,21 @@ def main():
     
 # "abrkaabcdefghijjxxx"
 def longestSubstring(string):
-    presentChars = {}
+    used = {}
     counter = 0
-    lengthOfLongestSubstring = 0
+    longest = 0
     for char in string:
-        if char in presentChars:
+        if char in used:
             counter = 0
-            presentChars.clear()
+            used.clear()
         
-        presentChars[char] = True
+        used[char] = True
         counter += 1
-        if counter > lengthOfLongestSubstring:
-            lengthOfLongestSubstring = counter
+        if counter > longest:
+            longest = counter
             
-    return lengthOfLongestSubstring
-             
+    return longest
+            
              
     
 
