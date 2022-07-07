@@ -2,8 +2,12 @@
 # without repeating characters.
 def main():
     print(longestSubstringCopilot('abrkaabcdefghijjxxx'))
+    print(longestSubstring('abcacswax'))
     
 # "abrkaabcdefghijjxxx"
+# "abrkaabcjjxxx"
+
+# its actually wrong solution
 def longestSubstring(string):
     used = {}
     counter = 0
@@ -16,8 +20,7 @@ def longestSubstring(string):
         used[char] = True
         counter += 1
         if counter > longest:
-            longest = counter
-            
+            longest = counter      
     return longest
 
 
