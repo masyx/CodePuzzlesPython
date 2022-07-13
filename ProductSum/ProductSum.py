@@ -1,21 +1,21 @@
-# Tip: You can use the type(element) function to check whether an item
-# is a list or an integer.
+# O(n) time, O(d) space, where d is max depth of sub-arrays
 def productSum(array, depth = 1):
-    currentSum = 0
-    for i in range(len(array)):
-        if type(array[i]) is int:
-            currentSum += array[i]
+    sum = 0
+    for element in array:
+        if type(element) is int:
+            sum += element
         else:
-            sum = productSum(array[i], depth + 1)
-            currentSum += sum 
-    currentSum *= depth
-    return currentSum
+            returnedSum = productSum(element, depth + 1)
+            sum += returnedSum 
+    sum *= depth
+    return sum
 
 
 
 def main():
-    array = [5, 2, [7, -1], 3, [6, [-13, 8], 4]]
+    #array = [5, 2, [7, -1], 3, [6, [-13, 8], 4]]
     #array = [1,3,[4,-1],1] # 11
+    array = [1,3,[4,[2,6],-1],1] # 1+3+2*(4+3*(2+6)-1)+1 = 59
     print(productSum(array))
     
 
