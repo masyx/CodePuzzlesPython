@@ -42,10 +42,24 @@ def runLengthEncoding2(string):
     chars.append(f"{count}{string[- 1]}")
     return "".join(chars)
 
+# O(n) time | O(n) space
+def runLengthEncoding3(string):
+    chars = []
+    count = 1
+
+    for i in range(1, len(string)):
+        if string[i] != string[i - 1] or count == 9:
+            chars.append(f"{count}{string[i - 1]}")
+            count = 0
+        count += 1
+            
+    chars.append(f"{count}{string[- 1]}")
+    return "".join(chars)
+
 
 def main():
     string = '.............______=========AAAA   AAABBBB   BBB'
-    print(runLengthEncoding2(string))
+    print(runLengthEncoding3(string))
     
 if __name__ == "__main__":
     main()
