@@ -13,24 +13,24 @@ def firstNonRepeatingCharacter(string):
     
     return -1
 
-# O(k^2) time where k is number of elements in hash table | O(n) space
-def firstNonRepeatingCharacter1(string):
+#O(n) time | O(1) space
+#The problem's prompt specifies that the input string only contains lowercase 
+# English-alphabet letters. Since there are only 26 lowercase English-alphabet letters,
+# our hash table will never store more than 26 character frequencies; 
+# thus, the optimal solution's space complexity is O(1). 
+# If the input string could contain any character, then the space complexity would be O(n).
+def firstNonRepeatingCharacter(string):
     used = {}
     for char in string:
-        if char not in used:
-            used[char] =  1
-            continue
-        used[char] = used[char] + 1
-    
-    for element in used:
-        if used[element] == 1:
-            for i in range(len(string)):
-                if string[i] == element:
-                    return i
-    
-    return -1
+        used[char] = used.get(char, 0) + 1
+        
+    for i in range(len(string)):
+        if used[string[i]] == 1:
+            return i
+    return - 1
+        
 
-def firstNonRepeatingCharacter2(string):
+def firstNonRepeatingCharacterBruteForce(string):
     for i in range(len(string)):
         foundDuplicate = False
         for j in range(len(string)):
