@@ -23,12 +23,29 @@ def runLengthEncoding(string):
                 resultArray.append(f"{count}{string[i + 1]}") 
         
     return "".join(resultArray)
+
+def runLengthEncoding2(string):
+    chars = []
+    count = 1
+
+    for i in range(1, len(string)):
+        if string[i] == string[i - 1]:
+            count += 1
+            if count == 9:
+                chars.append(f"{count}{string[i - 1]}")
+                count = 0
+        else:
+            if count != 0:    
+                chars.append(f"{count}{string[i - 1]}")
+            count = 1
             
+    chars.append(f"{count}{string[- 1]}")
+    return "".join(chars)
 
 
 def main():
-    string = "A" #'AAAAAAAAAAAAABBCCCCDF'
-    print(runLengthEncoding(string))
+    string = '.............______=========AAAA   AAABBBB   BBB'
+    print(runLengthEncoding2(string))
     
 if __name__ == "__main__":
     main()
