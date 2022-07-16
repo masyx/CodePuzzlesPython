@@ -15,10 +15,20 @@ def firstNonRepeatingCharacter(string):
     
     return -1
 
+def firstNonRepeatingCharacter2(string):
+    for i in range(len(string)):
+        foundDuplicate = False
+        for j in range(len(string)):
+            if string[i] == string[j] and i != j:
+                foundDuplicate = True 
+        if not foundDuplicate:
+            return i
+    return -1
+
 
 def main():
-    string = "abcdcaf"
-    print(firstNonRepeatingCharacter(string))
+    string = "aabcdcf"
+    print(firstNonRepeatingCharacter2(string))
     
     
 if __name__ == "__main__":
