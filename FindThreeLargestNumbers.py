@@ -21,6 +21,23 @@ def findThreeLargestNumbers(array):
     return [thirdMax, secondMax, max]
 
 
+def findThreeLargestNumbers(array):
+    result = [-9999, -9999, array[0]]
+    for i in range(1, len(array)):
+        if array[i] >= result[2]:
+            result[0] = result[1]
+            result[1] = result[2]
+            result[2] = array[i]
+            continue
+        if array[i] > result[1]:
+            result[0] = result[1]
+            result[1] = array[i] 
+            continue
+        if array[i] > result[0]:
+            result[0] = array[i]
+            
+    return result
+
 def main():
     arr = [-1, -2, -3, -7, -17, -27, -18, -541, -8, -7, 7]#[11,5,-2,77,10,4,-55,6]
     print(findThreeLargestNumbers(arr))
