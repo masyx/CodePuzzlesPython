@@ -1,8 +1,8 @@
 # O(n) time | O(1) space
 def findThreeLargestNumbers3(array):
     max = array[0]
-    secondMax = -9999
-    thirdMax = -9999
+    secondMax = float('-inf')
+    thirdMax = float('-inf')
     for i in range(1, len(array)):
         if array[i] >= max:
             temp = max
@@ -10,13 +10,12 @@ def findThreeLargestNumbers3(array):
             max = array[i]
             secondMax = temp
             thirdMax = temp2
-            continue
-        if array[i] > secondMax:
+        elif array[i] > secondMax:
             temp = secondMax
             secondMax = array[i]
             thirdMax = temp
             continue
-        if array[i] > thirdMax:
+        elif array[i] > thirdMax:
             thirdMax = array[i]
             
     return [thirdMax, secondMax, max]
@@ -29,12 +28,11 @@ def findThreeLargestNumbers2(array):
             result[0] = result[1]
             result[1] = result[2]
             result[2] = array[i]
-            continue
-        if array[i] > result[1]:
+        elif array[i] > result[1]:
             result[0] = result[1]
             result[1] = array[i] 
-            continue
-        if array[i] > result[0]:
+
+        elif array[i] > result[0]:
             result[0] = array[i]
             
     return result
@@ -46,12 +44,10 @@ def findThreeLargestNumbers1(array):
             result[0] = result[1]
             result[1] = result[2]
             result[2] = array[i]
-            continue
-        if result[1] is None or array[i] > result[1]:
+        elif result[1] is None or array[i] > result[1]:
             result[0] = result[1]
             result[1] = array[i] 
-            continue
-        if result[0] is None or array[i] > result[0]:
+        elif result[0] is None or array[i] > result[0]:
             result[0] = array[i]
             
     return result
