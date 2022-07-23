@@ -3,8 +3,10 @@ class BST:
         self.value = value
         self.left = None
         self.right = None
-        
-    def insert(self, value): 
+    
+    # O(log(n)) time average | O(log(n)) space
+    # O(n) time worst     
+    def insertRecursion(self, value):
         if value >= self.value:
             if self.right is None:
                 self.right = BST(value)
@@ -15,26 +17,25 @@ class BST:
                 self.left = BST(value)
             else:
                 return BST.insert(self.left, value)
-        return self
+            
+            
+
     
     def remove(self, value):
-        # if value == self.value:
-        #     del self
-        # elif value > self.value:
-        #     return BST.remove(self.right, value)
-        # else:
-        #     return BST.remove(self.left, value)
-        return self
-    
-    def contain(self, value):
+        return
+            
+    # O(log(n)) time average | O(log(n)) space
+    # O(n) time worst 
+    def contains(self, value):
         if self == None:
             return False
-        elif value < self.value:
-            return BST.contain(self.left, value)
-        elif value > self.value:
-            return BST.contain(self.right, value)
         elif value == self.value:
             return True
+        elif value < self.value:
+            return BST.contains(self.left, value)
+        elif value > self.value:
+            return BST.contains(self.right, value)
+        
     
     
     
