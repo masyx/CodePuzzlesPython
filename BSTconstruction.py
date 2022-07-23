@@ -18,10 +18,23 @@ class BST:
         return self
     
     def remove(self, value):
+        # if value == self.value:
+        #     del self
+        # elif value > self.value:
+        #     return BST.remove(self.right, value)
+        # else:
+        #     return BST.remove(self.left, value)
         return self
     
     def contain(self, value):
-        return self
+        if self == None:
+            return False
+        elif value < self.value:
+            return BST.contain(self.left, value)
+        elif value > self.value:
+            return BST.contain(self.right, value)
+        elif value == self.value:
+            return True
     
     
     
@@ -38,7 +51,9 @@ def main():
     tree.insert(22)
     tree.insert(14)
     tree.insert(12)
-    print(tree)
+    
+    what = tree.contain(15)
+    print(what)
     
 if __name__ == "__main__":
     main()
