@@ -5,7 +5,7 @@ class BST:
         self.right = None
     
     # O(log(n)) time average | O(log(n)) space
-    # O(n) time worst     
+    # O(n) time worst | O(n) space   
     def insertRecursion(self, value):
         if value >= self.value:
             if self.right is None:
@@ -17,8 +17,27 @@ class BST:
                 self.left = BST(value)
             else:
                 return BST.insert(self.left, value)
-            
-            
+    
+    
+    # O(log(n)) time average | O(1) space
+    # O(n) time worst | O(1) space          
+    def insert(self, value):
+        currentNode = self
+        while True:
+            if value < currentNode.value:
+                if currentNode.left is None:
+                    currentNode.left = BST(value)
+                    break
+                else:
+                    currentNode = currentNode.left
+            else:
+                if currentNode.right is None:
+                    currentNode.right = BST(value)
+                    break
+                else:
+                    currentNode = currentNode.right
+        return self  # this return statement just for AlgoExpert testing purposes to
+                     # be able to run insert function like  testBst.insert(5).insert(10)...   
 
     
     def remove(self, value):
@@ -26,7 +45,7 @@ class BST:
             
     # O(log(n)) time average | O(log(n)) space
     # O(n) time worst 
-    def contains(self, value):
+    def containsRecursion(self, value):
         if self == None:
             return False
         elif value == self.value:
@@ -36,6 +55,19 @@ class BST:
         elif value > self.value:
             return BST.contains(self.right, value)
         
+    
+    # O(log(n)) time average | O(1) space
+    # O(n) time worst | O(1) space
+    def contains(self, value):
+        current_node = self
+        while current_node is not None:
+            if current_node.value == value:
+                return True
+            elif value < current_node.value:
+                current_node = current_node.left
+            else:
+                current_node = current_node.right
+        return False
     
     
     
