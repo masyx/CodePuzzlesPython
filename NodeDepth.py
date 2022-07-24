@@ -45,14 +45,16 @@ def getNodesDepth(node, depths, depth = 0):
 
 # O(n) time | O(h) space, tha maximum number of function calls on a call stack at one point
 # is going to be the hight of the binary tree(or the depth of the deepest node in the binary tree) and
-# if the binary tree is balanced the O(h) space becomes really close to O(log(n)) because we are eliminating half of the tree
-# with every step
+# if the binary tree is balanced the O(h) space becomes really close to O(log(n)) because 
+# we are eliminating half of the tree with every step
 def nodeDepths(root, depth = 0):
     if root is None:
         return 0
     left = nodeDepths(root.left, depth + 1)
     right = nodeDepths(root.right, depth + 1)
     return depth + left + right
+    #return depth + nodeDepths(root.left, depth + 1) + nodeDepths(root.right, depth + 1)
+
 
 
 def nodeDepthIterative(root):
