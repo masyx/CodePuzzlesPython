@@ -1,20 +1,29 @@
-
-def isValidSubsequence(array, sequence):
-    seq_idx = 0
-    for num in array:
-        if seq_idx < len(sequence) and num == sequence[seq_idx]:
-            seq_idx += 1
-    is_valid = len(sequence) == seq_idx
-    return is_valid
+class BinaryTree:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
                 
         
+def nodeDepths(root, depth = 0):
+    if root is None:
+        return 0
+    l = nodeDepths(root.left, depth + 1)
+    r = nodeDepths(root.right, depth + 1)
+    sum = depth + l + r
+    return sum
+
+
 
 
 def main():
-    array = [5, 1, 22, 25, 6, -1, 8, 10]
-    sequence = [1, 6, -1, 10]
-    print(isValidSubsequence(array, sequence))
-    
+    root = BinaryTree(1)
+    root.left = BinaryTree(2)
+    # root.left.left = BinaryTree(4)
+    # root.left.right = BinaryTree(5)
+    # root.right = BinaryTree(3)
+    print(nodeDepths(root))
+    print()
     
 if __name__ == "__main__":
     main()
