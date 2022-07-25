@@ -13,8 +13,18 @@ def moveElementToEnd(array, toMove):
         l += 1           
     return array
 
-
-
+# O(n) time | O(1) space
+def moveElementToEndAlgo(array, to_move):
+    l = 0
+    r = len(array) - 1
+    while l < r:
+        while l < r and array[r] == to_move:
+            r -= 1
+        if array[l] == array[r]:
+            array[l], array[r] = array[r], array[l]
+        l += 1
+    return array
+            
 
 
 def main():
