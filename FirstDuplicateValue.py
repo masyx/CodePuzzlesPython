@@ -19,10 +19,21 @@ class Solution:
             return - 1
         else:
             return nums[min_second_index]
+        
+    # O(n) time | O(1) space
+    def firstDuplicateValue(self, array):
+        for num in array:
+            absValue = abs(num)
+            if array[absValue - 1] <= 0:
+                return absValue
+            array[absValue - 1] *= -1
+        return -1
+        
     
 
 
 def main():
+    # [1,2,3,1] [0,-1, -2, 0]
     array = [2, 1, 5, 3, 3, 2, 4]
     s = Solution()
     print(s.firstDuplicateValueBruteForce(array))
