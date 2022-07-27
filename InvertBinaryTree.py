@@ -6,16 +6,24 @@ class BinaryTree:
     
 
 
-def invertBinaryTree(tree: BinaryTree):
+def invertBinaryTreeMy(tree: BinaryTree):
     if tree.left is not None:
-        invertBinaryTree(tree.left)
+        invertBinaryTreeMy(tree.left)
     if tree.right is not None:
-        invertBinaryTree(tree.right)
+        invertBinaryTreeMy(tree.right)
     
     if tree.left is not None or tree.right is not None:
         tree.left, tree.right = tree.right, tree.left
     else:
         return 
+    
+    
+def invertBinaryTree(tree):
+    if tree is None:
+        return 
+    tree.left, tree.right = tree.right, tree.left
+    invertBinaryTree(tree.left)
+    invertBinaryTree(tree.right)
 
 
 
