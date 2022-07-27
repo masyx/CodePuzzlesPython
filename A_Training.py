@@ -1,43 +1,24 @@
-class BinaryTree:
-    def __init__(self, value):
-        self.value = value
-        self.left = None
-        self.right = None
-                
-# O(n) time | O(d) space     
-def nodeDepths(root, depth = 0):
-    if root is None:
+def getNthFibRec(n):
+    if n == 2:
+        return 1
+    if n == 1:
         return 0
-    l = nodeDepths(root.left, depth + 1)
-    r = nodeDepths(root.right, depth + 1)
-    sum = depth + l + r
-    return sum
+    return getNthFib(n - 2) + getNthFib(n - 1)
 
-
-def nodeDepthIterative(root):
-    sumOfDepths = 0
-    stack = [{"node": root, "depth": 0}]
-    while len(stack) > 0:
-        nodeInfo = stack.pop()
-        node, depth = nodeInfo["node"], nodeInfo["depth"]
-        if node is None:
-            continue
-        sumOfDepths += depth
-        stack.append({"node": node.left, "depth": depth + 1})
-        stack.append({"node": node.right, "depth": depth +1})
-    return sumOfDepths
-
+def getNthFib(n):
+    arr = [0, 1]
+    counter = 3
+    while counter <= n:
+        nextValue = sum(arr)
+        arr[0] = arr[1]
+        arr[1] = nextValue
+        counter += 1
+    return arr[1] if n > 1 else arr[0]
 
 
 
 def main():
-    root = BinaryTree(1)
-    root.left = BinaryTree(2)
-    # root.left.left = BinaryTree(4)
-    # root.left.right = BinaryTree(5)
-    root.right = BinaryTree(3)
-    print(nodeDepthIterative(root))
-    print()
+    print(getNthFib(5))
     
 if __name__ == "__main__":
     main()
