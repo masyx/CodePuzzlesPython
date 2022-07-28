@@ -30,10 +30,30 @@ def isMonotonic(array) -> bool:
                 break
     return monotonic
 
+#O(n) time | O(1) space
+def isMonotonic2(array):
+    if len(array) <= 2:
+        return True
+    
+    direction = array[1] - array[0]
+    for i in range(2, len(array)):
+        if direction == 0:
+            direction = array[i] - array[i - 1]
+            continue
+        if breaksDirection(direction, array[i - 1], array[i]):
+            return False
+    return True
+
+def breaksDirection(direction, previousInt, currentInt):
+    difference = currentInt - previousInt
+    if direction < 0:
+        isBreaking = difference > 0
+        return isBreaking
+    return difference < 0
 
 def main():
-    nums = [1,1,2,2,3]
-    print(isMonotonic(nums))
+    nums = [1, 1, 1, 2, 4, 4, 5]
+    print(isMonotonic2(nums))
     
     
 if __name__ == '__main__':
