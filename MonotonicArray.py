@@ -51,6 +51,16 @@ def breaksDirection(direction, previousInt, currentInt):
         return isBreaking
     return difference < 0
 
+def isMonotonic(array):
+    isIncreasing = True
+    isDecreasing = True   
+    for i in range(1, len(array)):
+        if array[i] < array[i - 1]:
+            isIncreasing = False
+        if array[i] > array[i - 1]:
+            isDecreasing = False
+    return isIncreasing or isDecreasing
+
 def main():
     nums = [1, 1, 1, 2, 4, 4, 5]
     print(isMonotonic2(nums))
