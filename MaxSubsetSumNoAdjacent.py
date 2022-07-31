@@ -13,7 +13,8 @@ def maxSubsetSumNoAdjacent(array):
         maxSum = max(maxSums[i - 1], maxSums[i - 2] + array[i])
         maxSums.append(maxSum)
     return maxSums[-1]        
-    
+
+# O(n) time | O(1) space    
 def maxSubsetSumNoAdjacent2(array):
     if not len(array):
         return 0
@@ -32,10 +33,17 @@ def maxSubsetSumNoAdjacent2(array):
         maxSums[1] = maxSum
     return maxSums[1]
 
+# O(n) time | O(1 space)
+def maxSubsetSumNoAdjacentSweet(array):
+    previous, current = 0, 0
+    for number in array:
+        previous, current = current, max(current, previous + number)
+    return current
+
 
 def main():
-    arr = [75, 105, 120, 75, 90, 135]
-    print(maxSubsetSumNoAdjacent2(arr))
+    arr = [75]
+    print(maxSubsetSumNoAdjacentSweet(arr))
     
 if __name__ == "__main__":
     main()
