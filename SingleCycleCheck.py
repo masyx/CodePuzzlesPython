@@ -1,10 +1,13 @@
-# left it here for tracking purpose
-def hasSingleCycleWrong(array):
+# It passed all Algo tests, but I doubt it will hold thousands of tests
+# O(n) time | O(n) space
+def hasSingleCycleMy(array):
     cyclic = False
     idx = 0
     visited = {idx}
-    for i in range(len(array) - 1):
-        idx = (idx + array[idx]) % len(array)        
+    for i in range(len(array)):
+        idx = (idx + array[idx]) % len(array)
+        if i == len(array) - 1 and idx != 0:
+            return False
         visited.add(idx)
     if len(array) == len(visited):
         cyclic = True
@@ -14,8 +17,8 @@ def hasSingleCycleWrong(array):
 
 def main():
 
-    arr = [1, 1, 1, 1, 2]
-    print(hasSingleCycle(arr))
+    arr = [2, 3, 1, -4, -4, 2]
+    print(hasSingleCycleMy(arr))
     
 if __name__ == "__main__":
     main()
