@@ -15,8 +15,6 @@ class Node:
             array.append(current.name)
             for child in current.children:
                 queue.append(child)
-            if queue:
-                current = queue[0]
         return array
 
 
