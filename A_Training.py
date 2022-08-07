@@ -1,38 +1,40 @@
-# O(log(n)) time | O(log(n)) space
-def binarySearch(arr, target):
-    return binarySearchHelper(arr, target, 0, len(arr) - 1)
-
-def binarySearchHelper(arr, target, left, right):
-    if left > right:
-        return -1
-    m = (left + right) // 2
-
-    if arr[m] == target:
-        return m
-    elif target < arr[m]:
-        return binarySearchHelper(arr, target, left, m - 1)
-    else:
-        return binarySearchHelper(arr, target, m + 1, right)
+class BinaryTree:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
 
 
-def binarySearchIterative(arr, target):
-    l = 0
-    r = len(arr) - 1
-    
-    while l <= r:
-        m = (l + r) // 2
-        if arr[m] == target:
-            return m
-        elif target < arr[m]:
-            r = m - 1
-        else:
-            l = m + 1
-    return -1
+def branch_sums(root):
+    arr = []
+    branch_sums_helper(root, arr, 0)
+    return arr
+
+
+def branch_sums_helper(node, sums, running_sum):
+    if node is None:
+        return
+    running_sum += node.value
+    if node.left is None and node.right is None:
+        sums.append(running_sum)
+    branch_sums_helper(node.left, sums, running_sum)
+    branch_sums_helper(node.right, sums, running_sum)
 
 def main():
+    tree = BinaryTree(1)
+    tree.left = BinaryTree(2)
+    tree.right = BinaryTree(3)
+    
+    tree.left.left = BinaryTree(4)
+    # tree.left.right = BinaryTree(5)
+    
+    # tree.left.left.left = BinaryTree(8)
+    # tree.left.left.right = BinaryTree(9)
+    
+    # tree.right.left = BinaryTree(6)
+    # tree.right.right = BinaryTree(7)
 
-    arr = [5, 23, 111]
-    print(binarySearchIterative(arr, 5))
+    print(branch_sums(tree))
     
 if __name__ == "__main__":
     main()
