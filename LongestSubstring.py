@@ -1,9 +1,10 @@
 # Given a string, find the length of the longest substring 
 # without repeating characters.
 def main():
-    print(longestSubstring('pwwkew'))
-    print(longestSubstring('abrkaabcjjxxx'))
-    
+    print(longestSubstring2('abcabcbb'))
+
+# abcafb
+# 'pwwkew'   
 # "abrkaabcdefghijjxxx"
 # "abrkaabcjjxxx"
 
@@ -20,7 +21,19 @@ def longestSubstring(s: str):
             start += 1
         length = max(length, right - start + 1)
     return length           
- # abcafb
+ 
+ 
+def longestSubstring2(s: str):
+    length = 0
+    l = 0
+    used = set()
+    for r in range(len(s)):
+        while s[r] in used:
+            used.remove(s[l])
+            l += 1
+        used.add(s[r])
+        length = max(length, r - l + 1)
+    return length           
 
 
 if __name__ == "__main__":
