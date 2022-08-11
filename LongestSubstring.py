@@ -1,41 +1,26 @@
 # Given a string, find the length of the longest substring 
 # without repeating characters.
 def main():
-    print(longestSubstringCopilot('abrkaabcdefghijjxxx'))
-    print(longestSubstring('abcacswax'))
+    print(longestSubstring('pwwkew'))
+    print(longestSubstring('abrkaabcjjxxx'))
     
 # "abrkaabcdefghijjxxx"
 # "abrkaabcjjxxx"
 
-# its actually wrong solution
-def longestSubstring(string):
-    used = {}
-    counter = 0
-    longest = 0
-    for char in string:
-        if char in used:
-            counter = 0
-            used.clear()
+
+def longestSubstring(s: str):
+    length = 0
+    start = 0
+    chars = [0] * 128
+    for right in range(len(s)):
+        chars[ord(s[right])] += 1
         
-        used[char] = True
-        counter += 1
-        if counter > longest:
-            longest = counter      
-    return longest
-
-
-def longestSubstringCopilot(string):
-    longest = 0
-    current = 0
-    used = {}
-    for i in range(len(string)):
-        if string[i] in used:
-            current = max(current, used[string[i]])
-        used[string[i]] = i
-        longest = max(longest, i - current)
-    return longest           
-             
-    
+        while chars[ord(s[right])] > 1:
+            chars[ord(s[start])] -= 1
+            start += 1
+        length = max(length, right - start + 1)
+    return length           
+ # abcafb
 
 
 if __name__ == "__main__":
