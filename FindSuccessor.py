@@ -4,8 +4,9 @@ class BinaryTree():
         self.left = left
         self.right = right
         self.parent = parent
-        
-        
+
+
+# O(n) time | O(1) space
 def find_successor(tree, node):
     result = []
     find_successor_helper(tree, node, result)
@@ -23,7 +24,10 @@ def find_successor_helper(tree, node, result):
         if tree.value == node.value:
             result.append(node)
         find_successor_helper(tree.right, node, result)
-        
+
+# TODO write method with better time complexity, O(h) time
+def find_successor(tree, node):
+    return        
         
 def main():
     tree = BinaryTree(1)
@@ -35,7 +39,7 @@ def main():
     
     tree.left.left.left = BinaryTree(6)
 
-    node = BinaryTree(22)
+    node = BinaryTree(3)
 
     found_node = find_successor(tree, node)
     if found_node:
