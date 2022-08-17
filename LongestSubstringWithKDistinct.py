@@ -36,9 +36,22 @@ def longest_substring_with_k_distinct(str1, k):
     return max_length
 
 
+def longest_substring_with_k_distinct_2(str1, k):
+    used = set()
+    l = 0
+    max_length = 0
+    for r in range(len(str1)):
+        while len(used) > k:
+            used.remove(str1[l])
+            l += 1
+        used.add(str1[r])
+        max_length = max(max_length, r - l)
+    return max_length
+
+
 def main():
     string1 = 'araaci'
-    print(longest_substring_with_k_distinct(string1, 1))
+    print(longest_substring_with_k_distinct_2(string1, 1))
 
 
 if __name__ == '__main__':
