@@ -5,6 +5,10 @@
 # Explanation: The smallest subarray with a sum greater than or equal to ‘10’ is [5, 2, 3].
 
 
+# The time complexity of the above algorithm will be O(N). The outer for loop runs for all elements, 
+# and the inner while loop processes each element only once; 
+# therefore, the time complexity of the algorithm will be O(N+N), which is asymptotically equivalent to O(N).
+# O(n) time | O(1) space
 def smallest_subarray_sum(s, arr):
   l = 0
   _sum = 0
