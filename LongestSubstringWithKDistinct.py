@@ -19,6 +19,7 @@
 # Output: 6
 # Explanation: The longest substring with no more than '10' distinct characters is "cbbebi".
 
+# O(n(for loop) + n(while loop)) => O(n) time | O(k) space where k is distinct characters in the string
 def longest_substring_with_k_distinct(str1, k):
     used = {}
     l = 0
