@@ -6,8 +6,7 @@ def reverseWordsInString(string):
         if string[i] == " ":
             result.append(string[curr_start:i])
             curr_start = i + 1
-        if i == len(string) - 1:
-            result.append(string[curr_start:])
+    result.append(string[curr_start:])
     return " ".join(reversed(result))
 
 
