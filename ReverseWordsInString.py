@@ -1,6 +1,14 @@
+#O(n) time | O(n) space
 def reverseWordsInString(string):
-    # Write your code here.
-    return ""
+    result = []
+    curr_start = 0
+    for i in range(len(string)):
+        if string[i] == " ":
+            result.append(string[curr_start:i])
+            curr_start = i + 1
+        if i == len(string) - 1:
+            result.append(string[curr_start:])
+    return " ".join(reversed(result))
 
 
 def main():
