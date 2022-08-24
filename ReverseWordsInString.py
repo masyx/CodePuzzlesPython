@@ -1,4 +1,7 @@
 #O(n) time | O(n) space
+import string
+
+
 def reverseWordsInString(string):
     result = []
     curr_start = 0
@@ -7,7 +10,16 @@ def reverseWordsInString(string):
             result.append(string[curr_start:i])
             curr_start = i + 1
     result.append(string[curr_start:])
-    return " ".join(reversed(result))
+    return " ".join(reverse_list(result))
+
+
+def reverse_list(list):
+    start, end = 0, len(list) - 1
+    while start < end:
+        list[start], list[end] = list[end], list[start]
+        start += 1
+        end -= 1
+    return list
 
 
 def main():
