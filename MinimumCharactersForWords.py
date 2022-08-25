@@ -27,10 +27,27 @@ def dict_to_array(dict):
             array.append(key)
     return array
 
+
+
+def minimum_characters_for_words(words):
+    main_map = {}
+    result = []
+    for word in words:
+        temp_map = {}
+        for char in word:
+            if char not in main_map:
+                main_map[char] = main_map.get(char, 0) + 1
+                result.append(char)
+            temp_map[char] = temp_map.get(char, 0) + 1
+            if temp_map[char] > main_map[char]:
+                result.append(char)
+                main_map[char] += 1
+    return result
+
 def main():
-    words = ["this", "that", "did", "deed", "them!", "a"]
-    #words = ["did", "deed"]
-    print(minimumCharactersForWords(words))
+    #words = ["this", "that", "did", "deed", "them!", "a"]
+    words = ["did", "deed"]
+    print(minimum_characters_for_words(words))
     
     
 if __name__ == "__main__":
