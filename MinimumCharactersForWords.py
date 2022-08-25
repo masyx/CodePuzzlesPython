@@ -20,9 +20,8 @@ def compare_chars(curr_chars, total_chars):
             
 def dict_to_array(dict):
     array = []
-    for key in dict:
-        value = dict[key]
-        for i in range(value):
+    for key, value in dict.items():
+        for _ in range(value):
             array.append(key)
     return array
 
