@@ -1,3 +1,5 @@
+# O(n * l) time | O(k) space, where 'n' is the number of words in the array, and 'l' is
+# the length of the longest word. 'k' is the number of unique characters
 def minimumCharactersForWords(words):
     total_chars = {}
     for word in words:
