@@ -6,12 +6,28 @@ class BST():
 
 
 def validateBst(tree):
-    # Write your code here.
-    pass
+    return validate_bst_helper(tree, float('-inf'), float('inf'))
 
+# O(n) time | O(d) space
+def validate_bst_helper(node, min, max):
+    if node is None:
+        return True
+    if node.value < min or node.value >= max:
+        return False
+    left_is_valid = validate_bst_helper(node.left, min, node.value)
+    # right_is_valid = validate_bst_helper(node.right, node.value, max)
+    return left_is_valid and validate_bst_helper(node.right, node.value, max)
 
 def main():
-    tree = BST(2)
+    tree = BST(3)
+    tree.left = BST(1)
+    tree.right = BST(5)
+
+    tree.left.left = BST(-5)
+    tree.left.right = BST(2)
+
+    tree.left.left.left = BST(-10)
+    tree.left.left.right = BST(99)
     print(validateBst(tree))
     
     
