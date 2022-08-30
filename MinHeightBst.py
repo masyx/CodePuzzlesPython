@@ -1,8 +1,7 @@
-# O(n*log(n)) time | O(n) space, where n is the length of the array
 def minHeightBst(array):
-    return construct_bst(array, None, 0, len(array) - 1)
+    return construct_bst_2(array, 0, len(array) - 1)
 
-
+# O(n*log(n)) time | O(n) space, where n is the length of the array
 def construct_bst(array, bst, left_idx, right_idx):
     if left_idx > right_idx:
         return None
@@ -15,16 +14,16 @@ def construct_bst(array, bst, left_idx, right_idx):
     construct_bst(array, bst, mean_idx + 1, right_idx)
     return bst
 
-def find_closest_int_to_mean(array, mean):
-    closest_to_mean_idx = 0
-    original_diff = abs(mean - array[0])
-    for i in range(1, len(array)):
-        curr_difference = abs(mean - array[i])
-        if curr_difference < original_diff:
-            closest_to_mean_idx = i
-            original_diff = curr_difference
-    return closest_to_mean_idx
 
+# O(n) time | O(n) space, where n is the length of the array
+def construct_bst_2(array, left_idx, right_idx):
+    if left_idx > right_idx:
+        return None
+    mean_idx = (left_idx + right_idx) // 2
+    bst = BST(array[mean_idx])
+    bst.left = construct_bst_2(array, left_idx, mean_idx - 1)
+    bst.right = construct_bst_2(array, mean_idx + 1, right_idx)
+    return bst
 
 class BST:
     def __init__(self, value):
