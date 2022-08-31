@@ -1,36 +1,27 @@
-# O(n) time | O(n ) space
-def is_palindrome(string):
-    l = 0
-    r = len(string) - 1
-    while l < r:
-        if string[l] != string[r]:
-            return False
-        l += 1
-        r -= 1
-    return True
+# O(log(n)*n^2)
+def threeNumberSum(array, targetSum):
+    result = []
+    array.sort()
+    for i in range(len(array)):
+        l = i + 1
+        r = len(array) - 1
+        while l < r:
+            current_sum = array[i] + array[l] + array[r]
+            if current_sum == targetSum:
+                result.append([array[i], array[l], array[r]])
+                l += 1
+                r -= 1
+            elif current_sum < targetSum:
+                l += 1
+            else:
+                r -= 1                
+    return result
 
-def is_palindrome_recursive(string, left = 0):
-    right = len(string) - 1 - left
-    while left <= right:
-        return string[left] == string[right] and is_palindrome_recursive(string, left + 1)
-    return True
-
-
-def is_palindrome_recursive_2(string, left = 0):
-    right = len(string) - 1 - left
-    if left >= right:
-        return True
-    else:
-        return string[left] == string[right] and is_palindrome_recursive_2(string, left + 1)
-
-
-def is_palindrome_rec(string):
-    
-    return 
 
 def main():
-    string = 'fdd'
-    print(is_palindrome_recursive_2(string))
+    # [-8, -6, 1, 2, 3, 5, 6, 12]
+    array = [12, 3, 1, 2, -6, 5, -8, 6]
+    print(threeNumberSum(array, 0))
     
 if __name__ == "__main__":
     main()
