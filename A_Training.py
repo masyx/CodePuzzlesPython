@@ -1,4 +1,6 @@
-# O(log(n)*n^2)
+# O(n^2) time, we left out n*log(n) time
+# complexity of sorting function because
+# n^2 dwarfs it | O(n) space 
 def threeNumberSum(array, targetSum):
     result = []
     array.sort()
@@ -14,8 +16,12 @@ def threeNumberSum(array, targetSum):
             elif current_sum < targetSum:
                 l += 1
             else:
-                r -= 1                
+                r -= 1
     return result
+
+
+def threeNumberSum(array, targetSum):
+    result = []
 
 
 def main():
