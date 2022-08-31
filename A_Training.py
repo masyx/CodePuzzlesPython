@@ -1,3 +1,19 @@
+class Node:
+    def __init__(self, name):
+        self.name = name
+        self.children = []
+        
+    def add_child(self, child):
+        self.children.append(child)
+        return self
+
+    def depthFirstSearch(self, array):
+        array.append(self.name)
+        for child in self.children:
+            child.depthFirstSearch(array)
+        return array
+
+
 # O(n^2) time, we left out n*log(n) time
 # complexity of sorting function because
 # n^2 dwarfs it | O(n) space 
