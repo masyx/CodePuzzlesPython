@@ -6,7 +6,22 @@ class BinaryTree:
         
 
 def binaryTreeDiameter(tree):
-    return - 1
+    global longest_path
+    longest_path = 0
+    calculate_longest_path(tree)
+    return longest_path
+
+
+def calculate_longest_path(node):
+    global longest_path
+    if node is None:
+        return 0
+    left_depth = calculate_longest_path(node.left)
+    right_depth = calculate_longest_path(node.right)
+    
+    current_longest_path = left_depth + right_depth
+    longest_path = max(current_longest_path, longest_path)
+    return max(left_depth, right_depth) + 1
 
 
 def main():
