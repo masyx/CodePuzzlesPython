@@ -24,6 +24,26 @@ def calculate_longest_path(node):
     return max(left_depth, right_depth) + 1
 
 
+class Solution():
+    def diameterOfBinaryTree(self, root):
+        """
+        :type root: BinaryTree
+        :rtype: int
+        """
+        self.max =0
+        
+        def levels(root):
+            if not root: 
+                return 0
+            left = levels(root.left)
+            right = levels(root.right)
+            self.max = max(self.max, left + right)
+            return 1 + max(left, right)
+        
+        levels(root)
+        return self.max
+
+
 def main():
     tree = BinaryTree(1)
     
@@ -39,8 +59,9 @@ def main():
     tree.left.right.right = BinaryTree(5)
     tree.left.right.right.right = BinaryTree(6)
     
-    
-    print(binaryTreeDiameter(tree))
+    sol = Solution()
+    diameter = sol.diameterOfBinaryTree(tree)
+    print(diameter)
     
     
 if __name__ == "__main__":
