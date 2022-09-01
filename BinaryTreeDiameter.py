@@ -4,7 +4,8 @@ class BinaryTree:
         self.left = left
         self.right = right
         
-
+# O(n) time | O(h) space, where 'n' is the number of nodes in the tree
+# and 'h' is the height of the tree
 def binaryTreeDiameter(tree):
     global longest_path
     longest_path = 0
