@@ -25,7 +25,7 @@ def reconstructBst(preOrderTraversalValues):
 class TreeInfo:
     def __init__(self, root_idx):
         self.root_idx = root_idx
-        
+
 
 # O(n) time | O(n) space, where n is the length of the array
 def reconstructBst_2(preOrderTraversalValues):
@@ -39,7 +39,7 @@ def reconstruct_bst_from_range(lower_bound, upper_bound,
         return None
     
     root_value = pre_order_traversal_values[current_subtree_info.root_idx]
-    if root_value < lower_bound or root_value > upper_bound:
+    if root_value < lower_bound or root_value >= upper_bound:
         return None
     
     current_subtree_info.root_idx += 1
