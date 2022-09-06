@@ -29,6 +29,19 @@ def longestSubstringWithoutDuplication(string):
         last_seen[char] = idx
     return string[longest_idx[0] : longest_idx[1]]
 
+
+def longestSubstringWithoutDuplication(string):
+    start_idx = 0
+    used_char_idx = {}
+    longest_substring = ""
+    for end_idx, char in enumerate(string):
+        if char in used_char_idx:
+            start_idx = max(start_idx, used_char_idx[char] + 1)
+        if end_idx - start_idx + 1 > len(longest_substring):
+            longest_substring = string[start_idx : end_idx + 1]
+        used_char_idx[char] = end_idx
+    return longest_substring
+
 def main():
     # clementisacap
     string = 'clementisacap'
