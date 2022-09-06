@@ -16,6 +16,7 @@ def longestSubstringWithoutDuplication(string):
     return result
 
 
+# O(n) time | O(1) space, cause there is only 26 unique chars in alphabet
 def longestSubstringWithoutDuplication(string):
     left = 0
     longest_idx = [0, 0]
