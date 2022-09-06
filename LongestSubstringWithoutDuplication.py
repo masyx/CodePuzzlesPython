@@ -16,7 +16,20 @@ def longestSubstringWithoutDuplication(string):
     return result
 
 
+def longestSubstringWithoutDuplication(string):
+    left = 0
+    longest_idx = [0, 0]
+    last_seen = {}
+    for idx, char in enumerate(string):
+        if char in last_seen:
+            left = max(left, last_seen[char] + 1)
+        if idx - left + 1 > longest_idx[1] - longest_idx[0]:
+            longest_idx = [left, idx + 1]
+        last_seen[char] = idx
+    return string[longest_idx[0] : longest_idx[1]]
+
 def main():
+    # clementisacap
     string = 'clementisacap'
     print(longestSubstringWithoutDuplication(string))
 
