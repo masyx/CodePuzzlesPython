@@ -35,14 +35,36 @@ def threeNumberSum(array, targetSum):
                 r -= 1
     return result
 
+# O(n) time | O(n) space
+def twoNumberSum(array, targetSum):
+    seen_numbers = {}
+    for number in array:
+        possible_number = targetSum - number
+        if possible_number in seen_numbers:
+            return [possible_number, number]
+        seen_numbers[number] = True
+    return []
 
-def threeNumberSum(array, targetSum):
-    result = []
+# O(n*log(n)) time | O(1) space
+def pair_with_targetsum(arr, target_sum):
+    arr.sort()
+    l, r = 0, len(arr) - 1
+    while l < r:
+        if arr[l] + arr[r] == target_sum:
+            return [l, r]
+        elif arr[l] + arr[r] < target_sum:
+            l += 1
+        else:
+            r -= 1
+    return [-1, -1]
+
+
+
 
 
 def main():
-    # [-8, -6, 1, 2, 3, 5, 6, 12]
-    array = [12, 3, 1, 2, -6, 5, -8, 6]
+    target=11
+    array = [2, 5, 9, 11]
     print(threeNumberSum(array, 0))
     
 if __name__ == "__main__":
