@@ -1,4 +1,4 @@
-# O()
+# O(n^2) time | O(n) space, required for sorting
 def search_triplets(arr):
     triplets = []
     arr.sort()
