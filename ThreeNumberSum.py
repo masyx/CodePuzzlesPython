@@ -1,6 +1,8 @@
 # medium
 
-# O(n^2) time | O(n) space, the max amount of triplets with numbers in it is bounded by n
+# O(n^2) time | O(n) space, the max amount of triplets with numbers in it is bounded by n,
+# or ignoring output array, the space complexity of the below algorithm will be O(n),
+# which is required for sorting.
 def threeNumberSum(array, targetSum):
     array.sort()
     result = []
