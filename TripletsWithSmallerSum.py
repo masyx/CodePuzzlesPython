@@ -15,7 +15,7 @@ Explanation: There are four triplets whose sum is less than the target:
 
 # O(n^3) time | O(n) space for sorting
 def triplet_with_smaller_sum_my(arr, target):
-    count = 0
+    result = []
     arr.sort()
     for i in range(len(arr)):
         for l in range(i + 1, len(arr)):
@@ -23,11 +23,11 @@ def triplet_with_smaller_sum_my(arr, target):
             while l < r:
                 current_sum = arr[l] + arr[r] + arr[i]
                 if current_sum < target:
-                    count += 1
+                    result.append([arr[i], arr[l], arr[r]])
                     r -= 1
                 elif current_sum >= target:
                     r -= 1
-    return count
+    return result
 
 """Sorting the array will take O(N * logN). The searchPair() will take O(N). So, overall searchTriplets() 
     will take O(N * logN + N^2), which is asymptotically equivalent to O(N^2). """
