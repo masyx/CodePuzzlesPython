@@ -7,7 +7,9 @@ class Node:
         self.children.append(Node(name))
         return self
 
-    # O(V + E) time | O(V) space
+    # O(V + E) time | O(V) space if first node has all other nodes as children.
+    # But in average case space complexity of the algorithm will be O(W), 
+    # where ‘W’ is the maximum number of nodes on any level.
     def breadth_first_search(self, array):
         queue = [self]
         while queue:
