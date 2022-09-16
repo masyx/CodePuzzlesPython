@@ -1,27 +1,37 @@
-# O(n^2) time | O(n) space, required for sorting
-def search_triplets(arr):
-    triplets = []
-    arr.sort()
-    for i in range(len(arr)):
-        l = i + 1
-        r = len(arr) - 1
-        while l < r:
-            curr_sum = arr[i] + arr[l] + arr[r]
-            if curr_sum == 0:
-                triplets.append([arr[i], arr[l], arr[r]])
-                l += 1
-                r -= 1
-            elif curr_sum > 0:
-                r -= 1
-            else:
-                l += 1
-    return triplets
-
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.children = []
+    
+    def add_child(self, value):
+        self.children.append(Node(value))
+        
+    def breadth_first_search(self, result: list):
+        queue = [self]
+        while queue:
+            current_node = queue.pop(0)
+            result.append(current_node.value)
+            for child in current_node.children:
+                queue.append(child)
+        return result
 
 
 def main():
-    array = [-2, -1, 0, 2, 3]
-    print(search_triplets(array))
-    
-if __name__ == "__main__":
+    root = Node('A')
+    root.add_child('B')
+    root.add_child('C')
+    root.add_child('D')
+
+    root.children[0].add_child('E')
+    root.children[0].add_child('F')
+    root.children[0].children[1].add_child('I')
+    root.children[0].children[1].add_child('J')
+
+    root.children[2].add_child('G')
+    root.children[2].add_child('H')
+    root.children[2].children[0].add_child('K')
+    result = []
+    print(root.breadth_first_search(result))
+
+if __name__ == '__main__':
     main()
