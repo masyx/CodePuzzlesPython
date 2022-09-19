@@ -6,7 +6,8 @@ class TreeNode:
       self.val = val
       self.left, self.right = None, None
 
-
+# O(n) time, where n is the number of nodes in the tree
+# O(n) space, we need to return a list containing level order traversal. We will also have to store nodes in the queue
 def traverse(root):
     result = []
     if root is None:
