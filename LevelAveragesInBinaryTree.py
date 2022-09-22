@@ -1,12 +1,32 @@
+from collections import deque
+
+
 class TreeNode:
     def __init__(self, val):
         self.val = val
         self.left = None
         self.right = None
         
-
+# O(n) time | O(n) space
 def find_level_averages(root):
-    return
+    result = []
+    if root is None:
+        return result
+    queue = deque()
+    queue.append(root)
+    while queue:
+        level_size = len(queue)
+        level_sum = 0
+        for _ in range(level_size):
+            current_node = queue.popleft()
+            level_sum += current_node.val
+            if current_node.left:
+                queue.append(current_node.left)
+            if current_node.right:
+                queue.append(current_node.right)
+        result.append(level_sum / level_size)
+
+    return result
 
 
 def main():
