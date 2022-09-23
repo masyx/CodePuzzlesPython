@@ -28,16 +28,33 @@ def find_minimum_depth(root):
                 queue.append(current_node.right)
 
 
+def find_minimum_depth_rec(root):
+    if not root: return 0
+    if not root.left and not root.right: return 1
+
+    if root.left:
+        left = find_minimum_depth_rec(root.left)
+    else:
+        left = float('inf')
+
+    if root.right:
+        right = find_minimum_depth_rec(root.right)
+    else:
+        right = float('inf')
+
+    return 1 + min(left, right)
+
+
 def main():
     root = TreeNode(12)
     root.left = TreeNode(7)
     root.right = TreeNode(1)
     root.right.left = TreeNode(10)
     root.right.right = TreeNode(5)
-    #print("Tree Minimum Depth: " + str(find_minimum_depth_recursive(root)))
+    print("Tree Minimum Depth: " + str(find_minimum_depth_rec(root)))
     root.left.left = TreeNode(9)
     root.right.left.left = TreeNode(11)
-    print("Tree Minimum Depth: " + str(find_minimum_depth_recursive(root)))
+    print("Tree Minimum Depth: " + str(find_minimum_depth_rec(root)))
 
 
 main()
