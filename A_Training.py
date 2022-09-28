@@ -1,47 +1,49 @@
-def runLengthEncoding_my(string):
-    result = []
-    counter = 0
-    for i in range(len(string)):
-        counter += 1
-        if i == len(string) - 1:
-            result.append(f"{counter}{string[i]}")
-        elif counter == 9:
-            result.append(f"{counter}{string[i]}")
-            counter = 0
-        elif string[i] == string[i + 1]:
-            continue
-        else:
-            result.append(f"{counter}{string[i]}")
-            counter = 0
-    return "".join(result)
+class Node:
+    def __init__(self, name):
+        self.children = []
+        self.name = name
 
+    def addChild(self, name):
+        self.children.append(Node(name))
+        return self
 
-
-            
-    chars.append(f"{count}{string[- 1]}")
-    return "".join(chars)
-
-
-def runLengthEncoding(string):
-    encrypted_string = []
-    counter = 1
+    def depthFirstSearch(self, array):
+        array.append(self.name)
+        for child in self.children:
+            child.depthFirstSearch(array)
+        return array
     
-    for i in range(1, len(string)):
-        current_char = string[i]
-        previous_char = string[i - 1]
-        
-        if current_char != previous_char or counter == 9:
-            encrypted_string.append(f"{counter}{previous_char}")
-            counter = 0
-        
-        counter += 1
-    encrypted_string.append(f"{counter}{string[len(string) - 1]}")
-    
-    return "".join(encrypted_string)
-    
-    
+    def depthFirstSearch_stack(self, array):
+        stack = []
+        stack.append(self)
+        while stack:
+            current = stack.pop()
+            array.append(current.name)
+            for child in reversed(current.children):
+                stack.append(child)
+        return array
+
+
 def main():
-    print(runLengthEncoding("AAAAAAAAAAAAABBCCCCED"))
+    root = Node('A')
+    root.addChild('B')
+    root.addChild('C')
+    root.addChild('D')
+    
+    root.children[0].addChild('E')
+    root.children[0].addChild('F')
+    root.children[0].children[1].addChild('I')
+    root.children[0].children[1].addChild('J')
+    
+    root.children[2].addChild('G')
+    root.children[2].addChild('H')
+    root.children[2].children[0].addChild('K')
+    
+    
+
+    
+    array = []
+    print(root.depthFirstSearch_stack(array))
 
 if __name__ == '__main__':
     main()
