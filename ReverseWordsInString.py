@@ -21,10 +21,15 @@ def reverse_list(list):
         end -= 1
     return list
 
+def reverseWordsInString_2(string):
+    words = string.split()
+    # return " ".join(reversed(words))
+    return " ".join(words[::-1])
 
 def main():
     string = 'AlgoExpert is the best!'
     print(reverseWordsInString(string))
+    print(reverseWordsInString_2(string))
     
     
 if __name__ == "__main__":
