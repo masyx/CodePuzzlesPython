@@ -22,6 +22,23 @@ def preOrderTraverse(tree, array):
         preOrderTraverse(tree.right, array)
     return array
 
+def DFS_pre_order(root, visited: list): 
+    if root:
+        visited.append(root.value)
+        DFS_pre_order(root.left, visited)
+        DFS_pre_order(root.right, visited)
+    return visited
+
+def DFS_pre_order_iterative(root, visited: list):
+    stack = [root]
+    while stack:
+        current_node = stack.pop()
+        if current_node is None:
+            continue
+        visited.append(current_node.value)
+        stack.append(current_node.right)
+        stack.append(current_node.left)
+    return visited
 
 def postOrderTraverse(tree, array):
     if tree is not None:
@@ -35,17 +52,19 @@ def main():
     tree = BST(3)
     tree.left = BST(1)
     tree.right = BST(5)
-
     tree.left.left = BST(-5)
     tree.left.right = BST(2)
-
     tree.left.left.left = BST(-10)
 
     result = []
     print(inOrderTraverse(tree, result))
     result.clear()
-    print(preOrderTraverse(tree, result))
+    
+    print(f"Pre-order traversal recursive: {preOrderTraverse(tree, result)}")
+    print(f"Pre-order traversal recursive: {DFS_pre_order(tree, [])}")
+    print(f"Pre-order traversal iterative: {DFS_pre_order_iterative(tree, [])}")
     result.clear()
+    
     print(postOrderTraverse(tree, result))
 
 
