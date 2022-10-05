@@ -22,7 +22,7 @@ def find_paths_helper(current_node, current_path, allPaths):
 
 
 
-#O(n) time | O(n) space
+#O(n) time | O(n*log(n)) space best case; O(n) space worst case 
 def maxRootToLeafPathSum_2(root):
     allPaths = []
     find_paths_helper_2(root, 0, allPaths)
