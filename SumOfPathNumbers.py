@@ -7,9 +7,23 @@ class TreeNode:
         self.left = left
         self.right = right
 
+# O(n) time | O(n) space 
+"""The space complexity of the above algorithm will be O(N) in the worst case. 
+This space will be used to store the recursion stack. 
+The worst case will happen when the given tree is a linked list (i.e., every node has only one child)."""
 def find_sum_of_path_numbers(root):
-    return -1
+    all_paths = []
+    find_sum_of_path_numbers_helper(root, '', all_paths)
+    return sum(all_paths)
 
+def find_sum_of_path_numbers_helper(root, current_number, all_paths):
+    if root is None:
+        return
+    current_number += str(root.val)
+    if root.left is None and root.right is None:
+        all_paths.append(int(current_number))
+    find_sum_of_path_numbers_helper(root.left, current_number, all_paths)
+    find_sum_of_path_numbers_helper(root.right, current_number, all_paths)
 
 
 def main():
