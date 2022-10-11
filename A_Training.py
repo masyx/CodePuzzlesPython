@@ -1,49 +1,15 @@
-class Node:
-    def __init__(self, name):
-        self.children = []
-        self.name = name
+def lll(queries):
+    queries.sort()
+    waiting_times = [0]
+    previous_time = 0
+    for i in range(1, len(queries)):
+        waiting_times.append(queries[i - 1] + waiting_times[i - 1])
 
-    def addChild(self, name):
-        self.children.append(Node(name))
-        return self
-
-    def depthFirstSearch(self, array):
-        array.append(self.name)
-        for child in self.children:
-            child.depthFirstSearch(array)
-        return array
-    
-    def depthFirstSearch_stack(self, array):
-        stack = []
-        stack.append(self)
-        while stack:
-            current = stack.pop()
-            array.append(current.name)
-            for child in reversed(current.children):
-                stack.append(child)
-        return array
-
+    return sum(waiting_times)
 
 def main():
-    root = Node('A')
-    root.addChild('B')
-    root.addChild('C')
-    root.addChild('D')
-    
-    root.children[0].addChild('E')
-    root.children[0].addChild('F')
-    root.children[0].children[1].addChild('I')
-    root.children[0].children[1].addChild('J')
-    
-    root.children[2].addChild('G')
-    root.children[2].addChild('H')
-    root.children[2].children[0].addChild('K')
-    
-    
-
-    
-    array = []
-    print(root.depthFirstSearch_stack(array))
+    queries = [3, 2, 1, 2, 6] # 1, 2, 2, 3,6
+    print(lll(queries))
 
 if __name__ == '__main__':
     main()
