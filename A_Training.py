@@ -1,35 +1,48 @@
-def classPhotos(redShirtHeights, blueShirtHeights):
-    redShirtHeights.sort()
-    blueShirtHeights.sort()
-    red_shirts_in_front = redShirtHeights[0] > blueShirtHeights[0]
-    for i in range(len(redShirtHeights)):
-        if red_shirts_in_front:
-            if redShirtHeights[i] <= blueShirtHeights[i]:
-                return False
-        else:
-            if redShirtHeights[i] >= blueShirtHeights[i]:
-                return False
-    return True
+'''Given a binary tree and a number sequence, find if the sequence is present as 
+a root-to-leaf path in the given tree.'''
+
+import collections
 
 
-def classPhotos(redShirtHeights, blueShirtHeights):
-    redShirtHeights.sort()
-    blueShirtHeights.sort()
-    if redShirtHeights[0] > blueShirtHeights[0]:
-        return arrange_photo(redShirtHeights, blueShirtHeights)
-    else:
-        return arrange_photo(blueShirtHeights, redShirtHeights)
+class TreeNode:
+    def __init__(self, val, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+
+def DFS_pre_order_traversal(root, bfs):
+    if root is None:
+        return
+    bfs.append(root.val)
+    DFS_pre_order_traversal(root.left, bfs)
+    DFS_pre_order_traversal(root.right, bfs)
     
-def arrange_photo(tallerGroup, smallerGroup):
-    for i in range(len(tallerGroup)):
-        if tallerGroup[i] <= smallerGroup[i]:
-            return False
-    return True
+def pre_order_traversal_iterative(root):
+    result = []
+    if root is None:
+        return result
+    stack = [root]
+    while stack:
+        current = stack.pop()
+        if current is None:
+            continue
+        result.append(current.val)
+        stack.append(current.right)
+        stack.append(current.left)
+    return result
+
 
 def main():
-    redShirts = [5, 8, 1, 3, 4]
-    blueShirts = [6, 9, 2, 4, 5]
-    print(classPhotos(redShirts, blueShirts))
+    root = TreeNode(1)
+    root.left = TreeNode(0)
+    root.right = TreeNode(1)
+    root.left.left = TreeNode(1)
+    root.right.left = TreeNode(6)
+    root.right.right = TreeNode(5)
+    bfs = []
+    DFS_pre_order_traversal(root, bfs)
+    print(bfs)
+    print(pre_order_traversal_iterative(root))
 
-if __name__ == '__main__':
-    main()
+main()
