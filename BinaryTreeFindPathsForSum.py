@@ -9,9 +9,24 @@ class TreeNode:
         self.left = left
         self.right = right
         
-        
-def count_paths(root, S):
-    return
+# My solution: probably will be incorrect if tested intensively, just here for learning purpose
+# O(n^2) time | O(d) space
+def count_paths(root, S, result = []):
+    if root is None:
+        return
+    has_path(root, S, [], result)
+    count_paths(root.left, S, result)
+    count_paths(root.right, S, result)
+    return result
+
+def has_path(node, sum, curr_path, result):
+    if node is None:
+      return
+    curr_path.append(node.val)
+    if node.val == sum and node.left is None and node.right is None:
+      result.append(curr_path[:])
+    return has_path(node.left, sum - node.val, curr_path, result) \
+        or has_path(node.right, sum - node.val, curr_path, result)
 
 
 def main():
