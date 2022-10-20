@@ -5,23 +5,28 @@ class TreeNode:
         self.right = right
 
 
-def has_path(node, sum):
-    if node is None:
-      return False
-    if node.val == sum and node.left is None and node.right is None:
-      return True
-    return has_path(node.left, sum - node.val) or has_path(node.right, sum - node.val)
+def tandemBicycle(redShirtSpeeds, blueShirtSpeeds, fastest):
+    if fastest:
+        total_speed = calculate_speed(sorted(redShirtSpeeds), \
+            sorted(blueShirtSpeeds, reverse = True))
+    else:
+        total_speed = calculate_speed(sorted(redShirtSpeeds), \
+            sorted(blueShirtSpeeds))
+    return total_speed
 
+def calculate_speed(first_team, second_team):
+    total_speed = 0
+    for i in range(len(first_team)):
+            if first_team[i] > second_team[i]:
+                total_speed += first_team[i]
+            else:
+                total_speed += second_team[i]
+    return total_speed
 
 def main():
-    root = TreeNode(12)
-    root.left = TreeNode(7)
-    root.right = TreeNode(1)
-    root.left.left = TreeNode(9)
-    root.right.left = TreeNode(10)
-    root.right.right = TreeNode(5)
-    print("Tree has path: " + str(has_path(root, 23)))
-    print("Tree has path: " + str(has_path(root, 16)))
+    red = [5, 5, 3, 9, 2]
+    blue = [3, 6, 7, 2, 1]
+    print(tandemBicycle(red, blue, False))
 
 
 main()
