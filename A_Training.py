@@ -6,27 +6,26 @@ class TreeNode:
 
 
 def tandemBicycle(redShirtSpeeds, blueShirtSpeeds, fastest):
+    redShirtSpeeds.sort()
+    blueShirtSpeeds.sort()
+    total_speed = 0
     if fastest:
-        total_speed = calculate_speed(sorted(redShirtSpeeds), \
-            sorted(blueShirtSpeeds, reverse = True))
-    else:
-        total_speed = calculate_speed(sorted(redShirtSpeeds), \
-            sorted(blueShirtSpeeds))
+        reverse_array(redShirtSpeeds)
+    for i in range(len(redShirtSpeeds)):
+        total_speed += max(redShirtSpeeds[i], blueShirtSpeeds[i])
     return total_speed
 
-def calculate_speed(first_team, second_team):
-    total_speed = 0
-    for i in range(len(first_team)):
-            if first_team[i] > second_team[i]:
-                total_speed += first_team[i]
-            else:
-                total_speed += second_team[i]
-    return total_speed
+def reverse_array(list):
+    l, r = 0, len(list) - 1
+    while l < r:
+        list[l], list[r] = list[r], list[l]
+        l += 1
+        r -= 1
 
 def main():
     red = [5, 5, 3, 9, 2]
     blue = [3, 6, 7, 2, 1]
-    print(tandemBicycle(red, blue, False))
+    print(tandemBicycle(red, blue, True))
 
 
 main()
