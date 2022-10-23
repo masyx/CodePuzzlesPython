@@ -5,27 +5,47 @@ class TreeNode:
         self.right = right
 
 
-def tandemBicycle(redShirtSpeeds, blueShirtSpeeds, fastest):
-    redShirtSpeeds.sort()
-    blueShirtSpeeds.sort()
-    total_speed = 0
-    if fastest:
-        reverse_array(redShirtSpeeds)
-    for i in range(len(redShirtSpeeds)):
-        total_speed += max(redShirtSpeeds[i], blueShirtSpeeds[i])
-    return total_speed
+def nodeDepths_recursive(root, depth = 0):
+    if root is None:
+        return 0
+    l = nodeDepths(root.left, depth + 1)
+    r = nodeDepths(root.right, depth + 1)
+    return depth + l + r
 
-def reverse_array(list):
-    l, r = 0, len(list) - 1
-    while l < r:
-        list[l], list[r] = list[r], list[l]
-        l += 1
-        r -= 1
+
+def nodeDepths(root):
+    stack = [{"node": root, "depth": 0}]
+    depths_sum = 0
+    while stack:
+        current_node_info = stack.pop()
+        curr_node, curr_depth = current_node_info["node"], current_node_info["depth"]
+        if curr_node is None:
+            continue
+        depths_sum += curr_depth
+        stack.append({"node": curr_node.left, "depth": curr_depth + 1})
+        stack.append({"node": curr_node.right, "depth": curr_depth + 1})
+    return depths_sum
+
+def initializeBinaryTree():
+    tree = TreeNode(1)
+    tree.left = TreeNode(2)
+    tree.right = TreeNode(3)
+    
+    tree.left.left = TreeNode(4)
+    tree.left.right = TreeNode(5)
+    
+    tree.left.left.left = TreeNode(8)
+    tree.left.left.right = TreeNode(9)
+    
+    tree.right.left = TreeNode(6)
+    tree.right.right = TreeNode(7)
+    
+    return tree
+
 
 def main():
-    red = [5, 5, 3, 9, 2]
-    blue = [3, 6, 7, 2, 1]
-    print(tandemBicycle(red, blue, True))
+    tree = initializeBinaryTree()
+    print(nodeDepths(tree))
 
 
 main()
