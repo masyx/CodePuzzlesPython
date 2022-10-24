@@ -13,11 +13,34 @@ class Node:
             temp = temp.next
         print()
 
-
+# O(n) time | O(1) space
 def find_cycle_start(head):
-    # TODO: Write your code here
-    return head
+    cycle_length = find_cycle_length(head)
+    slow = fast = head
+    if cycle_length:
+        for _ in range(cycle_length):
+            fast = fast.next
+        while slow is not fast:
+            slow = slow.next
+            fast = fast.next
+        return slow
+    return None
 
+
+def find_cycle_length(head):
+    slow = fast = head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow == fast:
+            current = slow
+            cycle_length = 0
+            while True:
+                current = current.next
+                cycle_length += 1
+                if slow == current:
+                    return cycle_length
+    return 0
 
 def main():
     head = Node(1)
