@@ -1,51 +1,48 @@
-class TreeNode:
-    def __init__(self, val, left = None, right = None):
-        self.val = val
+import collections
+
+
+class BinaryTree:
+    def __init__(self, value, left = None, right = None):
+        self.value = value
         self.left = left
         self.right = right
 
 
-def nodeDepths_recursive(root, depth = 0):
-    if root is None:
-        return 0
-    l = nodeDepths(root.left, depth + 1)
-    r = nodeDepths(root.right, depth + 1)
-    return depth + l + r
+def branchSums(root):
+    result = []
+    branch_sums_recursive(root, 0, result)
+    return result
 
+def branch_sums_recursive(node, current_sum, array):
+    if node is None:
+        return
+    current_sum += node.value
+    if not node.left and not node.right:
+        array.append(current_sum)
+    branch_sums_recursive(node.left, current_sum, array)
+    branch_sums_recursive(node.right, current_sum, array)
 
-def nodeDepths(root):
-    stack = [{"node": root, "depth": 0}]
-    depths_sum = 0
-    while stack:
-        current_node_info = stack.pop()
-        curr_node, curr_depth = current_node_info["node"], current_node_info["depth"]
-        if curr_node is None:
-            continue
-        depths_sum += curr_depth
-        stack.append({"node": curr_node.left, "depth": curr_depth + 1})
-        stack.append({"node": curr_node.right, "depth": curr_depth + 1})
-    return depths_sum
 
 def initializeBinaryTree():
-    tree = TreeNode(1)
-    tree.left = TreeNode(2)
-    tree.right = TreeNode(3)
+    tree = BinaryTree(1)
+    tree.left = BinaryTree(2)
+    tree.right = BinaryTree(3)
     
-    tree.left.left = TreeNode(4)
-    tree.left.right = TreeNode(5)
+    tree.left.left = BinaryTree(4)
+    tree.left.right = BinaryTree(5)
     
-    tree.left.left.left = TreeNode(8)
-    tree.left.left.right = TreeNode(9)
+    tree.left.left.left = BinaryTree(8)
+    tree.left.left.right = BinaryTree(9)
     
-    tree.right.left = TreeNode(6)
-    tree.right.right = TreeNode(7)
+    tree.right.left = BinaryTree(6)
+    tree.right.right = BinaryTree(7)
     
     return tree
 
 
 def main():
     tree = initializeBinaryTree()
-    print(nodeDepths(tree))
+    print(branchSums(tree))
 
 
 main()
