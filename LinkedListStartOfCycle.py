@@ -14,7 +14,7 @@ class Node:
         print()
 
 # O(n) time | O(1) space
-def find_cycle_start(head):
+def find_cycle_start_2(head):
     cycle_length = find_cycle_length(head)
     slow = fast = head
     if cycle_length:
@@ -25,7 +25,6 @@ def find_cycle_start(head):
             fast = fast.next
         return slow
     return None
-
 
 def find_cycle_length(head):
     slow = fast = head
@@ -41,6 +40,30 @@ def find_cycle_length(head):
                 if slow == current:
                     return cycle_length
     return 0
+
+# O(n) time | O(1) space        
+def find_cycle_start(head):
+    # slow_ptr = fast_ptr = head
+    # while fast_ptr and fast_ptr.next:
+    #     slow_ptr = slow_ptr.next
+    #     fast_ptr = fast_ptr.next.next
+    #     if slow_ptr is fast_ptr:
+    #         break
+    # while True:
+    #     slow_ptr = slow_ptr.next
+    #     fast_ptr = fast_ptr.next.next
+    #     if slow_ptr is fast_ptr:
+    #         break
+    slow_ptr = head.next
+    fast_ptr = head.next.next
+    while slow_ptr is not fast_ptr:
+        slow_ptr = slow_ptr.next
+        fast_ptr = fast_ptr.next.next
+    slow_ptr = head
+    while slow_ptr is not fast_ptr:
+        slow_ptr = slow_ptr.next
+        fast_ptr = fast_ptr.next
+    return fast_ptr
 
 def main():
     head = Node(1)
