@@ -12,7 +12,7 @@ class Node:
 
 # O(n) time | O(n) space
 def reverse(head):
-    current = head
+    current = head # adding this variable just for readability
     new_next_node = None
     while current:
         next_to_traverse = current.next
