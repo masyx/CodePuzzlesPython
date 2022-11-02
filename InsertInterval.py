@@ -1,3 +1,4 @@
+# O(n) time | O(n) space
 def insert(intervals, new_interval):
     merged = []
     new_interval_used = False
