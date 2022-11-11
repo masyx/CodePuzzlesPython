@@ -4,8 +4,28 @@ class BST:
         self.left = left
         self.right = right
 
-def findClosestValueInBst(tree, target):
-    return 
+def findClosestValueInBst_2(tree, target, closest = float("inf")):
+    if tree is None:
+        return closest
+    if abs(tree.value - target) < abs(closest - target):
+        closest = tree.value
+    if target > tree.value:
+        closest = findClosestValueInBst_2(tree.right, target, closest)
+        return closest
+    else:
+        closest = findClosestValueInBst_2(tree.left, target, closest)
+        return closest
+
+# O(log n) time | O(log n) space
+def findClosestValueInBst(tree, target, closest = float("inf")):
+    if tree is None:
+        return closest
+    if abs(tree.value - target) < abs(closest - target):
+        closest = tree.value
+    if target > tree.value:
+        return findClosestValueInBst(tree.right, target, closest)
+    else:
+        return findClosestValueInBst(tree.left, target, closest)
 
 def main():
     tree = BST(10)
