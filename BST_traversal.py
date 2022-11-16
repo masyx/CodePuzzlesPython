@@ -7,29 +7,22 @@ class BST():
 
 # FOR ALL 3 FUNCTIONS: O(n) time | O(n) space, but if we didn't have to return an array
 # space complexity would be O(d), where d is the depth of the tree
-def inOrderTraverse(tree, array):
-    if tree is not None:
-        inOrderTraverse(tree.left, array)
-        array.append(tree.value)
-        inOrderTraverse(tree.right, array)
-    return array
-
-
-def preOrderTraverse(tree, array):
-    if tree is not None:
-        array.append(tree.value)
-        preOrderTraverse(tree.left, array)
-        preOrderTraverse(tree.right, array)
-    return array
-
-def DFS_pre_order(root, visited: list): 
+def dfs_in_order(root, visited):
     if root:
         visited.append(root.value)
-        DFS_pre_order(root.left, visited)
-        DFS_pre_order(root.right, visited)
+        dfs_in_order(root.left, visited)
+        dfs_in_order(root.right, visited)
     return visited
 
-def DFS_pre_order_iterative(root, visited: list):
+
+def dfs_pre_order(root, visited: list): 
+    if root:
+        visited.append(root.value)
+        dfs_pre_order(root.left, visited)
+        dfs_pre_order(root.right, visited)
+    return visited
+
+def dfs_pre_order_iterative(root, visited: list):
     stack = [root]
     while stack:
         current_node = stack.pop()
@@ -40,32 +33,34 @@ def DFS_pre_order_iterative(root, visited: list):
         stack.append(current_node.left)
     return visited
 
-def postOrderTraverse(tree, array):
+def dfs_post_order(tree, array):
     if tree is not None:
-        postOrderTraverse(tree.left, array)
-        postOrderTraverse(tree.right, array)
+        dfs_post_order(tree.left, array)
+        dfs_post_order(tree.right, array)
         array.append(tree.value)
     return array
 
 
 def main():
-    tree = BST(3)
+    tree = BST(0)
+    
     tree.left = BST(1)
-    tree.right = BST(5)
-    tree.left.left = BST(-5)
-    tree.left.right = BST(2)
-    tree.left.left.left = BST(-10)
+    tree.right = BST(2)
+    
+    tree.left.left = BST(3)
+    tree.left.right = BST(4)
+    
+    tree.right.left = BST(5)
+    tree.right.right = BST(6)
 
-    result = []
-    print(inOrderTraverse(tree, result))
-    result.clear()
+    print(f"In-order traversal recursive: {dfs_pre_order(tree, [])}")
     
-    print(f"Pre-order traversal recursive: {preOrderTraverse(tree, result)}")
-    print(f"Pre-order traversal recursive: {DFS_pre_order(tree, [])}")
-    print(f"Pre-order traversal iterative: {DFS_pre_order_iterative(tree, [])}")
-    result.clear()
+    # print(f"Pre-order traversal recursive: {dfs_pre_order(tree, [])}")
+    # print(f"Pre-order traversal iterative: {dfs_pre_order_iterative(tree, [])}")
+    # result.clear()
     
-    print(postOrderTraverse(tree, result))
+    # print(f"Post-order traversal recursive: {dfs_pre_order(tree, [])}")
+    # print(dfs_post_order(tree, result))
 
 
 if __name__ == '__main__':
