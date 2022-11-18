@@ -4,54 +4,90 @@ class BST:
         self.left = left
         self.right = right
 
-def findClosestValueInBst_Recursive_2(tree, target, closest = float("inf")):
-    if tree is None:
-        return closest
-    if abs(tree.value - target) < abs(closest - target):
-        closest = tree.value
-    if target > tree.value:
-        closest = findClosestValueInBst_Recursive_2(tree.right, target, closest)
-        return closest
-    else:
-        closest = findClosestValueInBst_Recursive_2(tree.left, target, closest)
-        return closest
+# Pre-Order Traversals
+def dfs_pre_order(node, visited: list):
+    if node:
+        visited.append(node.value)
+        dfs_pre_order(node.left, visited)
+        dfs_pre_order(node.right, visited)
+    return visited
 
-# Average: O(log(n)) time | O(log(n)) space
-# Worst: O(n) time | O(n) space
-def findClosestValueInBst_Recursive(tree, target, closest = float("inf")):
-    if tree is None:
-        return closest
-    if abs(tree.value - target) < abs(closest - target):
-        closest = tree.value
-    if target > tree.value:
-        return findClosestValueInBst_Recursive(tree.right, target, closest)
-    else:
-        return findClosestValueInBst_Recursive(tree.left, target, closest)
-    
-# O(log n) time | O(1) time
-def findClosestValueInBst_Iterative(tree, target, closest = float("inf")):
-    while tree:
-        if abs(tree.value - target) < abs(closest - target):
-            closest = tree.value
-        if target > tree.value:
-            tree = tree.right
-        else:
-            tree = tree.left
-    return closest
+def dfs_pre_order_iterative(node):
+    visited = []
+    stack = [node]
+    while stack:
+        current_node = stack.pop()
+        if current_node:
+            visited.append(current_node.value)
+            stack.append(current_node.right) # add right child first
+            stack.append(current_node.left)
+    return visited
+
+
+# In-Order Traversals
+def dfs_in_order(node, visited: list):
+    if node:
+        dfs_in_order(node.left, visited)
+        visited.append(node.value)
+        dfs_in_order(node.right, visited)
+    return visited
+
+def dfs_in_order_iterative(node):
+    visited = []
+    stack = []
+    current_node = node
+    while stack or current_node:
+        while current_node:
+            stack.append(current_node)
+            current_node = current_node.left
+        current_node = stack.pop()
+        visited.append(current_node.value)
+        current_node = current_node.right
+    return visited
+
+
+# Post-Order Traversal
+def dfs_post_order(node, visited: list):
+    if node:
+        dfs_post_order(node.left, visited)
+        dfs_post_order(node.right, visited)
+        visited.append(node.value)
+    return visited
+
+def dfs_post_order_iterative(node):
+    visited = []
+    stack = [node]
+    while stack:
+        current_node = stack.pop()
+        if current_node:
+            visited.append(current_node.value)
+            stack.append(current_node.left)
+            stack.append(current_node.right)
+    return visited[::-1]
+
 
 def main():
-    tree = BST(10)
-    tree.left = BST(5)
-    tree.right = BST(13)
-    tree.left.left = BST(2)
-    tree.left.right = BST(5)
-    # tree.left.left.left = BST(1)
-    # tree.right.left = BST(13)
-    # tree.right.right = BST(22)
-    # tree.right.left.right = BST(14)
+    # tree = None
+    tree = BST(0)
     
-    print(findClosestValueInBst_Recursive_2(tree, 2))
+    tree.left = BST(1)
+    tree.right = BST(2)
+    
+    tree.left.left = BST(3)
+    tree.left.right = BST(4)
+    
+    tree.right.left = BST(5)
+    tree.right.right = BST(6)
+
+    print(f"Pre-order traversal recursive: {dfs_pre_order(tree, [])}")
+    print(f"Pre-order traversal iterative: {dfs_pre_order_iterative(tree)}\n")
+
+    print(f"In-order traversal recursive: {dfs_in_order(tree, [])}")
+    print(f"In-order traversal iterative: {dfs_in_order_iterative(tree)}\n")
+    
+    print(f"Post-order traversal recursive: {dfs_post_order(tree, [])}")
+    print(f"Post-order traversal iterative: {dfs_post_order_iterative(tree)}")
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
