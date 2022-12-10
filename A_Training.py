@@ -15,11 +15,11 @@ def threeNumberSum(array, targetSum):
                 r -= 1
             else:
                 l += 1
-    return [] 
+    return result 
 
 
 def main():
-    nums = [2, 3, 5, 11, 32]
+    nums = [2, 3, 4, 5, 10, 11, 32]
     print(threeNumberSum(nums, 19))
     
     
