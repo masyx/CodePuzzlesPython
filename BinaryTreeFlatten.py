@@ -91,11 +91,11 @@ def flattenTreeRecursive(node):
         left_tail.right = node.right
         node.right = node.left
         node.left = None
-    return left_tail if left_tail else right_tail
+    return right_tail if right_tail else left_tail
 
 def main():
     # [3, 2, 17, 1, 4, 19, 5]
-    input_tree = [3, 2, 17, 1, 2]
+    input_tree = [3, 1,2, 17]
     tree = BinaryTree(input_tree)
 
     flattenTree(tree.root)
