@@ -27,23 +27,25 @@ def calculate_longest_path(node):
 # O(n) time | O(h) space, where 'n' is the number of nodes in the tree
 # and 'h' is the height of the tree
 class Solution():
-    def diameterOfBinaryTree(self, root: BinaryTree) -> int:
+    def diameter_of_binaryTree(self, root: BinaryTree) -> int:
         """
         :type root: BinaryTree
-        :rtype: int
+        :retype: int
         """
-        self.max = 0
+        self.diameter = 0
         
-        def dfs(root):
-            if not root: 
+        def dfs(node):
+            if not node:
                 return 0
-            left = dfs(root.left)
-            right = dfs(root.right)
-            self.max = max(self.max, left + right)
-            return 1 + max(left, right)
+            
+            left_branch_hight = dfs(node.left)
+            right_branch_hight = dfs(node.right)
+            
+            self.diameter = max(self.diameter, left_branch_hight + right_branch_hight)
+            return 1 + max(left_branch_hight, right_branch_hight)
         
         dfs(root)
-        return self.max
+        return self.diameter
 
 
 def main():
@@ -62,7 +64,7 @@ def main():
     tree.left.right.right.right = BinaryTree(6)
     
     sol = Solution()
-    diameter = sol.diameterOfBinaryTree(tree)
+    diameter = sol.diameter_of_binaryTree(tree)
     print(diameter)
     
     
