@@ -7,22 +7,22 @@ class BinaryTree:
 # O(n) time | O(h) space, where n is the number of the nodes
 # and 'h' is the hight of the tree
 class Solution:
-    def diameter_of_binaryTree(self, node: BinaryTree) -> int:
+    def diameter_of_binaryTree(self, node):
         self.diameter = 0
         
-        def dfs(node):
+        def find_diameter(node):
             if not node:
                 return 0
-
-            left = dfs(node.left)
-            right = dfs(node.right)
-
-            self.diameter = max(self.diameter, left + right)
-            return 1 + max(left, right)
+            
+            left_length = find_diameter(node.left)
+            right_length = find_diameter(node.right)
+            
+            self.diameter = max(self.diameter, left_length + right_length)
+            return 1 + max(left_length, right_length)
         
-        dfs(node)
+        find_diameter(node)
         return self.diameter
-        
+
 def main():
     tree = BinaryTree(1)
     
