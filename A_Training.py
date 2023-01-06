@@ -9,7 +9,10 @@ def main():
     ll.insert_at_tail(3)
     ll.insert_at_tail(4)
     ll.insert_at_tail(5)
-    print(ll.__str__())
+    print(ll)
+    ll.reverse()
+    print(ll)
+    
     
     
 if __name__ == "__main__":

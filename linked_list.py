@@ -8,7 +8,7 @@ class LinkedList:
         self.head_node = None
         
     def __str__(self):
-        head = self.get_head()
+        head = self.head_node
         # linkedList = ""
         # while head:
         #     linkedList += f"{head.value} -> "
@@ -39,6 +39,17 @@ class LinkedList:
         while current_node.next:
             current_node = current_node.next
         current_node.next = Node(value)
+    
+    def reverse(self):
+        current = self.head_node
+        new_next_node = None
+        while current:
+            next_to_traverse = current.next
+            current.next = new_next_node
+            new_next_node = current
+            current = next_to_traverse
+        self.head_node = new_next_node
+
 
 
 @staticmethod
