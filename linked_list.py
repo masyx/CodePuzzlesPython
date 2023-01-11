@@ -49,6 +49,13 @@ class LinkedList:
             new_next_node = current
             current = next_to_traverse
         self.head_node = new_next_node
+        
+    def middle(self):
+        slow = fast = self.head_node
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        return slow.value
 
 
 

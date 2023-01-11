@@ -9,9 +9,10 @@ def main():
     ll.insert_at_tail(3)
     ll.insert_at_tail(4)
     ll.insert_at_tail(5)
-    print(ll)
-    ll.reverse()
-    print(ll)
+    ll.insert_at_tail(6)
+    ll.insert_at_tail(7)
+
+    print(ll.middle())
     
     
     
