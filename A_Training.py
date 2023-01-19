@@ -23,10 +23,21 @@ def find_sum(lst: list, sum):
             l += 1
     return []
 
+# O(n) time | O(1) space
+def find_key(given_dict, given_value):
+    for key, value in given_dict.items():
+        if value == given_value:
+            return key
+    return None
+
 def main():
-    lst = [1,21,3,14,5,60,7,6]
-    k = 81
-    print(find_sum_best(lst, k))
+    my_dict = {'key1':"aaa", 'key2': "bbb", 'key3': "aaa"}
+    key = find_key(my_dict, "aaa")
+    print(key)
+    
+    keys = [k for k, v in my_dict.items() if v == 'aaa']
+    print(keys)
+    
     
     
     
