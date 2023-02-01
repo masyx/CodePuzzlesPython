@@ -1,28 +1,45 @@
 from typing import List
 
 # O(n) time | O(n + m) space
-def findMedianOfTwoArrays(num1: List[str], num2: List[int]) -> List[int]:
-    resultList = [0] * (len(num1) + len(num2))
-    i, j, k = 0, 0, 0
+def findMedianOfTwoArrays(num1: List[int], num2: List[int]) -> List[int]:
+    num3 = [0] * (len(num1) + len(num2))
+    i, j, k = 0, 0, 0,
     while i != len(num1) or j != len(num2):
         if j == len(num2) or (i < len(num1) and num1[i] < num2[j]):
-            resultList[k] = num1[i]
+            num3[k] = num1[i]
             i += 1
         else:
-            resultList[k] = num2[j]
+            num3[k] = num2[j]
             j += 1
         k += 1
-
-    median_idx = (len(resultList) - 1) // 2
-    if len(resultList) & 1 == 1:
-        return  resultList[median_idx]
+    mid_idx = (len(num3) - 1) // 2
+    if len(num3) & 1 == 1:
+        return num3[mid_idx]
     else:
-        return (resultList[median_idx] + resultList[median_idx + 1]) / 2.0
+        return (num3[mid_idx] + num3[mid_idx + 1]) / 2.0
+    
+# The function findMedianOfTwoArrays takes two input arrays num1 and num2, 
+# both of type List. The input arrays contain integers. The function returns a list 
+# of integers representing the median of the two arrays.
+# The function starts by creating a new array num3 of length equal to the sum of the lengths
+# of num1 and num2. The variable i is used to iterate over num1, j is used to iterate over num2,
+# and k is used to fill num3 with elements from num1 and num2.
+# The while loop continues until either i reaches the end of num1 or j reaches the end of num2. 
+# In each iteration, the code checks if j has reached the end of num2 or if the current element 
+# in num1 is less than the current element in num2 (and i is still within the bounds of num1). 
+# If the first condition is true, the element from num1 is added to num3. If the second 
+# condition is true, the element from num2 is added to num3. 
+# In both cases, k is incremented to move to the next position in num3.
+# Once the while loop has completed, the median of num3 is calculated 
+# by finding the middle index (mid_idx). If the length of num3 is odd, the function returns 
+# the element at the mid_idx. If the length of num3 is even, the function returns 
+# the average of the elements at mid_idx and mid_idx + 1.
+
 
 
 def main():
-    l1 = [1, 3, 4]
-    l2 = [2, 5]
+    l1 = [1]
+    l2 = [2,3,4]
     print(findMedianOfTwoArrays(l1, l2))
     
     
