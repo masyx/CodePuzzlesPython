@@ -1,7 +1,7 @@
 from typing import List
 
 # O(n) time | O(n + m) space
-def findMedianOfTwoArrays(num1: List[int], num2: List[int]) -> List[int]:
+def findMedianSortedArrays(self, num1: List[int], num2: List[int]) -> float:
     num3 = [0] * (len(num1) + len(num2))
     i, j, k = 0, 0, 0,
     while i != len(num1) or j != len(num2):
@@ -35,12 +35,28 @@ def findMedianOfTwoArrays(num1: List[int], num2: List[int]) -> List[int]:
 # the element at the mid_idx. If the length of num3 is even, the function returns 
 # the average of the elements at mid_idx and mid_idx + 1.
 
-
+# O(n) time | O(n + m) space
+def findMedianSortedArrays(self, num1: List[int], num2: List[int]) -> float:
+    num3 = [0] * (len(num1) + len(num2))
+    i, j, k = 0, 0, 0
+    while i != len(num1) or j != len(num2):
+        if j == len(num2) or (i < len(num1) and num1[i] < num2[j]):
+            num3[k] = num1[i]
+            i += 1
+        else:
+            num3[k] = num2[j]
+            j += 1
+        k += 1
+    med_idx = (len(num3) - 1) // 2
+    if len(num3) % 2 == 0:
+        return (num3[med_idx] + num3[med_idx + 1]) / 2.0
+    else:
+        return num3[med_idx]
 
 def main():
     l1 = [1]
     l2 = [2,3,4]
-    print(findMedianOfTwoArrays(l1, l2))
+    print(findMedianSortedArrays(l1, l2))
     
     
 if __name__ == "__main__":
