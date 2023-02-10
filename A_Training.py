@@ -1,44 +1,19 @@
 # O(n) time | O(n) space
-def find_sum_best(lst, sum):
-    seen = set()
-    for number in lst:
-        possible_number = sum - number
-        if possible_number in seen:
-            return [number, possible_number]
-        seen.add(number)
-    return []
+def right_rotate(lst, k):
+    if len(lst) == 0:
+        return None
+    rotated_lst = [0] * len(lst)
+    for i in range(len(lst)):
+        rotated_lst[(i + k) % len(lst)] = lst[i]
+    return rotated_lst
 
-# O(n log(n)) time | O(1) space
-def find_sum(lst: list, sum):
-    lst.sort()
-    l = 0
-    r = len(lst) - 1
-    while l < r:
-        current_sum = lst[l] + lst[r]
-        if current_sum == sum:
-            return [lst[l], lst[r]]
-        if current_sum > sum:
-            r -= 1
-        else:
-            l += 1
-    return []
-
-# O(n) time | O(1) space
-def find_key(given_dict, given_value):
-    for key, value in given_dict.items():
-        if value == given_value:
-            return key
-    return None
 
 def main():
-    my_dict = {'key1':"aaa", 'key2': "bbb", 'key3': "aaa"}
-    key = find_key(my_dict, "aaa")
-    print(key)
+    lst = [10,20,30,40,50]
+    k = 33
     
-    keys = [k for k, v in my_dict.items() if v == 'aaa']
-    print(keys)
-    
-    
+    print(lst)
+    print(right_rotate(lst, k))
     
     
 if __name__ == "__main__":
