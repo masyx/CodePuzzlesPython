@@ -9,7 +9,7 @@ def right_rotate(lst, k):
     return rotated_lst
 
 
- # O(n) time | O(n) space | Pythonic solution
+ # O(n) time | O(1) space | Pythonic solution
 def right_rotate_2(lst, k):
     if len(lst) == 0:
         return
@@ -38,7 +38,7 @@ def main():
 
     right_rotate_in_place_brute(lst, k)
     print("Rotated list:", lst)
-    
-    
+
+
 if __name__ == "__main__":
     main()
