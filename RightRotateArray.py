@@ -28,15 +28,31 @@ def right_rotate_in_place_brute(lst, k):
             # lst[j] = previous
             # previous = tmp
             lst[j], previous = previous, lst[j]
+            
 
+# O(n) time | O(1) space
+def right_rotate_in_place(lst, k):
+    n = len(lst)
+    if n == 0:
+        return
+    k %= n
+    reverse_array(lst, 0, n - 1)
+    reverse_array(lst, 0, k - 1)
+    reverse_array(lst, k, n - 1)
+
+def reverse_array(arr, start, end):
+    while start < end:
+        arr[start], arr[end] = arr[end], arr[start]
+        start += 1
+        end -= 1
 
 def main():
     lst = [10,20,30,40,50]
-    k = 1
+    k = 4
     
     print(f"Original list: {lst}")
 
-    right_rotate_in_place_brute(lst, k)
+    right_rotate_in_place(lst, k)
     print("Rotated list:", lst)
 
 
