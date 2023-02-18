@@ -10,9 +10,20 @@ def maxSubArray(lst) -> int:
     return max_sum
 
 
+def maxSubArray_Kadanes(lst):
+    curr_max = global_max = lst[0]
+    for i in range(1, len(lst)):
+        if curr_max < 0:
+            curr_max = lst[i]
+        else:
+            curr_max += lst[i]
+        global_max = max(curr_max, global_max)
+    return global_max
+
 def main():
     lst = [-10,10,7,-5,15,-20]
     print(maxSubArray(lst))
+    print(maxSubArray_Kadanes(lst))
     
 if __name__ == "__main__":
     main()
