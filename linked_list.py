@@ -9,24 +9,17 @@ class LinkedList:
         
     def __str__(self):
         head = self.head_node
-        # linkedList = ""
-        # while head:
-        #     linkedList += f"{head.value} -> "
-        #     #linkedList.join(head) 
-        #     head = head.next
         linkedList = []
         while head:
             linkedList.append(str(head.value))
             head = head.next
-        return " -> ".join(linkedList)
+        return " -> ".join(linkedList) + " -> None"
         
     def get_head(self):
         return self.head_node
     
     def is_empty(self):
-        if not self.head_node:
-            return True
-        return False
+        return self.head_node is None
     
     def insert_at_head(self, value):
         new_node = Node(value)
@@ -35,10 +28,22 @@ class LinkedList:
         return self.head_node
     
     def insert_at_tail(self, value):
-        current_node = self.get_head()
+        current_node = self.head_node
+        if current_node is None:
+            self.head_node = Node(value)
+            return
         while current_node.next:
             current_node = current_node.next
         current_node.next = Node(value)
+        
+    def search(self, value):
+        current_node = self.head_node
+        while current_node:
+            if current_node.value == value:
+                return True
+            current_node = current_node.next
+        return False
+
     
     def reverse(self):
         current = self.head_node
@@ -59,9 +64,23 @@ class LinkedList:
 
 
 
-@staticmethod
+#@staticmethod If I want I can have this decorator but I don't have to
+# Without decorator this is module-level function
 def insert_at_tail(lst, value):
     current_node = lst.get_head()
+    if not current_node:
+        lst.head = Node(value)
+        return
     while current_node.next:
         current_node = current_node.next
     current_node.next = Node(value)
+
+def search(lst: LinkedList, value):
+    current_node = lst.head_node
+    while current_node:
+        if current_node.value == value:
+            return True
+    return False
+
+def search_recursive():
+    pass
