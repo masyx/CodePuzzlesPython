@@ -43,8 +43,11 @@ class LinkedList:
                 return True
             current_node = current_node.next
         return False
-
     
+    def delete_at_head(self):
+        if self.head_node:
+            self.head_node = self.head_node.next
+
     def reverse(self):
         current = self.head_node
         new_next_node = None
@@ -69,12 +72,13 @@ class LinkedList:
 def insert_at_tail(lst, value):
     current_node = lst.get_head()
     if not current_node:
-        lst.head = Node(value)
+        lst.head_node = Node(value)
         return
     while current_node.next:
         current_node = current_node.next
     current_node.next = Node(value)
 
+# O(n) time | O(1) space
 def search(lst: LinkedList, value):
     current_node = lst.head_node
     while current_node:
@@ -82,5 +86,18 @@ def search(lst: LinkedList, value):
             return True
     return False
 
+# O(n) time | O(1) space
 def search_recursive():
     pass
+
+def delete(lst, value):
+    current = lst.head_node
+    if current and current.value == value:
+        lst.head_node = lst.head_node.next
+        return True
+    while current and current.next:
+        if current.next.value == value:
+            current.next = current.next.next
+            return True
+        current = current.next
+    return False
