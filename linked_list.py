@@ -90,10 +90,10 @@ def search(lst: LinkedList, value):
 def search_recursive():
     pass
 
-def delete(lst, value):
-    current = lst.head_node
+def delete(lst: LinkedList, value):
+    current = lst.get_head()
     if current and current.value == value:
-        lst.head_node = lst.head_node.next
+        lst.head_node = current.next
         return True
     while current and current.next:
         if current.next.value == value:
