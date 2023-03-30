@@ -13,7 +13,7 @@ class LinkedList:
         while head:
             linkedList.append(str(head.value))
             head = head.next
-        return " -> ".join(linkedList) + " -> None"
+        return " -> ".join(linkedList) + " -> None" if linkedList else "LinkedList is empty"
         
     def get_head(self):
         return self.head_node
