@@ -35,6 +35,8 @@ def main():
     delete(ll_2, 0)
     delete(ll_2, 0)
     print(ll_2)
+
+    delete(LinkedList(), 0)
     
 if __name__ == "__main__":
     main()
