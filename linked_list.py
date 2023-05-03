@@ -86,9 +86,16 @@ def search(lst: LinkedList, value):
             return True
     return False
 
-# O(n) time | O(1) space
-def search_recursive():
-    pass
+# O(n) time | O(n) space
+def search_recursive(lst: LinkedList, value):
+    def search(node, value):
+        if not node:
+            return False
+        elif node.value == value:
+            return True
+        return search(node.next, value)
+    
+    return search(lst.get_head(), value)
 
 def delete(lst: LinkedList, value):
     current = lst.get_head()

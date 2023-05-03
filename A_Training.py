@@ -2,6 +2,7 @@ from linked_list import LinkedList
 from linked_list import Node
 from linked_list import insert_at_tail
 from linked_list import search
+from linked_list import search_recursive
 from linked_list import delete
 
 def main():
@@ -19,6 +20,7 @@ def main():
     ll_3.insert_at_tail(1)
 
     print(ll.search(9))
+    print(search_recursive(ll, 7))
     
     empty_ll = LinkedList()
     print(search(empty_ll, 7))
