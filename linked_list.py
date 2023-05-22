@@ -99,12 +99,15 @@ def search_recursive(lst: LinkedList, value):
 
 def delete(lst: LinkedList, value):
     current = lst.get_head()
-    if current and current.value == value:
+    while current and current.value != value:
+        previous = current
+        current = current.next
+    if current is None:
+        return False
+    
+    if current.value == lst.head_node.value:
         lst.head_node = current.next
         return True
-    while current and current.next:
-        if current.next.value == value:
-            current.next = current.next.next
-            return True
-        current = current.next
-    return False
+    else:
+        previous.next = current.next
+        return True
