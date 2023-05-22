@@ -6,6 +6,11 @@ from linked_list import search_recursive
 from linked_list import delete
 
 def main():
+    arr = [6, 2, 99, 3, 9, 0]
+    print(binarySearchRecursive(arr, 99))
+    print(binarySearchIterative(arr, 99))
+    
+    
     ll = LinkedList()
     ll.head_node = Node(8)
     ll.insert_at_head(7)
@@ -33,6 +38,8 @@ def main():
     print(ll)
     delete(ll, 6)
     print(ll)
+    delete(ll, 7)
+    print(ll)
     
     delete(ll_2, 0)
     delete(ll_2, 0)
@@ -40,5 +47,46 @@ def main():
 
     delete(LinkedList(), 0)
     
+def binarySearchRecursive(list: list, value):
+    if not list:
+        return -1
+    
+    list.sort()
+    
+    return binarySearchHelper(list, 0, len(list) - 1, value)
+    
+def binarySearchHelper(list, l, r, value):
+    if l > r:
+        return -1
+    
+    middle = (l + r) // 2
+    
+    if list[middle] == value:
+        return middle
+    if value < list[middle]:
+        return binarySearchHelper(list, 0, middle - 1, value)
+    else:
+        return binarySearchHelper(list, middle + 1, r, value)
+
+def binarySearchIterative(list, target):
+    if not list:
+        return 
+    
+    list.sort()
+    
+    l = 0
+    r = len(list) - 1
+    
+    while l <= r:
+        middle = (l + r) // 2
+        
+        if list[middle] == target:
+            return middle
+        if target < list[middle]:
+            r = middle - 1
+        else:
+            l = middle + 1
+
+
 if __name__ == "__main__":
     main()
