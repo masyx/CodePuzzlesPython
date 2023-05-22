@@ -27,7 +27,7 @@ def binarySearch(arr, target):
 # Recursive binary search
 # O(log(n)) time | O(log(n)) space
 def binarySearchRecursive(arr, target):
-    binarySearchHelper(arr, target, 0, len(arr) - 1)
+    return binarySearchHelper(arr, target, 0, len(arr) - 1)
     
 def binarySearchHelper(arr, target, leftIdx, rightIdx):
     if leftIdx > rightIdx:
@@ -39,9 +39,9 @@ def binarySearchHelper(arr, target, leftIdx, rightIdx):
     if target == valueAtMediumIdx:
         return mediumIdx
     elif target > valueAtMediumIdx:
-        binarySearchHelper(arr, target, mediumIdx + 1, rightIdx)
+        return binarySearchHelper(arr, target, mediumIdx + 1, rightIdx)
     else:
-        binarySearchHelper(arr, target, leftIdx, mediumIdx - 1)
+        return binarySearchHelper(arr, target, leftIdx, mediumIdx - 1)
 
 
 
