@@ -111,3 +111,19 @@ def delete(lst: LinkedList, value):
     else:
         previous.next = current.next
         return True
+    
+# my training j
+# def delete(lst: LinkedList, value):
+#     currentNode = lst.get_head()
+    
+#     if currentNode and currentNode.value == value:
+#         lst.head_node = currentNode.next
+#         return True
+    
+#     while currentNode and currentNode.next:
+#         if currentNode.next.value == value:
+#             currentNode.next = currentNode.next.next
+#             return True
+#         currentNode = currentNode.next
+        
+#     return False
