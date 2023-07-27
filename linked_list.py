@@ -64,6 +64,15 @@ class LinkedList:
             slow = slow.next
             fast = fast.next.next
         return slow.value
+    
+    def length(self):
+        currNode = self.head_node
+        
+        counter = 0
+        while currNode:
+            counter += 1
+            currNode = currNode.next
+        return counter
 
 
 
@@ -114,3 +123,14 @@ def delete(lst: LinkedList, value):
         currentNode = currentNode.next
         
     return False
+
+
+def length(lst: LinkedList):
+    currNode = lst.get_head()
+    
+    counter = 0
+    while currNode:
+        counter += 1
+        currNode = currNode.next
+        
+    return counter

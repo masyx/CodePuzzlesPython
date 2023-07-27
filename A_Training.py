@@ -4,6 +4,7 @@ from linked_list import insert_at_tail
 from linked_list import search
 from linked_list import search_recursive
 from linked_list import delete
+from linked_list import length
 
 def main():
     arr = [6, 2, 99, 3, 9, 0]
@@ -32,8 +33,10 @@ def main():
     
     ll.delete_at_head()
     print(ll)
+    print(f'Length of LL "{ll}" is {ll.length()}')
     delete(ll, 8)
     print(ll)
+    print(f'Length of LL "{ll}" is {length(ll)}')
     delete(ll, 9)
     print(ll)
     delete(ll, 6)
