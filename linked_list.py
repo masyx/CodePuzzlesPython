@@ -134,15 +134,23 @@ def length(lst: LinkedList):
     return counter
 
 def find_mid(lst: LinkedList):
-    length = lst.length()
-    if length % 2 == 0:
-        middle_node = iterate(lst, length//2 - 1)
-    else:
-        middle_node = iterate(lst, length//2)
-    return middle_node.value
+    slow = lst.head_node
+    fast = lst.head_node
+    
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+    return slow.value
 
-def iterate(lst: LinkedList, n):
+def find_mid_naive(lst: LinkedList):
+    length = lst.length()
+    
+    if length % 2 == 0:
+        middle_index = length//2 - 1
+    else:
+        middle_index = (length - 1)//2
     node = lst.get_head()
-    for i in range(n):
+    
+    for i in range(middle_index):
         node = node.next
-    return node  
+    return node.value
