@@ -5,6 +5,7 @@ from linked_list import search
 from linked_list import search_recursive
 from linked_list import delete
 from linked_list import length
+from linked_list import find_mid
 
 def main():
     arr = [6, 2, 99, 3, 9, 0]
@@ -34,13 +35,16 @@ def main():
     ll.delete_at_head()
     print(ll)
     print(f'Length of LL "{ll}" is {ll.length()}')
+    print(f'Middle value is: {find_mid(ll)}')
     delete(ll, 8)
     print(ll)
     print(f'Length of LL "{ll}" is {length(ll)}')
+    print(f'Middle value is: {find_mid(ll)}')
     delete(ll, 9)
     print(ll)
     delete(ll, 6)
     print(ll)
+    print(f'Middle value is: {find_mid(ll)}')
     delete(ll, 7)
     print(ll)
     

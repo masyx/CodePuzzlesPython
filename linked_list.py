@@ -127,10 +127,22 @@ def delete(lst: LinkedList, value):
 
 def length(lst: LinkedList):
     currNode = lst.get_head()
-    
     counter = 0
     while currNode:
         counter += 1
         currNode = currNode.next
-        
     return counter
+
+def find_mid(lst: LinkedList):
+    length = lst.length()
+    if length % 2 == 0:
+        middle_node = iterate(lst, length//2 - 1)
+    else:
+        middle_node = iterate(lst, length//2)
+    return middle_node.value
+
+def iterate(lst: LinkedList, n):
+    node = lst.get_head()
+    for i in range(n):
+        node = node.next
+    return node  
