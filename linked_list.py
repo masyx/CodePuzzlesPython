@@ -154,3 +154,12 @@ def find_mid_naive(lst: LinkedList):
     for i in range(middle_index):
         node = node.next
     return node.value
+
+def remove_duplicates(lst: LinkedList):
+    curr_node = lst.head_node
+    visited = {}
+    while curr_node.next:
+        if curr_node.value in visited:
+            curr_node.next = curr_node.next.next
+        curr_node = curr_node.next
+    return lst

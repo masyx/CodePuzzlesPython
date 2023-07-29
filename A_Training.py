@@ -6,6 +6,8 @@ from linked_list import search_recursive
 from linked_list import delete
 from linked_list import length
 from linked_list import find_mid
+from linked_list import find_mid_naive
+from linked_list import remove_duplicates
 
 def main():
     arr = [6, 2, 99, 3, 9, 0]
@@ -19,6 +21,10 @@ def main():
     ll.insert_at_head(6)
     ll.insert_at_head(5)
     insert_at_tail(ll, 9)
+    insert_at_tail(ll, 9)
+    
+    print(ll)
+    print(remove_duplicates(ll))
     
     ll_2 = LinkedList()
     insert_at_tail(ll_2, 0)
@@ -35,7 +41,7 @@ def main():
     ll.delete_at_head()
     print(ll)
     print(f'Length of LL "{ll}" is {ll.length()}')
-    print(f'Middle value is: {find_mid(ll)}')
+    print(f'Middle value is: {find_mid_naive(ll)}')
     delete(ll, 8)
     print(ll)
     print(f'Length of LL "{ll}" is {length(ll)}')
