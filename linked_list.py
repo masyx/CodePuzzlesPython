@@ -134,6 +134,8 @@ def length(lst: LinkedList):
     return counter
 
 def find_mid(lst: LinkedList):
+    if not lst.head_node:
+        return None
     slow = lst.head_node
     fast = lst.head_node
     
@@ -156,10 +158,14 @@ def find_mid_naive(lst: LinkedList):
     return node.value
 
 def remove_duplicates(lst: LinkedList):
+    if not lst.get_head():
+        return None
     curr_node = lst.head_node
-    visited = {}
+    visited = {curr_node.value}
     while curr_node.next:
-        if curr_node.value in visited:
+        if curr_node.next.value in visited:
             curr_node.next = curr_node.next.next
-        curr_node = curr_node.next
+        else:
+            visited.add(curr_node.next.value)
+            curr_node = curr_node.next
     return lst

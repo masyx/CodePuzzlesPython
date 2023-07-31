@@ -18,8 +18,10 @@ def main():
     ll = LinkedList()
     ll.head_node = Node(8)
     ll.insert_at_head(7)
+    ll.insert_at_head(7)
     ll.insert_at_head(6)
     ll.insert_at_head(5)
+
     insert_at_tail(ll, 9)
     insert_at_tail(ll, 9)
     
@@ -53,6 +55,7 @@ def main():
     print(f'Middle value is: {find_mid(ll)}')
     delete(ll, 7)
     print(ll)
+    print(remove_duplicates(ll))
     
     delete(ll_2, 0)
     delete(ll_2, 0)
