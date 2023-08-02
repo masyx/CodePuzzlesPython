@@ -8,11 +8,11 @@ class LinkedList:
         self.head_node = None
         
     def __str__(self):
-        head = self.head_node
+        curr = self.head_node
         linkedList = []
-        while head:
-            linkedList.append(str(head.value))
-            head = head.next
+        while curr:
+            linkedList.append(str(curr.value))
+            curr = curr.next
         return " -> ".join(linkedList) + " -> None" if linkedList else "LinkedList is empty"
         
     def get_head(self):
@@ -169,3 +169,22 @@ def remove_duplicates(lst: LinkedList):
             visited.add(curr_node.next.value)
             curr_node = curr_node.next
     return lst
+
+def union(lst1: LinkedList, lst2):
+    remove_duplicates(lst1)
+    remove_duplicates(lst2)
+    
+    result = LinkedList()
+    curr = lst1.head_node
+    visited = set()
+    while curr:
+        visited.add(curr.value)
+        result.insert_at_tail(curr.value)
+        curr = curr.next
+    
+    curr_lst2 = lst2.head_node
+    while curr_lst2:
+        if curr_lst2.value not in visited:
+            result.insert_at_tail(curr_lst2.value)
+        curr_lst2 = curr_lst2.next
+    return result
