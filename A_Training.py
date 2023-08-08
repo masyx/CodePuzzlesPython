@@ -9,6 +9,7 @@ from linked_list import find_mid
 from linked_list import find_mid_naive
 from linked_list import remove_duplicates
 from linked_list import union
+from linked_list import intersection
 
 def main():
     arr = [6, 2, 99, 3, 9, 0]
@@ -66,15 +67,16 @@ def main():
     
     ll_4 = LinkedList()
     ll_4.insert_at_tail(1)
-    ll_4.insert_at_tail(2)
     ll_4.insert_at_tail(3)
+    ll_4.insert_at_tail(4)
     
     ll_5 = LinkedList()
-    ll_5.insert_at_tail(3)
+    ll_5.insert_at_tail(2)
     ll_5.insert_at_tail(4)
-    ll_5.insert_at_tail(5)
+    ll_5.insert_at_tail(1)
     
     print(union(ll_4, ll_5))
+    print(intersection(ll_4, ll_5))
     
     
 def binarySearchRecursive(list: list, value):

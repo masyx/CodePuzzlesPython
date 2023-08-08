@@ -188,3 +188,21 @@ def union(lst1: LinkedList, lst2):
             result.insert_at_tail(curr_lst2.value)
         curr_lst2 = curr_lst2.next
     return result
+
+def intersection(lst1: LinkedList, lst2):
+    remove_duplicates(lst1)
+    remove_duplicates(lst2)
+    
+    result = LinkedList()
+    curr = lst1.head_node
+    visited = set()
+    while curr:
+        visited.add(curr.value)
+        curr = curr.next
+    
+    curr_lst2 = lst2.head_node
+    while curr_lst2:
+        if curr_lst2.value in visited:
+            result.insert_at_tail(curr_lst2.value)
+        curr_lst2 = curr_lst2.next
+    return result
