@@ -171,22 +171,26 @@ def remove_duplicates(lst: LinkedList):
     return lst
 
 def union(lst1: LinkedList, lst2):
-    remove_duplicates(lst1)
-    remove_duplicates(lst2)
-    
     result = LinkedList()
-    curr = lst1.head_node
-    visited = set()
-    while curr:
-        visited.add(curr.value)
-        result.insert_at_tail(curr.value)
-        curr = curr.next
+    union_set = set()
+    tail = None
+    def add_elements_to_set(linked_list, target_set):
+        curr = linked_list.get_head()
+        while curr:
+            target_set.add(curr.value)
+            curr = curr.next
     
-    curr_lst2 = lst2.head_node
-    while curr_lst2:
-        if curr_lst2.value not in visited:
-            result.insert_at_tail(curr_lst2.value)
-        curr_lst2 = curr_lst2.next
+    add_elements_to_set(lst1, union_set)
+    add_elements_to_set(lst2, union_set)
+    
+    for element in union_set:
+        new_node = Node(element)
+        if tail:
+            tail.next = new_node
+        else:
+            result.head_node = new_node
+        tail = new_node
+    
     return result
 
 def intersection(lst1: LinkedList, lst2):
