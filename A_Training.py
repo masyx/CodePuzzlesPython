@@ -69,13 +69,15 @@ def main():
     ll_4.insert_at_tail(1)
     ll_4.insert_at_tail(3)
     ll_4.insert_at_tail(4)
+    ll_4.insert_at_tail(4)
     
     ll_5 = LinkedList()
     ll_5.insert_at_tail(2)
     ll_5.insert_at_tail(4)
     ll_5.insert_at_tail(1)
+    ll_5.insert_at_tail(1)
     
-    print(union(ll_4, ll_5))
+    print(f"Union: {union(ll_4, ll_5)}")
     print(intersection(ll_4, ll_5))
     
     
