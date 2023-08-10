@@ -213,3 +213,17 @@ def intersection(lst1: LinkedList, lst2):
             tail = new_node 
         curr_lst2 = curr_lst2.next
     return remove_duplicates(result)
+
+def find_nth_from_end(lst: LinkedList, n):
+    if not lst.get_head():
+        return -1
+    
+    length = lst.length()
+    node_number_to_return = length - n
+    if node_number_to_return < 0:
+        return -1
+    curr = lst.get_head()
+    
+    for _ in range(node_number_to_return):
+        curr = curr.next
+    return curr.value

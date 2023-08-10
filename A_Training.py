@@ -10,6 +10,7 @@ from linked_list import find_mid_naive
 from linked_list import remove_duplicates
 from linked_list import union
 from linked_list import intersection
+from linked_list import find_nth_from_end
 
 def main():
     arr = [6, 2, 99, 3, 9, 0]
@@ -74,11 +75,13 @@ def main():
     ll_5 = LinkedList()
     ll_5.insert_at_tail(2)
     ll_5.insert_at_tail(4)
-    ll_5.insert_at_tail(1)
-    ll_5.insert_at_tail(1)
+    ll_5.insert_at_tail(99)
+    ll_5.insert_at_tail(5)
     
     print(f"Union: {union(ll_4, ll_5)}")
     print(intersection(ll_4, ll_5))
+    
+    print(f"Nth Node data from the end: {find_nth_from_end(ll_5, 2)}")
     
     
 def binarySearchRecursive(list: list, value):
