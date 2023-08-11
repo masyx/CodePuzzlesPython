@@ -227,3 +227,19 @@ def find_nth_from_end(lst: LinkedList, n):
     for _ in range(node_number_to_return):
         curr = curr.next
     return curr.value
+
+def find_nth_from_end_2(lst: LinkedList, n):
+    if not lst.head_node:
+        return -1
+    
+    end_node = nth_node = lst.get_head()
+    
+    for _ in range(n):
+        if end_node is None:
+            return - 1
+        end_node = end_node.next
+        
+    while end_node:
+        end_node = end_node.next
+        nth_node = nth_node.next
+    return nth_node.value

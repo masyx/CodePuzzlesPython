@@ -11,6 +11,8 @@ from linked_list import remove_duplicates
 from linked_list import union
 from linked_list import intersection
 from linked_list import find_nth_from_end
+from linked_list import find_nth_from_end_2
+
 
 def main():
     arr = [6, 2, 99, 3, 9, 0]
@@ -82,7 +84,10 @@ def main():
     print(intersection(ll_4, ll_5))
     
     print(f"Nth Node data from the end: {find_nth_from_end(ll_5, 2)}")
-    
+    print(f"Nth Node data from the end: {find_nth_from_end_2(ll_5, 2)}")
+    print(f"Nth Node data from the end: {find_nth_from_end_2(ll_5, 22)}")
+    print(f"Nth Node data from the end: {find_nth_from_end_2(LinkedList(), 2)}")
+
     
 def binarySearchRecursive(list: list, value):
     if not list:
