@@ -17,7 +17,7 @@ class Solution:
         return "".join(result) if result else None
     
     # O(n) time | O(v) space, where v is length of a word
-    def reverse_vowels(self, word):
+    def reverse_vowels_2(self, word):
         vowels = set("AEIOUaeiou")
         chars = list(word)
         l, r = 0, len(word) - 1
@@ -32,6 +32,23 @@ class Solution:
             elif chars[r] not in vowels:
                 r -= 1
         return "".join(chars)
+    
+    def reverse_vowels(self, word):
+        vowels = set("AEIOUaeiou")
+        chars = list(word)
+        l, r = 0, len(word) - 1
+        
+        while l < r:
+            while l < r and chars[l] not in vowels:
+                l += 1
+            while l < r and chars[r] not in vowels:
+                r -= 1
+        
+            chars[l], chars[r] = chars[r], chars[l]
+            l += 1
+            r -= 1
+        return "".join(chars)
+    
     
 def main():
     word = "bobik"
