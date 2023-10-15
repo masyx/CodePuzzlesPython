@@ -1,6 +1,7 @@
 class Solution:
-    def reverse_vowels(self, word):
-        vowels = {'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'}
+    # O(n) time | O(v) space, where v is the number of vowels in a word
+    def reverse_vowels_brute_force(self, word):
+        vowels = set("AEIOUaeiou")
         words_vowels = []
         for i, char in enumerate(word):
             if char in vowels:
@@ -15,8 +16,25 @@ class Solution:
         
         return "".join(result) if result else None
     
+    # O(n) time | O(v) space, where v is length of a word
+    def reverse_vowels(self, word):
+        vowels = set("AEIOUaeiou")
+        chars = list(word)
+        l, r = 0, len(word) - 1
+        
+        while l < r:
+            if chars[l] in vowels and chars[r] in vowels:
+                chars[l], chars[r] = chars[r], chars[l]
+                l += 1
+                r -= 1
+            elif chars[l] not in vowels:
+                l += 1
+            elif chars[r] not in vowels:
+                r -= 1
+        return "".join(chars)
+    
 def main():
-    word = "aA"
+    word = "bobik"
     sol = Solution()
     print(sol.reverse_vowels(word))
     
