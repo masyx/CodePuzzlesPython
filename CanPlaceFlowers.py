@@ -11,7 +11,7 @@ class Solution:
 
 def main():
     sol = Solution()
-    print(sol.can_place_flowers([1], 1))
+    print(sol.can_place_flowers([0, 0, 0], 2))
     
 if __name__ == "__main__":
     main()
