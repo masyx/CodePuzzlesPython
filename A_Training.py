@@ -1,23 +1,29 @@
-from typing import List
-class Solution:
-    def findMaxAverage(self, nums: List[int], k) -> int:
-        l = 0
-        kSum = sum(nums[:k])
-        max_average = kSum / k
-        
-        for r in range(k, len(nums)):
-            kSum -= nums[l]
-            kSum += nums[r]
-            curr_average = kSum / k
-            max_average = max(max_average, curr_average)
-            l += 1
-        
-        return max_average
+from collections import deque
+
+# Creating a deque
+dll = deque()
+
+# Adding elements to the end
+dll.append('a')
+dll.append('b')
+
+# Adding elements to the beginning
+dll.appendleft('z')
+
+# Removing elements from the end
+tail_element = dll.pop()
+
+# Removing elements from the beginning
+head_element = dll.popleft()
+
+# Iterate through the deque
+for elem in dll:
+    print(elem)
 
             
 def main():
     list1 = [0,4,0,3,2]
-    print(Solution().findMaxAverage(list1, 1))
+    print()
 
 
 if __name__ == "__main__":

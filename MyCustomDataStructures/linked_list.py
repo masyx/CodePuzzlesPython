@@ -1,7 +1,4 @@
-class Node:
-    def __init__(self, value):
-        self.value = value
-        self.next = None
+from node import Node
 
 class LinkedList:
     def __init__(self):
@@ -11,7 +8,7 @@ class LinkedList:
         curr = self.head_node
         linkedList = []
         while curr:
-            linkedList.append(str(curr.value))
+            linkedList.append(str(curr.data))
             curr = curr.next
         return " -> ".join(linkedList) + " -> None" if linkedList else "LinkedList is empty"
         
@@ -39,7 +36,7 @@ class LinkedList:
     def search(self, value):
         current_node = self.head_node
         while current_node:
-            if current_node.value == value:
+            if current_node.data == value:
                 return True
             current_node = current_node.next
         return False
@@ -63,7 +60,7 @@ class LinkedList:
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
-        return slow.value
+        return slow.data
     
     def length(self):
         currNode = self.head_node
@@ -91,7 +88,7 @@ def insert_at_tail(lst, value):
 def search(lst: LinkedList, value):
     current_node = lst.head_node
     while current_node:
-        if current_node.value == value:
+        if current_node.data == value:
             return True
     return False
 
@@ -100,7 +97,7 @@ def search_recursive(lst: LinkedList, value):
     def search(node, value):
         if not node:
             return False
-        elif node.value == value:
+        elif node.data == value:
             return True
         return search(node.next, value)
     
@@ -112,12 +109,12 @@ def delete(lst: LinkedList, value):
     if not currentNode:
         return False
     
-    if currentNode.value == value:
+    if currentNode.data == value:
         lst.head_node = currentNode.next
         return True
     
     while currentNode.next:
-        if currentNode.next.value == value:
+        if currentNode.next.data == value:
             currentNode.next = currentNode.next.next
             return True
         currentNode = currentNode.next
@@ -142,7 +139,7 @@ def find_mid(lst: LinkedList):
     while fast and fast.next:
         slow = slow.next
         fast = fast.next.next
-    return slow.value
+    return slow.data
 
 def find_mid_naive(lst: LinkedList):
     length = lst.length()
@@ -155,18 +152,18 @@ def find_mid_naive(lst: LinkedList):
     
     for i in range(middle_index):
         node = node.next
-    return node.value
+    return node.data
 
 def remove_duplicates(lst: LinkedList):
     if not lst.get_head():
         return None
     curr_node = lst.head_node
-    visited = {curr_node.value}
+    visited = {curr_node.data}
     while curr_node.next:
-        if curr_node.next.value in visited:
+        if curr_node.next.data in visited:
             curr_node.next = curr_node.next.next
         else:
-            visited.add(curr_node.next.value)
+            visited.add(curr_node.next.data)
             curr_node = curr_node.next
     return lst
 
@@ -177,7 +174,7 @@ def union(lst1: LinkedList, lst2):
     def add_elements_to_set(linked_list, target_set):
         curr = linked_list.get_head()
         while curr:
-            target_set.add(curr.value)
+            target_set.add(curr.data)
             curr = curr.next
     
     add_elements_to_set(lst1, union_set)
@@ -198,14 +195,14 @@ def intersection(lst1: LinkedList, lst2):
     visited = set()
     curr = lst1.head_node
     while curr:
-        visited.add(curr.value)
+        visited.add(curr.data)
         curr = curr.next
     
     curr_lst2 = lst2.head_node
     tail = None
     while curr_lst2:
-        new_node = Node(curr_lst2.value)
-        if curr_lst2.value in visited:
+        new_node = Node(curr_lst2.data)
+        if curr_lst2.data in visited:
             if tail:
                 tail.next = new_node
             else:
@@ -226,7 +223,7 @@ def find_nth_from_end(lst: LinkedList, n):
     
     for _ in range(node_number_to_return):
         curr = curr.next
-    return curr.value
+    return curr.data
 
 def find_nth_from_end_2(lst: LinkedList, n):
     if not lst.head_node:
@@ -242,4 +239,4 @@ def find_nth_from_end_2(lst: LinkedList, n):
     while end_node:
         end_node = end_node.next
         nth_node = nth_node.next
-    return nth_node.value
+    return nth_node.data
