@@ -7,10 +7,10 @@ class DoublyLinkedList:
         self.length = 0
         
     def get_head(self):
-        return self.head if self.head else None
+        return self.head.data if self.head else None
 
     def get_tail(self):
-        return self.tail if self.tail else None
+        return self.tail.data if self.tail else None
     
     def is_empty(self):
         return self.head is None
@@ -50,11 +50,11 @@ class DoublyLinkedList:
             return ""
         temp = self.head
         val = "[" + str(temp.data) + ", "
-        temp = temp.next_element
+        temp = temp.next
 
-        while (temp.next_element):
+        while (temp.next):
             val = val + str(temp.data) + ", "
-            temp = temp.next_element
+            temp = temp.next
         val = val + str(temp.data) + "]"
         return val
 
