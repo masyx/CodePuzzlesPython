@@ -3,5 +3,8 @@
         "appendleft",
         "endregion",
         "Kadanes"
+    ],
+    "python.analysis.extraPaths": [
+        "./DataStructuresCourse_Educative/MyCustomDataStructures"
     ]
 }

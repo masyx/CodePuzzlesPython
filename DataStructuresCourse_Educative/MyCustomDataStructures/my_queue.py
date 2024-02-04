@@ -28,7 +28,7 @@ class MyQueue():
     
 # Testing
 
-if __name__ == "__main__" :
+""" if __name__ == "__main__" :
     queue_obj = MyQueue()
     print("queue.enqueue(2);")
     queue_obj.enqueue(2)
@@ -57,4 +57,4 @@ if __name__ == "__main__" :
 while queue_obj.is_empty() is False:
     print("Dequeue(): " + str(queue_obj.dequeue()))
 
-print("is_empty(): " + str(queue_obj.is_empty()))
+print("is_empty(): " + str(queue_obj.is_empty())) """
