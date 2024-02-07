@@ -23,6 +23,11 @@ class MyStack:
         self.stack_size -= 1
         return self.elements.pop()
     
+    def __str__(self) -> str:
+        # Represents the stack as a string
+        return "Stack(bottom -> top): " + str(self.elements)
+    
     @property
     def size(self):
         return self.stack_size
+    
