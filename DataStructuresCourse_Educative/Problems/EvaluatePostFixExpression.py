@@ -1,4 +1,4 @@
-
+# Since we traverse the string of n characters once, the time complexity for this algorithm is O(n).
 def evaluate_postfix(expression):
     operands = []
     for char in expression:
