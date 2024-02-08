@@ -1,9 +1,18 @@
-import sys
-sys.path.append('DataStructuresCourse_Educative\MyCustomDataStructures')
-from my_stack import MyStack
 
-def evaluate_post_fix(expression: MyStack):
+def evaluate_postfix(expression):
     operands = []
-    for i in range(expression):
-        while expression[i] is str:
+    for char in expression:
+        if char.isdigit():
+            operands.append(char)
+        else:
+            right = operands.pop()
+            left = operands.pop()
             
+            operands.append(str(eval(left + char + right)))
+    return int(float(operands.pop()))
+
+
+
+if __name__ == "__main__":
+    expr = "82/3+"
+    print(evaluate_postfix(expr))
