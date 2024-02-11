@@ -18,19 +18,19 @@ def next_greater_element_brute_force(lst):
 # result: [9, 22, 22, -1]
 # O(n) time | O(1) space
 def next_greater_element(lst):
-    stack = [] # to track the seen elements
     result = [-1] * len(lst)
-    
-    for i, element in enumerate(lst):
-        while stack and element > lst[stack[-1]]:
-            result[stack.pop()] = element
-        stack.append(i)
+    visited_indices = []
+    for i, elem in enumerate(lst):
+        while visited_indices and elem > lst[visited_indices[-1]]:
+            result[visited_indices.pop()] = elem
+        visited_indices.append(i)
     return result
-
 
 
 if __name__ == "__main__":
     lst = [2, 9, 0, 22]
     # result: [9, 22, 22, -1]
+    lst2 = [0,0,0,5]
+    # result: [5,5,5,-1]
     
-    print(next_greater_element(lst))
+    print(next_greater_element(lst2))
