@@ -12,7 +12,29 @@ class Graph():
         self.vertices: int = vertices
         self.array: List = [LinkedList() for _ in range(vertices)]
         
+    def add_edge(self, source, destination):
+        if (0 <= source < self.vertices and 0 <= destination <= self.vertices):
+            self.array[source].insert_at_head(destination)
+
+    def print_graph(self):
+        print(">>Adjacency List of Directed Graph<<")
+        for i in range(self.vertices):
+            print("|", i, end=" | => ")
+            temp = self.array[i].get_head()
+            while temp is not None:
+                print("[", temp.data, end=" ] -> ")
+                temp = temp.next
+            print("None")
+        
         
 if __name__ == "__main__":
-    graph = Graph(5)
-    print()
+    g = Graph(4)
+    g.add_edge(0, 2)
+    g.add_edge(0, 1)
+    g.add_edge(1, 3)
+    g.add_edge(2, 3)
+    
+
+    g.print_graph()
+
+    print(g.array[1].get_head().data)
