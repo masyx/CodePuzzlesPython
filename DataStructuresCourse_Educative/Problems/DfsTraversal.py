@@ -1,27 +1,28 @@
 import sys
 sys.path.append('DataStructuresCourse_Educative\MyCustomDataStructures')
 from graph import Graph
+from node import Node
 
-def dfs_traversal_helper(graph, source, visited):
+def dfs_traversal_helper(graph: Graph, source, visited):
     result = ""
-    stack = [source]  # Initialize the stack with the source element
+    stack = [source]
     visited[source] = True
     
     while stack:
-        current_node = stack.pop()
-        result += str(current_node)
+        current_vertex = stack.pop()
+        result += str(current_vertex)
         
-        # Directly access the head node of the current node's adjacency list
-        temp = graph.array[current_node].head_node
+        # get head node from the adjacency list of the current vertex
+        temp: Node = graph.array[current_vertex].get_head()
         while temp:
             if not visited[temp.data]:
                 stack.append(temp.data)
                 visited[temp.data] = True
             temp = temp.next
-    
+            
     return result
 
-def dfs_traversal(graph, source):
+def dfs_traversal(graph: Graph, source):
     num_of_vertices = graph.vertices
     if num_of_vertices == 0:
         return ""
@@ -29,13 +30,10 @@ def dfs_traversal(graph, source):
     visited = [False for _ in range(num_of_vertices)]
     result = dfs_traversal_helper(graph, source, visited)
     
-    # Append results of DFS from unvisited nodes, ensuring all components are covered
     for i in range(num_of_vertices):
         if not visited[i]:
             result += dfs_traversal_helper(graph, i, visited)
-    
     return result
-
 
 if __name__ == "__main__" :
     g = Graph(7)
