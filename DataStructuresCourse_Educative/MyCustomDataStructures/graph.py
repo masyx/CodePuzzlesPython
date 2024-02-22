@@ -10,17 +10,17 @@ class Graph():
             vertices (int): Total number of vertices in the graph
         """
         self.vertices: int = vertices
-        self.array: List = [LinkedList() for _ in range(vertices)]
+        self.adj_list: List = [LinkedList() for _ in range(vertices)]
         
     def add_edge(self, source, destination):
         if (0 <= source < self.vertices and 0 <= destination <= self.vertices):
-            self.array[source].insert_at_head(destination)
+            self.adj_list[source].insert_at_head(destination)
 
     def print_graph(self):
         print(">>Adjacency List of Directed Graph<<")
         for i in range(self.vertices):
             print("|", i, end=" | => ")
-            temp = self.array[i].get_head()
+            temp = self.adj_list[i].get_head()
             while temp is not None:
                 print("[", temp.data, end=" ] -> ")
                 temp = temp.next
@@ -37,4 +37,4 @@ if __name__ == "__main__":
 
     g.print_graph()
 
-    print(g.array[1].get_head().data)
+    print(g.adj_list[1].get_head().data)

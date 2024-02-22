@@ -17,7 +17,7 @@ def bfs_traversal(g, source):
 
             # Iterate through all the adjacent vertices of the dequeued vertex
             # If an adjacent has not been visited, then mark it as visited and enqueue it
-            temp = g.array[current_vertex].get_head()
+            temp = g.adj_list[current_vertex].get_head()
             while temp is not None:
                 if not visited[temp.data]:
                     visited[temp.data] = True

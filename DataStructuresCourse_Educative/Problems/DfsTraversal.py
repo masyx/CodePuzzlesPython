@@ -13,7 +13,7 @@ def dfs_traversal_helper(graph: Graph, source, visited):
         result += str(current_vertex)
         
         # get head node from the adjacency list of the current vertex
-        temp: Node = graph.array[current_vertex].get_head()
+        temp: Node = graph.adj_list[current_vertex].get_head()
         while temp:
             if not visited[temp.data]:
                 stack.append(temp.data)
