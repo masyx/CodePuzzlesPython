@@ -1,30 +1,31 @@
 from collections import deque
 
-# Creating a deque
-dll = deque()
+class Node:
+    def __inti__(self, data):
+        self.data = data
+        self.next = None
+        
+class LinkedList:
+    def __init__(self, value):
+        self.head = Node(value)
+        
+    def add_node(self, value):
+        new_node = Node(value)
+        temp = self.head
+        while temp.next is not None:
+            temp = temp.next
+        temp.next = new_node
+        
+    def add_at_head(self, value):
+        new_node = Node(value)
+        new_node.next = self.head
+        self.head = new_node
+        
+        
 
-# Adding elements to the end
-dll.append('a')
-dll.append('b')
-
-# Adding elements to the beginning
-dll.appendleft('z')
-
-# Removing elements from the end
-tail_element = dll.pop()
-
-# Removing elements from the beginning
-head_element = dll.popleft()
-
-# Iterate through the deque
-for elem in dll:
-    print(elem)
-
-            
-def main():
-    list1 = [0,4,0,3,2]
-    print()
-
+class Graph:
+    def __init__(self, vertices: int):
+        self.vertices = vertices
+        self.adjacency_list = [LinkedList() for _ in range(vertices)]
 
 if __name__ == "__main__":
-    main()

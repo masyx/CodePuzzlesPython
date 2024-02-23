@@ -1,7 +1,7 @@
 from linked_list import LinkedList
 from typing import List
 
-class Graph():
+class Graph:
     def __init__(self, vertices) -> None:
         """
         Initializes a graph with a specified number of vertices.
@@ -13,7 +13,7 @@ class Graph():
         self.adj_list: List = [LinkedList() for _ in range(vertices)]
         
     def add_edge(self, source, destination):
-        if (0 <= source < self.vertices and 0 <= destination <= self.vertices):
+        if 0 <= source < self.vertices and 0 <= destination < self.vertices:  # Corrected condition
             self.adj_list[source].insert_at_head(destination)
 
     def print_graph(self):
