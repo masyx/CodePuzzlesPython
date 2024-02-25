@@ -48,14 +48,11 @@ class Graph:
             self.adjacency_list[source].add_at_head(destination)
             
     def __str__(self):
+        result = []
         for i in range(self.vertices):
-            
-            curr = self.adjacency_list[i].head
-            result = []
-            while curr:
-                result.append(curr.data)
-                curr = curr.next
-            print(f"{i}: ", end="->".join(result))
+            line = f"Vertex {i}: {self.adjacency_list[i]}"
+            result.append(line)
+        return "\n".join(result)
 
 if __name__ == "__main__":
     ll = LinkedList()
@@ -64,10 +61,14 @@ if __name__ == "__main__":
     ll.add_at_head(3)
     print(ll)
     
-    graph = Graph(3)
+    graph = Graph(6)
     graph.add_edge(0, 1)
+    graph.add_edge(0, 5)
     graph.add_edge(1, 2)
+    graph.add_edge(1, 3)
     graph.add_edge(2, 0)
+    graph.add_edge(2, 5)
+    graph.add_edge(2, 4)
     print(graph)
     
     
