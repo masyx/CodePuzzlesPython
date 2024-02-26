@@ -3,40 +3,37 @@ sys.path.append('DataStructuresCourse_Educative\MyCustomDataStructures')
 from graph import Graph
 from node import Node
 
-def dfs_traversal_helper(graph: Graph, source, visited):
-    result = ""
-    stack = [source]
-    visited[source] = True
-    
-    while stack:
-        current_vertex = stack.pop()
-        result += str(current_vertex)
-        
-        # get head node from the adjacency list of the current vertex
-        temp: Node = graph.adj_list[current_vertex].get_head()
-        while temp:
-            if not visited[temp.data]:
-                stack.append(temp.data)
-                visited[temp.data] = True
-            temp = temp.next
-            
-    return result
 
 def dfs_traversal(graph: Graph, source):
-    num_of_vertices = graph.vertices
-    if num_of_vertices == 0:
+    if graph.vertices == 0:
         return ""
+    visited = [False] * (graph.vertices + 1)
     
-    visited = [False for _ in range(num_of_vertices)]
-    result = dfs_traversal_helper(graph, source, visited)
+    def dfs_traversal_helper(vertex):
+        result = ""
+        vertices_to_visit = [vertex]
+        visited[vertex] = True
+        while vertices_to_visit:
+            curr_vertex = vertices_to_visit.pop()
+            result += str(curr_vertex)
+            
+            temp_node: Node = graph.adj_list[curr_vertex].get_head()
+            while temp_node:
+                if not visited[temp_node.data]:
+                    vertices_to_visit.append(temp_node.data)
+                    visited[temp_node.data] = True
+                temp_node = temp_node.next
+        return result
     
-    for i in range(num_of_vertices):
-        if not visited[i]:
-            result += dfs_traversal_helper(graph, i, visited)
+    result = dfs_traversal_helper(source)
+    for vertex in range(graph.vertices + 1):
+        if not visited[vertex]:
+            result += dfs_traversal_helper(vertex)
     return result
 
+
 if __name__ == "__main__" :
-    g = Graph(7)
+    g = Graph(8)
     num_of_vertices = g.vertices
     if num_of_vertices == 0:
         print("Graph is empty")
@@ -51,6 +48,8 @@ if __name__ == "__main__" :
         g.add_edge(1, 5)
         g.add_edge(4, 5)
         g.add_edge(3, 6)
+        g.add_edge(2, 7)
+        g.add_edge(5, 8)
         
         source = 1
         print(f"DFS traversal starting from vertex {source}: {dfs_traversal(g, 1)}")

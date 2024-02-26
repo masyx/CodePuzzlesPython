@@ -10,10 +10,10 @@ class Graph:
             vertices (int): Total number of vertices in the graph
         """
         self.vertices: int = vertices
-        self.adj_list: List = [LinkedList() for _ in range(vertices)]
+        self.adj_list: List = [LinkedList() for _ in range(vertices + 1)]
         
     def add_edge(self, source, destination):
-        if 0 <= source < self.vertices and 0 <= destination < self.vertices:  # Corrected condition
+        if 0 <= source <= self.vertices and 0 <= destination <= self.vertices:
             self.adj_list[source].insert_at_head(destination)
 
     def print_graph(self):

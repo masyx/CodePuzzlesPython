@@ -26,7 +26,7 @@ def bfs_traversal(g, source):
         return result
 
     result = ""
-    visited = [False] * g.vertices  # Keeps track of visited vertices for the entire graph
+    visited = [False] * (g.vertices + 1)  # Keeps track of visited vertices for the entire graph
 
     # Start BFS from the specified source
     result += bfs_from_source(source, visited)
@@ -42,7 +42,7 @@ def bfs_traversal(g, source):
 
 
 if __name__ == "__main__" :
-    g = Graph(7)
+    g = Graph(8)
     num_of_vertices = g.vertices
     if num_of_vertices == 0:
         print("Graph is empty")
@@ -57,6 +57,8 @@ if __name__ == "__main__" :
         g.add_edge(1, 5)
         g.add_edge(4, 5)
         g.add_edge(3, 6)
+        g.add_edge(2, 7)
+        g.add_edge(5, 8)
         
         source = 1
         print(f"BFS traversal starting from vertex {source}: {bfs_traversal(g, 1)}")
