@@ -2,6 +2,7 @@ import sys
 sys.path.append('DataStructuresCourse_Educative\MyCustomDataStructures')
 from graph import Graph
 from node import Node
+from typing import List
 
 
 def dfs_traversal(graph: Graph, source):
@@ -31,6 +32,8 @@ def dfs_traversal(graph: Graph, source):
             result += dfs_traversal_helper(vertex)
     return result
 
+def dfs_traversal_2(graph: List[List], source):
+    pass
 
 if __name__ == "__main__" :
     g = Graph(8)
