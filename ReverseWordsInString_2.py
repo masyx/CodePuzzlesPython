@@ -1,37 +1,31 @@
 
 # O(n) time | O(n) space
 def reverse_words(sentence):
-    
-    def reverse(s):
+    def reverse_list(lst):
         start = 0
-        end = len(s) - 1
+        end = len(lst) - 1
         while start < end:
-            s[start], s[end] = s[end], s[start]
+            lst[start], lst[end] == lst[end], lst[start]
             start += 1
             end -= 1
-        return s
+        return lst
     
-    # Step 1: Reverse the entire string
-    s = reverse(list(sentence))
-
-    # Step 2: Reverse each word individually
-    result = []
+    reversed_sentence = reverse_list(list(sentence))
     start = 0
-    n = len(s)
-
+    n = len(reversed_sentence)
+    result = []
     while start < n:
-        if s[start] != ' ':
-            end = start
-            while end < n and s[end] != ' ':
-                end += 1
-            # Extract the word and reverse it
-            word = reverse(s[start:end])
-            result.append("".join(word))
-            start = end
-        else:
+        if reversed_sentence[start] == " ":
             start += 1
+        else:
+            end = start
+            while end < n and reversed_sentence[end] != " ":
+                end += 1
+            word = "".join(reverse_list(reversed_sentence[start:end]))
+            result.append(word)
+            start = end
 
-    final_sentence = ' '.join(result)
+    final_sentence = " ".join(result)
     return final_sentence
 
 
