@@ -1,4 +1,4 @@
-class BST():
+class Node():
     def __init__(self, value):
         self.value = value
         self.left = None
@@ -70,28 +70,40 @@ def dfs_post_order_iterative(node):
     return visited[::-1]
 
 
+'''
+         1
+       /   \
+      2     3
+     /\     /\
+    4  5   6  7
+   /      / \
+  8      9  10
+
+
+Preorder traversal: [1, 2, 4, 8, 5, 3, 6, 9, 10, 7]
+Inorder traversal: [8, 4, 2, 5, 1, 9, 6, 10, 3, 7]
+Postorder traversal: [8, 4, 5, 2, 9, 10, 6, 7, 3, 1]
+'''
 def main():
     # tree = None
-    tree = BST(0)
+    root = Node(1)
+    root.left = Node(2)
+    root.right = Node(3)
+    root.left.left = Node(4)
+    root.left.right = Node(5)
+    root.right.left = Node(6)
+    root.right.right = Node(7)
+    root.left.left.left = Node(8)
+    root.right.left.left = Node(9)
+    root.right.left.right = Node(10)
     
-    tree.left = BST(1)
-    tree.right = BST(2)
-    
-    tree.left.left = BST(3)
-    tree.left.right = BST(4)
-    
-    tree.right.left = BST(5)
-    tree.right.right = BST(6)
-
-    print(f"Pre-order traversal recursive: {dfs_pre_order(tree, [])}")
-    print(f"Pre-order traversal iterative: {dfs_pre_order_iterative(tree)}\n")
-
-    print(f"In-order traversal recursive: {dfs_in_order(tree, [])}")
-    print(f"In-order traversal iterative: {dfs_in_order_iterative(tree)}\n")
-    
-    print(f"Post-order traversal recursive: {dfs_post_order(tree, [])}")
-    print(f"Post-order traversal iterative: {dfs_post_order_iterative(tree)}")
-
+    print(f"Preorder traversal recursive: {dfs_pre_order(root, [])}")
+    print(f"Inorder traversal recursive: {dfs_in_order(root, [])}")
+    print(f"Postorder traversal recursive: {dfs_post_order(root, [])}")
+    print()
+    print(f"Preorder traversal iterative: {dfs_pre_order_iterative(root)}")
+    print(f"Inorder traversal iterative: {dfs_in_order_iterative(root)}")
+    print(f"Postorder traversal iterative: {dfs_post_order_iterative(root)}")
 
 if __name__ == '__main__':
     main()
