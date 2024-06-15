@@ -42,9 +42,19 @@ def find_sum_of_square_of_all_digits(num):
         num //= 10
     return sum
 
+def find_happy_number_set(num):
+    seen_numbers = set()
+    while num != 1 and num not in seen_numbers:
+        seen_numbers.add(num)
+        num = find_sum_of_square_of_all_digits(num)
+    return num == 1
+
 def main():
     print(find_happy_number(23))
     print(find_happy_number(12))
+    print()
+    print(find_happy_number_set(23))
+    print(find_happy_number_set(12))
 
 
 main()
