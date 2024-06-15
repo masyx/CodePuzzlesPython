@@ -1,26 +1,24 @@
-def main():
-    arr = [1, 5, 23, 111]
-    target = -120
-    print(binarySearch(arr, target))
-
-
-#O(log(n)) time | O(1) space  
-def binarySearch(arr, target):
-    leftIdx = 0
-    rightIdx = len(arr) - 1
-    
-    while leftIdx <= rightIdx:
-       middleIdx = (leftIdx + rightIdx) // 2
-       medianValue = arr[middleIdx]
-       
-       if medianValue == target:
-           return middleIdx
-       elif target > medianValue:
-           leftIdx = middleIdx + 1
-       else:
-           rightIdx = middleIdx - 1
-    
+def binary_search(lst, target):
+    if not lst:
+        return -1
+    lst.sort()
+    l = 0
+    r = len(lst) - 1
+    while l <= r:
+        middle = (l + r) // 2
+        if lst[middle] == target:
+            return middle
+        elif lst[middle] < target:
+            l = middle + 1
+        else:
+            r = middle - 1
     return -1
+
+
+if __name__ == "__main__":
+    lst = [3, 10, 4, 1, 99] # [1,3,4,10,99]
+    target = 11
+    print(binary_search(lst, target))
 
 
         
@@ -42,9 +40,3 @@ def binarySearchHelper(arr, target, leftIdx, rightIdx):
         return binarySearchHelper(arr, target, mediumIdx + 1, rightIdx)
     else:
         return binarySearchHelper(arr, target, leftIdx, mediumIdx - 1)
-
-
-
-
-if __name__ == "__main__":
-    main()
