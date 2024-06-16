@@ -1,21 +1,48 @@
-def binary_search(lst, n):
-    if not lst:
-        return -1
-    lst.sort()
-    l = 0
-    r = len(lst) - 1
-    while l <= r:
-        middle = (l + r) // 2
-        if lst[middle] == n:
-            return middle
-        elif lst[middle] < n:
-            l = middle + 1
-        else:
-            r = middle - 1
-    return -1
+class LinkedListNode:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+class LinkedList:
+    def __init__(self, head):
+        self.length = 0
+        self.head = LinkedListNode(head)
+        
+    def insert_at_tail(self, value):
+        current = self.head
+        while current.next:
+            current = current.next
+        current.next = LinkedListNode(value)
+        
+    def __str__(self) -> str:
+        current = self.head
+        visited = []
+        while current:
+            visited.append(str(current.value))
+            current = current.next
+        return " -> ".join(visited)
+
+
+def detect_cycle(head):
+    if head is None:
+        return False
+    slow = fast = head
+    while fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow == fast:
+            return True
+    return False
 
 
 if __name__ == "__main__":
-    lst = [3, 10, 4, 1, 99] # [1,3,4,10,99]
-    target = 11
-    print(binary_search(lst, target))
+    ll = LinkedList(1)
+    ll.insert_at_tail(2)
+    ll.insert_at_tail(3)
+    ll.insert_at_tail(4)
+    ll.insert_at_tail(5)
+    print(ll)
+    print(f"Does the linked list has a cycle: {detect_cycle(ll.head)}")
+    print("Added cycle from 5 to 1.")
+    ll.head.next.next.next.next.next = ll.head
+    #print(ll) infinite cycle, cannot print
+    print(f"Does the linked list has a cycle: {detect_cycle(ll.head)}")
