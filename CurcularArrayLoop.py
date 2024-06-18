@@ -43,11 +43,22 @@ array_without_loop = [1, 2, -1, 2]
 
 
 def circular_array_loop(nums):
-    return random.choice([True, False])
-
+    """
+    Function to determine if there is a cycle in the circular array.
+    
+    Parameters:
+    nums (List[int]): The input circular array of non-zero integers.
+    
+    Returns:
+    bool: True if there is a cycle, False otherwise.
+    """
+    pass
 
 if __name__ == "__main__":
     print(f"Does array {array_with_loop} has a loop? - {'Yes' if circular_array_loop(array_with_loop) else 'No'}")
     print(f"Does array {array_without_loop} has a loop? - {'Yes' if circular_array_loop(array_without_loop) else 'No'}")
+    
+    print(f"Does array {array_with_loop} have a loop? - {'Yes' if circular_array_loop(array_with_loop) else 'No'}")
+    print(f"Does array {array_without_loop} have a loop? - {'Yes' if circular_array_loop(array_without_loop) else 'No'}")
 
 
