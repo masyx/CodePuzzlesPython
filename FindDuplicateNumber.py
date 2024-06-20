@@ -6,9 +6,16 @@ There is only one repeated number in nums.
 Note: You cannot modify the given array nums. You have to solve the problem using only constant extra space.
 '''
 
-def find_duplicate(nums):
-    pass
+# O(n) time | O(n) space
+def find_duplicate_extra_space(nums):
+    seen = {nums[0]}
+    for i in range(1, len(nums)):
+        if nums[i] in seen:
+            return nums[i]
+        seen.add(nums[i])
+    return None
 
 
 if __name__ == "__main__":
-    nums = [1, 2, 3, 4, 2]
+    nums = [1,3,4,2,2]
+    print(find_duplicate(nums))
