@@ -3,24 +3,37 @@ class ListNode:
         self.val = val
         self.next = next
 
-def mergeTwoLists(list1: ListNode, list2: ListNode) -> ListNode:
-    if not list1: return list2
-    if not list2: return list1
-    
-    result = ListNode()
-    while list1:
-        current = ListNode()
-        if list1.val < list2.val:
-            current.val = list1.val
-            current.next = ListNode(list2.val)
+def mergeTwoLists(l1, l2):
+    if l1 is None:
+        return l2
+    elif l2 is None:
+        return l1
+    elif l1.val < l2.val:
+        l1.next = mergeTwoLists(l1.next, l2)
+        return l1
+    else:
+        l2.next = mergeTwoLists(l1, l2.next)
+        return l2
+
+def mergeTwoListsIterative(self, l1, l2):
+    # maintain an unchanging reference to node ahead of the return node.
+    prehead = ListNode(-1)
+
+    prev = prehead
+    while l1 and l2:
+        if l1.val <= l2.val:
+            prev.next = l1
+            l1 = l1.next
         else:
-            current.val = list2.val
-            current.next = ListNode(list1.val)
-        result = current
-        result = result.next
-        list1 = list1.next
-        list2 = list2.next
-    current
+            prev.next = l2
+            l2 = l2.next
+        prev = prev.next
+
+    # At least one of l1 and l2 can still have nodes at this point, so connect
+    # the non-null list to the end of the merged list.
+    prev.next = l1 if l1 is not None else l2
+
+    return prehead.next
 
 if __name__ == "__main__":
     list1 = ListNode(1)
@@ -33,6 +46,8 @@ if __name__ == "__main__":
     
     current = mergeTwoLists(list1, list2)
     
+    result = []
     while current:
-        print(f" -> {current.next}")
+        result.append(str(current.val))
         current = current.next
+    print(" -> ".join(result))
