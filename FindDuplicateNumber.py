@@ -15,6 +15,19 @@ def find_duplicate_extra_space(nums):
         seen.add(nums[i])
     return None
 
+def find_duplicate(nums):
+    slow = nums[0]
+    fast = nums[slow]
+    while nums[slow] != nums[fast]:
+        slow = nums[slow]
+        fast = nums[nums[fast]]
+    
+    slow = 0
+    while nums[slow] != nums[fast]:
+        fast = nums[fast]
+        slow = nums[slow]
+    return nums[slow]
+
 
 if __name__ == "__main__":
     nums = [1,3,4,2,2]
