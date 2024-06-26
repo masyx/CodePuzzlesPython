@@ -27,7 +27,11 @@ class LinkedList:
 
 
 def get_middle_node(head: Node):
-    pass
+    slow = fast = head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+    return slow
 
 def merge_linked_lists(lst1: Node, lst2: Node):
     if lst1 is None:
@@ -63,11 +67,13 @@ if __name__ == "__main__":
     ll.insert_at_tail(2)
     ll.insert_at_tail(4)
     ll.insert_at_tail(10)
+    ll.insert_at_tail(12)
     print(ll)
-    # print(f"Middle of the linked list is node: {get_middle_node(ll.head).value}")
-    # ll.insert_at_tail(6)
-    # print("Added node 6")
-    # print(f"Middle of the linked list is node: {get_middle_node(ll.head).value}")
+    print(f"Middle of the linked list is node: {get_middle_node(ll.head).value}")
+    ll.insert_at_tail(15)
+    print("Added node 15")
+    print(ll)
+    print(f"Middle of the linked list is node: {get_middle_node(ll.head).value}")
     
     ll_2 = LinkedList(0)
     ll_2.insert_at_tail(3)
