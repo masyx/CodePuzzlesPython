@@ -41,6 +41,23 @@ def merge_linked_lists(lst1: Node, lst2: Node):
         lst2.next = merge_linked_lists(lst1, lst2.next)
         return lst2
 
+# O(n + m) where n and m are the lengths of lst1 and lst2 respectively | O(1) space
+def merge_linked_lists_iterative(lst1: Node, lst2: Node):
+    pre_head = Node(-1)
+    current = pre_head
+    while lst1 and lst2:
+        if lst1.value < lst2.value:
+            current.next = lst1
+            lst1 = lst1.next
+        else:
+            current.next = lst2
+            lst2 = lst2.next
+        current = current.next
+            
+    current.next = lst1 or lst2
+    return pre_head.next
+
+
 if __name__ == "__main__":
     ll = LinkedList(1)
     ll.insert_at_tail(2)
@@ -57,10 +74,12 @@ if __name__ == "__main__":
     ll_2.insert_at_tail(7)
     print(ll_2)
     
-    new_head = merge_linked_lists(ll.head, ll_2.head)
+    #new_head = merge_linked_lists(ll.head, ll_2.head)
     
-    ll_3 = LinkedList(new_head.value, new_head.next)
-    print(ll_3)
+    # ll_3 = LinkedList(new_head.value, new_head.next)
+    # print(ll_3)
     
-    ll_4 = LinkedList.from_node(new_head)
+    new_head_2 = merge_linked_lists_iterative(ll.head, ll_2.head)
+    
+    ll_4 = LinkedList.from_node(new_head_2)
     print(ll_4)
