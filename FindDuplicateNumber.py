@@ -28,9 +28,15 @@ def find_duplicate_my(nums):
         fast = nums[fast]
     return slow
 
+def find_duplicate_sort(nums: list):
+    nums.sort()
+    for i, number in enumerate(nums):
+        if number == nums[i - 1]:
+            return number
+    return None
+
 def find_duplicate(nums):
-    slow = nums[0]
-    fast = nums[0]
+    slow = fast = nums[0]
     while True:
         slow = nums[slow]
         fast = nums[nums[fast]]
@@ -38,11 +44,12 @@ def find_duplicate(nums):
             break
     
     slow = nums[0]
-    while slow != fast:
+    while fast != slow:
         slow = nums[slow]
         fast = nums[fast]
     return slow
     
+    
 if __name__ == "__main__":
-    nums = [3,1,4,2,2]
-    print(find_duplicate_my(nums))
+    nums = [3,1,4,2,1]
+    print(find_duplicate(nums))
