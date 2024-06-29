@@ -8,7 +8,7 @@ class LinkedList:
         self.head = Node(head, next)
         
     @classmethod
-    def from_node(cls, node: Node):
+    def from_node(cls, node):
         return cls(node.value, node.next)
         
     def insert_at_tail(self, value):
@@ -26,66 +26,54 @@ class LinkedList:
         return " -> ".join(visited)
 
 
-def get_middle_node(head: Node):
+def is_linkedList_palindrome(head):
+    middle = find_middle_node(head)
+    head_reversed = reverse_linkedList(middle)
+    is_palindrome = is_linkedList_palindrome_helper(head, head_reversed)
+    reverse_linkedList(head_reversed)
+    return is_palindrome
+
+# [1, 2, 3, 4] 
+# slow: 1 2 3
+# fast: 1 3 None
+
+# [1, 2, 3, 2, 1] 
+# slow: 1 2 3
+# fast: 1 3 5
+def find_middle_node(head):
     slow = fast = head
     while fast and fast.next:
         slow = slow.next
         fast = fast.next.next
     return slow
 
-def merge_linked_lists(lst1: Node, lst2: Node):
-    if lst1 is None:
-        return lst2
-    if lst2 is None:
-        return lst1
-    if lst1.value < lst2.value:
-        lst1.next = merge_linked_lists(lst1.next, lst2)
-        return lst1
-    else:
-        lst2.next = merge_linked_lists(lst1, lst2.next)
-        return lst2
+def reverse_linkedList(head):
+    previous = None
+    current = head
+    while current:
+        follow = current.next
+        current.next = previous
+        previous = current
+        current = follow
+    return previous
 
-# O(n + m) where n and m are the lengths of lst1 and lst2 respectively | O(1) space
-def merge_linked_lists_iterative(lst1: Node, lst2: Node):
-    pre_head = Node(-1)
-    current = pre_head
-    while lst1 and lst2:
-        if lst1.value < lst2.value:
-            current.next = lst1
-            lst1 = lst1.next
-        else:
-            current.next = lst2
-            lst2 = lst2.next
-        current = current.next
-            
-    current.next = lst1 or lst2
-    return pre_head.next
+def is_linkedList_palindrome_helper(head_1, head_2):
+    while head_1 and head_2:
+        if head_1.value != head_2.value:
+            return False
+        head_1 = head_1.next
+        head_2 = head_2.next
+    return True
+
 
 
 if __name__ == "__main__":
     ll = LinkedList(1)
     ll.insert_at_tail(2)
     ll.insert_at_tail(4)
-    ll.insert_at_tail(10)
-    ll.insert_at_tail(12)
-    print(ll)
-    print(f"Middle of the linked list is node: {get_middle_node(ll.head).value}")
-    ll.insert_at_tail(15)
-    print("Added node 15")
-    print(ll)
-    print(f"Middle of the linked list is node: {get_middle_node(ll.head).value}")
+    ll.insert_at_tail(5)
+    ll.insert_at_tail(99)
+    ll.insert_at_tail(2)
+    ll.insert_at_tail(1)
     
-    ll_2 = LinkedList(0)
-    ll_2.insert_at_tail(3)
-    ll_2.insert_at_tail(7)
-    print(ll_2)
-    
-    #new_head = merge_linked_lists(ll.head, ll_2.head)
-    
-    # ll_3 = LinkedList(new_head.value, new_head.next)
-    # print(ll_3)
-    
-    new_head_2 = merge_linked_lists_iterative(ll.head, ll_2.head)
-    
-    ll_4 = LinkedList.from_node(new_head_2)
-    print(ll_4)
+    print(f"Is LinkedList [{ll}] a palindrome - {'yes' if is_linkedList_palindrome(ll.head) else 'no'}")
