@@ -31,7 +31,8 @@ def mergeTwoLists(l1, l2):
     else:
         l2.next = mergeTwoLists(l1, l2.next)
         return l2
-    
+
+# O(n + m) time | O(1) space
 def mergeTwoListsIterative(l1, l2):
     pre_head = ListNode(-1)
     current = pre_head
