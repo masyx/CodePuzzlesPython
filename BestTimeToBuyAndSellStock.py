@@ -30,7 +30,6 @@ from typing import List
 def maxProfit(prices: List[int]) -> int:
     if not prices:
         return 0
-    
     lowest = prices[0]
     profit = 0
     for i in range(1, len(prices)):
@@ -44,14 +43,11 @@ def maxProfit(prices: List[int]) -> int:
 def maxProfitImproved(prices: List[int]):
     if not prices:
         return 0
-    
     lowest = prices[0]
     profit = 0
-    
     for curr_price in prices[1:]:
         lowest = min(curr_price, lowest)
         profit = max(profit, curr_price - lowest)
-        
     return profit
 
 if __name__ == "__main__":
