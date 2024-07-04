@@ -9,7 +9,7 @@ def max_sliding_window(nums, w):
 
     for i in range(len(nums)):
         # Remove indices that are out of the current window
-        if deq and deq[0] < i - w + 1:
+        if deq and deq[0] <= i - w:
             deq.popleft()
 
         # Remove elements from deque that are smaller than the current element
@@ -27,6 +27,6 @@ def max_sliding_window(nums, w):
 
 
 if __name__ == "__main__":
-    nums = [9, 2, 4, 0, 8, 3]
+    nums = [0, 0, 9, 0, 8, 3]
     w = 2
     print(max_sliding_window(nums, w))
