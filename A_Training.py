@@ -1,31 +1,34 @@
-def search(nums, target) -> int:
-        l = 0
-        r = len(nums) - 1
-        while l <= r:
-            m = (l + r) // 2
-            if nums[m] == target:
-                return m
-            elif target < nums[m]:
-                r = m - 1
-            else:
-                l = m + 1
-        return -1
-    
+class Node:
+    def __init__(self, val):
+        self.val = val
+        self.next = None
 
-def search_req(nums, target: int) -> int:
-    l = 0
-    r = len(nums) - 1
-    m = (l + r) // 2
-    if nums[m] == target:
-        return m
-    if nums[m] < target:
-        search_req(nums[m + 1:], target)
-    else:
-        search_req(nums[:m - 1], target)
-    return - 1
-        
-            
+def printLinkedList(head: Node):
+    current = head
+    result = []
+    seen = set()
+    while current:
+        if current not in seen:
+            result.append(str(current.val))
+            seen.add(current)
+            current = current.next
+        else:
+            break
+    return " -> ".join(result)
+
+def hasCycle(head):
+    slow = fast = head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow == fast:
+            return True
+    return False
 
 if __name__ == "__main__":
-    prices = [1, 3, 5, 7, 9, 12]
-    print(search_req(prices, 13))
+    head = Node(1)
+    head.next = Node(2)
+    head.next.next = Node(99)
+    head.next.next.next = head
+    
+    print(f"Does LinkedList [{printLinkedList(head)}] has cycle: {'Yes' if hasCycle(head) else 'No'}")
