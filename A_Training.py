@@ -1,29 +1,31 @@
-def fizz_buzz(n):
-    result = [i for i in range(1, n + 1)]
-    for i in range(1, n + 1):
-        current = ["", ""]
-        if i % 3 == 0:
-            current[0] = "Fizz"
-        if i % 5 == 0:
-            current[1] = "Buzz"
-        if current[0] or current[1]:
-            result[i - 1] = "".join(current)
-    return result
+def search(nums, target) -> int:
+        l = 0
+        r = len(nums) - 1
+        while l <= r:
+            m = (l + r) // 2
+            if nums[m] == target:
+                return m
+            elif target < nums[m]:
+                r = m - 1
+            else:
+                l = m + 1
+        return -1
+    
 
-def fizz_buzz_2(n):
-    result = [str(i + 1) for i in range(n)]
-    for i in range(1, n + 1):
-        curr = ""
-        if i % 3 == 0:
-            curr += "Fizz"
-        if i % 5 == 0:
-            curr += "Buzz"
-        if curr:
-            result[i - 1] = curr
-    return result
-
+def search_req(nums, target: int) -> int:
+    l = 0
+    r = len(nums) - 1
+    m = (l + r) // 2
+    if nums[m] == target:
+        return m
+    if nums[m] < target:
+        search_req(nums[m + 1:], target)
+    else:
+        search_req(nums[:m - 1], target)
+    return - 1
+        
             
 
 if __name__ == "__main__":
-    prices = [1]
-    print(fizz_buzz_2(15))
+    prices = [1, 3, 5, 7, 9, 12]
+    print(search_req(prices, 13))
