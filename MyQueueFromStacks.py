@@ -29,7 +29,7 @@ myQueue.empty(); // return false
 '''
 
 
-class MyQueue:
+class MyQueue_my_og:
     def __init__(self):
         self.pushing = []
         self.popping = []
@@ -58,8 +58,48 @@ class MyQueue:
         pop_empty = len(self.popping) == 0
         return push_empty and pop_empty
     
+class MyQueue:
+    def __init__(self):
+        self.push_stack = []
+        self.pop_stack = []
+        
+    def push(self, value):
+        self.push_stack.append(value)
+        
+    def pop(self):
+        self._transfer_if_needed()
+        return self.pop_stack.pop()
     
+    def peek(self):
+        self._transfer_if_needed()
+        return self.pop_stack[-1]
+    
+    def empty(self):
+        return not self.push_stack and not self.pop_stack
+    
+    def _transfer_if_needed(self):
+        if not self.pop_stack:
+            while self.push_stack:
+                self.pop_stack.append(self.push_stack.pop())
+            
+            
+# push_stack [1x, 2x, 3]
+# pop_stack [2, 1x]
 if __name__ == "__main__":
+    queue = MyQueue_my_og()
+    queue.push(1)
+    queue.push(8)
+    print(queue.pop())
+    queue.push(3)
+    print(queue.peek())
+    print(queue.pop())
+    queue.push(5)
+    print(queue.pop())
+
+
+    print(queue.empty())
+    print()
+    
     queue = MyQueue()
     queue.push(1)
     queue.push(8)
