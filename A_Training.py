@@ -1,24 +1,19 @@
-from collections import deque
+def merge_sorted_array(arr1, arr2):
+    if not arr1:
+        return arr2
+    if not arr2:
+        return arr1
+    if arr1[0] < arr2[0]:
+        res = merge_sorted_array(arr1[1:], arr2)
+        merged_arr = [arr1[0]] + res
+        return merged_arr
+    else:
+        res = merge_sorted_array(arr1, arr2[1:])
+        merged_arr = [arr2[0]] + res
+        return merged_arr
 
-def maxSlidingWindow(nums, w):
-    deq = deque()
-    result = []
-    for i in range(len(nums)):
-        # remove indices that are out of the current window
-        while deq and deq[0] <= i - w:
-            deq.popleft()
-            
-        # remove elements that are smaller than the current value
-        while deq and nums[deq[-1]] < nums[i]:
-            deq.pop()
-        
-        # add the current element's index to the deq
-        deq.append(i)
-        
-        # If the window is completely withing the list add the biggest value to the result
-        if i >= w - 1:
-            result.append(nums[deq[0]])
-    return result
+
 if __name__ == "__main__":
-    arr = [2,4,1,5,8]
-    print(maxSlidingWindow(arr, 3))
+    arr1 = [0, 2, 4]
+    arr2 = [1, 3]
+    print(merge_sorted_array(arr1, arr2))
