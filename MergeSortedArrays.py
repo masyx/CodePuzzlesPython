@@ -35,9 +35,7 @@ def merge_sorted_arrays_iterative(arr1, arr2):
         j += 1
         k += 1
         
-    return result_arr
-# [1] 
-# [2]  
+    return result_arr 
 
 def merge_sorted_arrays_iterative_pythonic(arr1, arr2):
     result = []
@@ -81,19 +79,3 @@ if __name__ == "__main__":
     print(merge_sorted_arrays(arr1, arr2))
     print(merge_sorted_arrays_iterative(arr1, arr2))
     print(merge_sorted_arrays_iterative_pythonic(arr1, arr2))
-    
-    ll_1 = Node(0)
-    ll_1.next = Node(2)
-    
-    ll_2 = Node(1)
-    ll_2.next = Node(3)
-    ll_2.next.next = Node(5)
-    
-    ll_res = mergeTwoSortedLinkedLists(ll_1, ll_2)
-    
-    ll_arr = []
-    while ll_res:
-        ll_arr.append(str(ll_res.value))
-        ll_res = ll_res.next
-    
-    print(" -> ".join(ll_arr))
