@@ -51,27 +51,6 @@ def merge_sorted_arrays_iterative_pythonic(arr1, arr2):
     result.extend(arr2[j:])
     return result
 
-class Node:
-    def __init__(self, value):
-        self.value = value
-        self.next = None
-        
-def mergeTwoSortedLinkedLists(head1, head2):
-    pre_head = Node(-1)
-    current = pre_head
-    
-    while head1 and head2:
-        if head1.value < head2.value:
-            current.next = head1
-            head1 = head1.next
-        else:
-            current.next = head2
-            head2 = head2.next
-        current = current.next
-        
-    current.next = head1 or head2
-    return pre_head.next
-
 
 if __name__ == "__main__":
     arr1 = [0, 2]
