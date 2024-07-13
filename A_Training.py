@@ -1,28 +1,24 @@
-from collections import deque
-def maxSlidingWindow(nums, w):
-    result = []
-    deq = deque()
-    for i in range(len(nums)):
-        # Remove indices that are out of the current window limits
-        while deq and deq[0] < i + 1 - w:
-            deq.popleft()
-        
-        # Remove indices of the elements that are less than the 
-        # current element
-        while deq and nums[deq[-1]] < nums[i]:
-            deq.pop()
-        
-        # Append the current element's index to the deque
-        deq.append(i)
-        
-        # Start adding the maximum value to the result array one the first window is fully 
-        # withing the list
-        if i >= w - 1:
-            result.append(nums[deq[0]])
-    return result
+# O(n log n) time | O(1) space
+def containsDuplicate(nums):
+    nums.sort()
+    for i in range(1, len(nums)):
+        if nums[i] == nums[i - 1]:
+            return True
+    return False
+
+# O(n) time | O(n) space
+def containsDuplicate_2(nums):
+    seen = set()
+    for num in nums:
+        if num in seen:
+            return True
+        seen.add(num)
+    return False
+
     
     
 if __name__ == "__main__":
-    nums = [11, 3, 50, 0]
-    print(maxSlidingWindow(nums, 2))
+    nums = [11, 3, 50, 11]
+    print(containsDuplicate(nums))
+    print(containsDuplicate_2(nums))
     
