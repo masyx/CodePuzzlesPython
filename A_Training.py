@@ -1,6 +1,7 @@
 from collections import deque
 
 def find_max_sliding_window(nums, w):
+    result = []
     deq = deque()
     for i in range(len(nums)):
         while deq and deq[0] <= i - w:
