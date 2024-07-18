@@ -1,20 +1,26 @@
-from collections import deque
-
-def find_max_sliding_window(nums, w):
-    result = []
-    deq = deque()
-    for i in range(len(nums)):
-        while deq and deq[0] <= i - w:
-            deq.popleft()
-            
-        while deq and nums[deq[-1]] < nums[i]:
-            deq.pop()
+class MyQueue:
+    def __init__(self) -> None:
+        self.stack_push = []
+        self.stack_pop = []
+    
+    def push(self, val):
+        self.stack_push.append(val)
         
-        deq.append(i)
-        
-        if i >= w - 1:
-            result.append(nums[deq[0]])
-    return result
+    def peek(self):
+        self.move_elements()
+        return self.stack_pop[-1]
+    
+    def pop(self):
+        self.move_elements()
+        return self.stack_pop.pop()
+    
+    def move_elements(self):
+        while self.stack_push:
+            self.stack_pop.append(self.stack_push.pop())
+    
+    def empty(self):
+        if not self.stack_pop and not self.stack_push:
+            return True
 
 if __name__ == "__main__":
     nums = [1,2,5,5,5,8,6]
