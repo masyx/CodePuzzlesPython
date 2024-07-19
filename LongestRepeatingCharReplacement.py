@@ -28,28 +28,30 @@ s consists of only uppercase English letters.
 '''
 
 def characterReplacement(s: str, k: int) -> int:
-    left = 0
-    max_length = 0
-    max_count = 0
-    count = {}
+    start = 0
+    max_length_substr = 0
+    max_freq_char_count = 0
+    char_count = {}
 
-    for right in range(len(s)):
+    for end in range(len(s)):
         # Add the current character to the count dictionary
-        count[s[right]] = count.get(s[right], 0) + 1
-        # Update the count of the most frequent character in the current window
-        max_count = max(max_count, count[s[right]])
+        char_count[s[end]] = char_count.get(s[end], 0) + 1
+        # Update the frequency of the most frequent character in the current window
+        max_freq_char_count = max(max_freq_char_count, char_count[s[end]])
 
         # Calculate the number of changes needed
-        if (right - left + 1) - max_count > k:
-            # If changes exceed k, shrink the window from the left
-            count[s[left]] -= 1
-            left += 1
+        current_window_length = end - start + 1
+        changes_needed_count = current_window_length - max_freq_char_count
+
+        # If number of changes exceeds k, shrink the window from the start
+        if changes_needed_count > k:
+            char_count[s[start]] -= 1
+            start += 1
 
         # Update the maximum length of the window
-        max_length = max(max_length, right - left + 1)
+        max_length_substr = max(max_length_substr, end - start + 1)
 
-    return max_length
-
+    return max_length_substr
 if __name__ == "__main__":
     print(characterReplacement("ABAB", 2))  # Output: 4
     print(characterReplacement("AABABBA", 1))  # Output: 4
