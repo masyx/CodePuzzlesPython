@@ -60,31 +60,42 @@ def longestPalindrome2(s: str) -> int:
         return len(s)
     
 def longestPalindrome3(s: str) -> int:
-    odd_freq_chars_count = 0
-    frequency_array = [0] * 52
-
+    char_frequency = [0] * 52
+    odd_chars_count = 0
+    
     for char in s:
         if 'a' <= char <= 'z':
             index = ord(char) - ord('a')
         elif 'A' <= char <= 'Z':
             index = ord(char) - ord('A') + 26
-        frequency_array[index] += 1
+        char_frequency[index] += 1
 
-        if frequency_array[index] % 2 == 1:
-            odd_freq_chars_count += 1
+        if char_frequency[index] % 2 == 0:
+            odd_chars_count -= 1
         else:
-            odd_freq_chars_count -= 1
+            odd_chars_count += 1
 
-    if odd_freq_chars_count > 0:
-        return len(s) - odd_freq_chars_count + 1
-    else:
+    if odd_chars_count == 0:
         return len(s)
+    else:
+        return len(s) - odd_chars_count + 1
 
-
-                    
+def longestPalindrome4(s:str) -> int:
+    chars = set()
+    result = 0
+    for char in s:
+        if char in chars:
+            result += 2
+            chars.remove(char)
+        else:
+            chars.add(char)
+    if chars:
+        result += 1
+    return result
 
 if __name__ == "__main__":
     s = "aCCCab"
     print(longestPalindrome(s))
     print(longestPalindrome2(s))
     print(longestPalindrome3(s))
+    print(longestPalindrome4(s))
