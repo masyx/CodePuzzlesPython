@@ -26,6 +26,7 @@ s consists of only uppercase English letters.
 
 '''
 
+# O
 def characterReplacement(s: str, k: int) -> int:
     start = 0
     max_length_substr = 0
