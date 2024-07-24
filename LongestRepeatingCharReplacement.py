@@ -26,29 +26,32 @@ s consists of only uppercase English letters.
 
 '''
 
-# O
+
+# The key insight is that we are always trying to maximize the window size while keeping the 
+# number of replacement <= k. We do this by maintaining a window where 
+# window_size - max_frequent_char_count <=k. This inequality represents the number of replacements
+# we need to make to have all characters in the window the same
+
+# O(n) time | O(1) space, because alphabet has 26 chars
 def characterReplacement(s: str, k: int) -> int:
     start = 0
     max_length_substr = 0
-    max_freq_char_count = 0
+    max_repeating_char_count = 0
     char_count = {}
 
     for end in range(len(s)):
-        # Add the current character to the count dictionary
         char_count[s[end]] = char_count.get(s[end], 0) + 1
-        # Update the frequency of the most frequent character in the current window
-        max_freq_char_count = max(max_freq_char_count, char_count[s[end]])
+        max_repeating_char_count = max(max_repeating_char_count, char_count[s[end]])
 
-        # Calculate the number of changes needed
-        current_window_length = end - start + 1
-        changes_needed_count = current_window_length - max_freq_char_count
+        window_size = end - start + 1
+        # Calculate the number of replacements needed
+        changes_needed_count = window_size - max_repeating_char_count
 
         # If number of changes exceeds k, shrink the window from the start
         if changes_needed_count > k:
             char_count[s[start]] -= 1
             start += 1
 
-        # Update the maximum length of the window
         max_length_substr = max(max_length_substr, end - start + 1)
 
     return max_length_substr
