@@ -35,26 +35,24 @@ s consists of only uppercase English letters.
 # O(n) time | O(1) space, because alphabet has 26 chars
 def characterReplacement(s: str, k: int) -> int:
     start = 0
-    max_length_substr = 0
-    max_repeating_char_count = 0
     char_count = {}
-
+    max_repeating_char_count = 0
+    longest_substr = 0
     for end in range(len(s)):
         char_count[s[end]] = char_count.get(s[end], 0) + 1
         max_repeating_char_count = max(max_repeating_char_count, char_count[s[end]])
-
         window_size = end - start + 1
         # Calculate the number of replacements needed
-        changes_needed_count = window_size - max_repeating_char_count
+        num_replacements = window_size - max_repeating_char_count
 
-        # If number of changes exceeds k, shrink the window from the start
-        if changes_needed_count > k:
+        # If number of replacements exceeds k, shrink the window from the start
+        if num_replacements > k:
             char_count[s[start]] -= 1
             start += 1
 
-        max_length_substr = max(max_length_substr, end - start + 1)
+        longest_substr = max(longest_substr, end - start + 1)
+    return longest_substr
 
-    return max_length_substr
 if __name__ == "__main__":
     print(characterReplacement("ABAB", 2))  # Output: 4
     print(characterReplacement("AABABBA", 1))  # Output: 4
