@@ -1,19 +1,53 @@
-def isAnagram(s, t):
-    if len(s) != len(t):
-        return False
-    seen = {}
-    for char in s:
-        seen[char] = seen.get(char, 0) + 1
-    
-    for char in t:
-        if char not in seen:
-            return False
-        seen[char] -= 1
-        if seen[char] == 0:
-            del seen[char]
-    return not seen
+class TreeNode:
+    def __init__(self, value, left = None, right = None) -> None:
+        self.value = value
+        self.left = left
+        self.right = right
 
+'''
+Original:
+    1
+   / \
+  2   3
+ / \ / \
+4  5 6  7
+
+Inverted:
+    1
+   / \
+  3   2
+ / \ / \
+7  6 5  4
+
+'''
+
+def invert_binary_tree(root):
+    if not root:
+        return
+    invert_binary_tree(root.left)
+    invert_binary_tree(root.right)
+    root.left, root.right = root.right, root.left
+    return root
+
+
+def print_in_order(node):
+    if not node:
+        return
+    print_in_order(node.left)
+    print(node.value, end=' ')
+    print_in_order(node.right)
+    
 if __name__ == "__main__":
-    s = "car"
-    t = "acra"
-    print(isAnagram(s, t))
+    root = TreeNode(1)
+    root.left = TreeNode(2)
+    root.right = TreeNode(3)
+    root.left.left = TreeNode(4)
+    root.left.right = TreeNode(5)
+    root.right.left = TreeNode(6)
+    root.right.right = TreeNode(7)
+    
+    print("Original: ")
+    print_in_order(root)
+    
+    print("\nInverted: ", )
+    print_in_order(invert_binary_tree(root))
