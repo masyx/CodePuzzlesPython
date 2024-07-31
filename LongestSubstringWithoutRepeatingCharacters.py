@@ -1,5 +1,5 @@
 '''
-Description
+3. Longest Substring Without Repeating Characters
 Medium
 
 Given a string s, find the length of the longest 
@@ -26,10 +26,13 @@ Constraints:
 s consists of English letters, digits, symbols and spaces.
 '''
 
-# Check later if this is a duplicate 
-# "LongestSubstringWithDistinctChars.py', this is mihailescu
-
-# O(n) time | O(1) space, there 26 letters in alphabet
+# O(n) time | O(1) space, where k is the number of distinct chars in array
+""" The algorithm's space complexity will be O(K), where K is the number of distinct characters 
+in the input string. This also means K<=N, because in the worst case, the whole string might not 
+have any duplicate character, so the entire string will be added to the HashMap. Having said that, 
+since we can expect a fixed set of characters in the input string (e.g., 26 for English letters),
+we can say that the algorithm runs in fixed space O(1); in this case, 
+we can use a fixed-size array instead of the HashMap.  """
 def lengthOfLongestSubstring(s):
     longest = 0
     left = 0
@@ -46,11 +49,27 @@ def lengthOfLongestSubstring(s):
         longest = max(longest, right - left + 1)
     return longest
 
+def lengthOfLongestSubstring(s):
+    longest = 0
+    used_chars = {}
+    left = 0
+    for right in range(len(s)):
+        used_chars[s[right]] = used_chars.get(s[right], 0) + 1
+        
+        while used_chars[s[right]] > 1:
+            used_chars[s[left]] -= 1
+            left += 1
+        
+        longest = max(longest, right - left + 1)
+    return longest
+            
+            
+            
 if __name__ == "__main__":
     s = "pwwkew"
-    #s ="dvdf"
+    s ="dvdf"
     #s = "nfpdmpi"
-    s = "abcabcbb"
+    #s = "abcabcbb"
     print("Length of the longest substring without "
         f"repeating char is: {lengthOfLongestSubstring(s)}")
         
