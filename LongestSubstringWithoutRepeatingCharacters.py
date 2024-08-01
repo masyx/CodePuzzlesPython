@@ -63,33 +63,43 @@ def lengthOfLongestSubstring(s):
         
         longest = max(longest, right - left + 1)
     return longest
-            
-            
+
+
 def length_of_longest_substring_improved(s):
     if len(s) == 0:
         return 0
-
-    window_start, longest = 0, 0
+    start, longest = 0, 0
     last_seen_at = {}
     for index, char in enumerate(s):
-        if char not in last_seen_at:
-            last_seen_at[char] = index
-        else:
-            if last_seen_at[char] >= window_start:
-                longest = max(longest, index - window_start)
-                window_start = last_seen_at[char] + 1
-
-            last_seen_at[char] = index
-
-    index += 1
-    longest = max(longest, index - window_start)
+        if char in last_seen_at and last_seen_at[char] >= start:
+            start = last_seen_at[char] + 1
+        
+        last_seen_at[char] = index
+        longest = max(longest, index - start + 1)
     return longest
-            
+
+def length_of_longest_substring_array(s):
+    if len(s) == 0:
+        return 0
+    start, longest = 0, 0
+    last_seen_at = [-1] * 128
+    for i, char in enumerate(s):
+        if last_seen_at[ord(char)] >= start:
+            start = last_seen_at[ord(char)] + 1
+        
+        last_seen_at[ord(char)] = i
+        longest = max(longest, i - start + 1)
+    return longest
+
+
 if __name__ == "__main__":
-    s = "pwwkew"
+    #s = "pwwkew"
     #s ="dvdf"
     #s = "nfpdmpi"
     #s = "abcabcbb"
+    unicode_number = ord("A")
+    char = chr(unicode_number)
+    s = "ACCABabcxyzXYZ"
     print("Length of the longest substring without "
-        f"repeating char is: {length_of_longest_substring_improved(s)}")
+        f"repeating char is: {length_of_longest_substring_array(s)}")
         
