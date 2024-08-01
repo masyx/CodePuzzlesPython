@@ -33,7 +33,7 @@ have any duplicate character, so the entire string will be added to the HashMap.
 since we can expect a fixed set of characters in the input string (e.g., 26 for English letters),
 we can say that the algorithm runs in fixed space O(1); in this case, 
 we can use a fixed-size array instead of the HashMap.  """
-def lengthOfLongestSubstring(s):
+def lengthOfLongestSubstring_my_og(s):
     longest = 0
     left = 0
     observed_chars = {}
@@ -49,6 +49,7 @@ def lengthOfLongestSubstring(s):
         longest = max(longest, right - left + 1)
     return longest
 
+#O(2n) -> O(n) time | O(1) space
 def lengthOfLongestSubstring(s):
     longest = 0
     used_chars = {}
@@ -64,12 +65,31 @@ def lengthOfLongestSubstring(s):
     return longest
             
             
+def length_of_longest_substring_improved(s):
+    if len(s) == 0:
+        return 0
+
+    window_start, longest = 0, 0
+    last_seen_at = {}
+    for index, char in enumerate(s):
+        if char not in last_seen_at:
+            last_seen_at[char] = index
+        else:
+            if last_seen_at[char] >= window_start:
+                longest = max(longest, index - window_start)
+                window_start = last_seen_at[char] + 1
+
+            last_seen_at[char] = index
+
+    index += 1
+    longest = max(longest, index - window_start)
+    return longest
             
 if __name__ == "__main__":
     s = "pwwkew"
-    s ="dvdf"
+    #s ="dvdf"
     #s = "nfpdmpi"
     #s = "abcabcbb"
     print("Length of the longest substring without "
-        f"repeating char is: {lengthOfLongestSubstring(s)}")
+        f"repeating char is: {length_of_longest_substring_improved(s)}")
         
