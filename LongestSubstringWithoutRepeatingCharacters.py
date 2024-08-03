@@ -91,6 +91,35 @@ def length_of_longest_substring_array(s):
         longest = max(longest, i - start + 1)
     return longest
 
+# only lower case letters
+def length_of_longest_substring_array_2(s):
+    longest = 0
+    start = 0
+    used_at = [-1] * 26
+    for i, char in enumerate(s):
+        char_array_idx = ord(char) - ord('a')
+        if used_at[char_array_idx] >= start:
+            start = used_at[char_array_idx] + 1
+        
+        used_at[char_array_idx] = i
+        longest = max(longest, i - start + 1)
+    return longest
+        
+def length_of_longest_substring_array_3(s):
+    longest, start = 0, 0
+    last_seen_at = [-1] * 52
+    for i, char in enumerate(s):
+        if 'a' <= char <= 'z':
+            char_arr_idx = ord(char) - ord('a')
+        else:
+            char_arr_idx = ord(char) - ord('A')
+        
+        if last_seen_at[char_arr_idx] >= start:
+            start = last_seen_at[char_arr_idx] + 1
+        
+        last_seen_at[char_arr_idx] = i
+        longest = max(longest, i - start + 1)
+    return longest 
 
 if __name__ == "__main__":
     #s = "pwwkew"
@@ -99,7 +128,7 @@ if __name__ == "__main__":
     #s = "abcabcbb"
     unicode_number = ord("A")
     char = chr(unicode_number)
-    s = "ACCABabcxyzXYZ"
+    s = "accabdaz"
     print("Length of the longest substring without "
-        f"repeating char is: {length_of_longest_substring_array(s)}")
+        f"repeating char is: {length_of_longest_substring_array_3(s)}")
         
