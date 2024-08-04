@@ -97,27 +97,27 @@ def length_of_longest_substring_array_2(s):
     start = 0
     used_at = [-1] * 26
     for i, char in enumerate(s):
-        char_array_idx = ord(char) - ord('a')
-        if used_at[char_array_idx] >= start:
-            start = used_at[char_array_idx] + 1
+        pos = ord(char) - ord('a')
+        if used_at[pos] >= start:
+            start = used_at[pos] + 1
         
-        used_at[char_array_idx] = i
+        used_at[pos] = i
         longest = max(longest, i - start + 1)
     return longest
-        
+
+# lowercase and uppercase characters
 def length_of_longest_substring_array_3(s):
     longest, start = 0, 0
     last_seen_at = [-1] * 52
     for i, char in enumerate(s):
         if 'a' <= char <= 'z':
-            char_arr_idx = ord(char) - ord('a')
+            pos = ord(char) - ord('a')
         else:
-            char_arr_idx = ord(char) - ord('A')
+            pos = ord(char) - ord('A') + 26
         
-        if last_seen_at[char_arr_idx] >= start:
-            start = last_seen_at[char_arr_idx] + 1
-        
-        last_seen_at[char_arr_idx] = i
+        if last_seen_at[pos] >= start:
+            start = last_seen_at[pos] + 1
+        last_seen_at[pos] = i
         longest = max(longest, i - start + 1)
     return longest 
 
