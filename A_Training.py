@@ -1,8 +1,12 @@
-def maxProfit(self, prices) -> int:
-    pass
+def maxProfit(prices) -> int:
+    lowest = prices[0]
+    profit = 0
+    for price in prices:
+        lowest = min(lowest, price)
+        profit = max(price - lowest, profit)
+    return profit
+
 
 if __name__ == "__main__":
-    s = "abb"
-    t = "baa"
-    print(f"Is '{t}' an anagram of '{s}': "
-          f"{'Yes' if maxProfit(s, t) else 'No'}")
+    prices = [7,1,5,3,6,4, 0, 10]
+    print(maxProfit(prices))
