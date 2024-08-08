@@ -1,5 +1,35 @@
-# O(w * n * log(n)) time | O(w * n) space, where 'w' is number of words, 
-# 'n' is the length of the longest word
+from collections import defaultdict
+from typing import List
+
+'''
+49. Group Anagrams
+Medium
+Given an array of strings strs, group the anagrams together. You can return the 
+answer in any order.
+An Anagram is a word or phrase formed by rearranging the letters of a different 
+word or phrase, typically using all the original letters exactly once.
+
+Example 1:
+Input: strs = ["eat","tea","tan","ate","nat","bat"]
+Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+
+Example 2:
+Input: strs = [""]
+Output: [[""]]
+
+Example 3:
+Input: strs = ["a"]
+Output: [["a"]]
+ 
+Constraints:
+1 <= strs.length <= 104
+0 <= strs[i].length <= 100
+strs[i] consists of lowercase English letters.
+'''
+
+
+# O(n * m log m) where n in number of strings and m is the length of the string
+# O(n * m) space
 def groupAnagrams(words):
     anagrams = {}
     for word in words:
@@ -10,11 +40,30 @@ def groupAnagrams(words):
             anagrams[sorted_word] = [word]
     return list(anagrams.values())
 
+# O(n * m log m) where n in number of strings and m is the length of the string
+# O(n * m) space
+def groupAnagrams2(strs: List[str]) -> List[List[str]]:
+    ans = defaultdict(list)
+    for str in strs:
+        sorted_str = sorted(str)
+        ans[tuple(sorted_str)].append(str)
+    return ans.values()
 
+# O(n * m) where n in number of strings and m is the length of the string
+# O(n * m) space
+def groupAnagrams3(strs: List[str]) -> List[List[str]]:
+    res = defaultdict(list)
+    for s in strs:
+        chars = [0] * 26
+        for char in s:
+            chars[ord(char) - ord('a')] += 1
+        res[tuple(chars)].append(s)
+    return res.values()
+    
 def main():
     # ["yo", "act", "flop", "tac", "foo", "cat", "oy", "olfp"]
-    words = ["yo", "act", "flop", "tac", "foo", "cat", "oy", "olfp"]
-    print(groupAnagrams(words))
+    words = ["eat","tea","tan"]
+    print(groupAnagrams3(words))
     
     
 if __name__ == "__main__":
