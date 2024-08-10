@@ -43,27 +43,27 @@ def groupAnagrams(words):
 # O(n * m log m) where n in number of strings and m is the length of the string
 # O(n * m) space
 def groupAnagrams2(strs: List[str]) -> List[List[str]]:
-    ans = defaultdict(list)
-    for str in strs:
-        sorted_str = sorted(str)
-        ans[tuple(sorted_str)].append(str)
-    return ans.values()
-
+    res = defaultdict(list)
+    for string in strs:
+        sorted_str = sorted(string)
+        res[tuple(sorted_str)].append(string)
+    return res.values()
+        
 # O(n * m) where n in number of strings and m is the length of the string
 # O(n * m) space
 def groupAnagrams3(strs: List[str]) -> List[List[str]]:
     res = defaultdict(list)
-    for s in strs:
+    for string in strs:
         chars = [0] * 26
-        for char in s:
+        for char in string:
             chars[ord(char) - ord('a')] += 1
-        res[tuple(chars)].append(s)
+        res[tuple(chars)].append(string)
     return res.values()
     
 def main():
     # ["yo", "act", "flop", "tac", "foo", "cat", "oy", "olfp"]
-    words = ["eat","tea","tan"]
-    print(groupAnagrams3(words))
+    words = ["eat","tea","tan", "ant", "pup"]
+    print(groupAnagrams2(words))
     
     
 if __name__ == "__main__":
