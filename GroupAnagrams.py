@@ -62,8 +62,8 @@ def groupAnagrams3(strs: List[str]) -> List[List[str]]:
     
 def main():
     # ["yo", "act", "flop", "tac", "foo", "cat", "oy", "olfp"]
-    words = ["eat","tea","tan", "ant", "pup"]
-    print(groupAnagrams2(words))
+    words = ["eat","tea","tan", "ant", "apa", "paa"]
+    print(groupAnagrams3(words))
     
     
 if __name__ == "__main__":
