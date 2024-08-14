@@ -79,6 +79,7 @@ from collections import defaultdict
 from typing import List
 
 
+# O(1) time O(1) space
 def isValidSudoku(board: List[List[str]]) -> bool:
     row = defaultdict(set)
     column = defaultdict(set)
