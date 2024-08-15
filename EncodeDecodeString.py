@@ -53,12 +53,41 @@ Constraints:
 0 <= strs[i].length <= 200
 strs[i] contains any possible characters out of 256 valid ASCII characters.
 '''
+import random
+import string
 from typing import List
 
 class Codec:
     def encode(self, strs: List[str]) -> str:
-        return " zopa ".join(strs)
-        
+        result = [f"{self.format_string(s)}{s}" for s in strs ]
+        return "".join(result)
 
     def decode(self, s: str) -> List[str]:
-        return s.split(" zopa ")
+        result = []
+        i = 0
+        while i < len(s):
+            str_length = int(s[i:i + 3])
+            result.append(s[i + 3: i + 3 + str_length])
+            i = i + 3 + str_length
+        return result
+    
+    def format_string(self, s):
+        len_str = str(len(s))
+        zeros_needed = 3 - len(len_str)
+        if zeros_needed > 0:
+            len_str = "0" * zeros_needed + len_str
+        return len_str
+    
+    def format_string_2(self, s):
+        len_str = str(len(s))
+        while len(len_str) < 3:
+            len_str = "0" + len_str
+        return len_str
+    
+if __name__ == "__main__":
+    random_strings = [''.join(random.choices(string.ascii_letters + string.digits, 
+                                             k=random.randint(1, 10))) for _ in range(5)]
+    
+    codec = Codec()
+    print(random_strings)
+    print(codec.decode(codec.encode(random_strings)))
