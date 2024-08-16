@@ -58,10 +58,14 @@ import string
 from typing import List
 
 class Codec:
+    # O(n) time, where n is the total number of characters in all strings
+    # O(n) space, where n is the total number of characters in all strings
     def encode(self, strs: List[str]) -> str:
-        result = [f"{self.format_string(s)}{s}" for s in strs ]
+        result = [f"{self.length_as_string(s)}{s}" for s in strs ]
         return "".join(result)
 
+    # O(n) time, where n is the total number of characters in all strings
+    # O(n) space, where n is the total number of characters in all strings
     def decode(self, s: str) -> List[str]:
         result = []
         i = 0
@@ -71,23 +75,44 @@ class Codec:
             i = i + 3 + str_length
         return result
     
-    def format_string(self, s):
+    def length_as_string(self, s):
         len_str = str(len(s))
         zeros_needed = 3 - len(len_str)
         if zeros_needed > 0:
             len_str = "0" * zeros_needed + len_str
         return len_str
     
-    def format_string_2(self, s):
+    def length_as_string(self, s):
         len_str = str(len(s))
         while len(len_str) < 3:
             len_str = "0" + len_str
         return len_str
+
+class Codec2:
+    def encode(self, strs: List[str]) -> str:
+        return "  zopa ".join(strs)
+        
+    def decode(self, s: str) -> List[str]:
+        return s.split("  zopa  ")
+    
     
 if __name__ == "__main__":
-    random_strings = [''.join(random.choices(string.ascii_letters + string.digits, 
-                                             k=random.randint(1, 10))) for _ in range(5)]
     
-    codec = Codec()
-    print(random_strings)
-    print(codec.decode(codec.encode(random_strings)))
+    test_passed = True
+    for i in range(100000):
+        random_strings = [''.join(random.choices(string.printable, 
+                            k=random.randint(1, 20))) for _ in range(5)]
+        
+        codec = Codec()
+        print(random_strings)
+        decoded_string = codec.decode(codec.encode(random_strings))
+        print(decoded_string)
+        
+        codec_failed = random_strings != decoded_string
+        print(f"Is Codec failed: {codec_failed}")
+        if codec_failed:
+            print("Codec test FAILED")
+            test_passed = False
+            break
+    if test_passed:
+        print("Codec test PASSED")
