@@ -50,7 +50,7 @@ def groupAnagrams2(strs: List[str]) -> List[List[str]]:
     return res.values()
         
 # O(n * m) where n in number of strings and m is the length of the string
-# O(n * m) space
+# O(n * m) space OR O(n) 
 def groupAnagrams3(strs: List[str]) -> List[List[str]]:
     res = defaultdict(list)
     for string in strs:
