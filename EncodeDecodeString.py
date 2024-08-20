@@ -58,6 +58,27 @@ import string
 from typing import List
 
 class Codec:
+    def encode(self, strs: List[str]) -> str:
+        # result = ""
+        # for s in strs:
+        #     result += f"{len(s)}/:{s}"
+        # return result
+        return "".join(f"{len(s)}/:{s}" for s in strs)
+    
+    def decode(self, s: str):
+        i = 0
+        result = []
+        while i < len(s):
+            length_str = ""
+            while s[i] != '/' and s[i + 1] != ':':
+                length_str += s[i]
+                i += 1
+            length = int(length_str)
+            result.append(s[i + 2 : i + 2 + length])
+            i = i + 2 + length
+        return result
+
+class Codec_My_almost_good:
     # O(n) time, where n is the total number of characters in all strings
     # O(n) space, where n is the total number of characters in all strings
     def encode(self, strs: List[str]) -> str:
@@ -88,20 +109,29 @@ class Codec:
             len_str = "0" + len_str
         return len_str
 
+# Non ASCII delimiter
 class Codec2:
     def encode(self, strs: List[str]) -> str:
-        return "  zopa ".join(strs)
+        return " Ж ".join(strs)
         
     def decode(self, s: str) -> List[str]:
-        return s.split("  zopa  ")
+        return s.split(" Ж ")
     
     
 if __name__ == "__main__":
+    strs = ["Hello","World"]
+    print(strs)
+    codec = Codec()
+    encoded = codec.encode(strs)
+    print(encoded)
+    decoded = codec.decode(encoded)
+    print(decoded)
     
+    
+    # Comprehensive testing
     test_passed = True
     for i in range(100000):
-        random_strings = [''.join(random.choices(string.printable, 
-                            k=random.randint(1, 20))) for _ in range(5)]
+        random_strings = [''.join(random.choices(string.printable, k=random.randint(1, 20))) for _ in range(5)]
         
         codec = Codec()
         print(random_strings)
