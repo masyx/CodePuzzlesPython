@@ -1,30 +1,19 @@
 from collections import defaultdict
 
-# O(n * m) time | O(1) space
-def group_anagrams(strs):
-    resutlt = defaultdict(list)
-    for s in strs:
-        chars = [0] * 26
-        for char in s:
-            chars[ord(char) - ord('a')] += 1
-        resutlt[tuple(chars)].append(s)
-    return list(resutlt.values())
-
-# O(m) time | O(1) space
-def is_anagram(s, t):
-    if len(s) != len(t):
-        return False
-    seen = [0] * 26
-    for i in range(len(s)):
-        seen[ord(s[i]) - ord('a')] += 1
-        seen[ord(t[i]) - ord('a')] -= 1
-        
-    for char in s:
-        if seen[ord(char) - ord('a')] != 0:
+def isPalindrome(s: str) -> bool:
+    l, r = 0, len(s) - 1
+    while l < r:
+        while l < len(s) - 1 and not s[l].isalnum():
+            l += 1
+        while r > 0 and not s[r].isalnum():
+            r -= 1
+        if s[l].lower() != s[r].lower():
             return False
+        l += 1
+        r -= 1
     return True
-
+       
 
 if __name__ == "__main__":
-    strs = ["eat","tea","tan","ate","nat","bat"]
-    print(group_anagrams_2(strs))
+    s=""
+    print(isPalindrome(s))
