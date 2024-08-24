@@ -1,19 +1,25 @@
 from collections import defaultdict
 
-def isPalindrome(s: str) -> bool:
-    l, r = 0, len(s) - 1
-    while l < r:
-        while l < r and not s[l].isalnum():
-            l += 1
-        while r > l and not s[r].isalnum():
-            r -= 1
-        if l < r and s[l].lower() != s[r].lower():
-            return False
-        l += 1
-        r -= 1
-    return True
+def isValid(s: str) -> bool:
+    if len(s) % 2 != 0:
+        return False
+    stack = [s[0]]
+    map = {
+        '}':'{',
+        ']':'[',
+        ')':'('
+    }
+    for i in range(1, len(s)):
+        if s[i] in map.values():
+            stack.append(s[i])
+    
+        else:
+            if stack[-1] != map[s[i]]:
+                return False
+            stack.pop()
+    return len(stack) == 0
        
 
 if __name__ == "__main__":
-    s=",."
-    print(isPalindrome(s))
+    s="{}()"
+    print(isValid(s))
