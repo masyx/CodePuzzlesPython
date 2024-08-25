@@ -3,23 +3,23 @@ from collections import defaultdict
 def isValid(s: str) -> bool:
     if len(s) % 2 != 0:
         return False
-    stack = [s[0]]
+    
+    stack = []
     map = {
         '}':'{',
         ']':'[',
         ')':'('
     }
-    for i in range(1, len(s)):
-        if s[i] in map.values():
-            stack.append(s[i])
-    
+    for char in s:
+        if char not in map:
+            stack.append(char)
         else:
-            if stack[-1] != map[s[i]]:
+            if not stack or stack[-1] != map[char]:
                 return False
             stack.pop()
     return len(stack) == 0
        
 
 if __name__ == "__main__":
-    s="{}()"
+    s="(){}}{"
     print(isValid(s))
