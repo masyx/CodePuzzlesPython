@@ -1,25 +1,32 @@
 from collections import defaultdict
+#
+# abcbwa
 
-def isValid(s: str) -> bool:
-    if len(s) % 2 != 0:
-        return False
-    
-    stack = []
-    map = {
-        '}':'{',
-        ']':'[',
-        ')':'('
-    }
-    for char in s:
-        if char not in map:
-            stack.append(char)
-        else:
-            if not stack or stack[-1] != map[char]:
-                return False
-            stack.pop()
-    return len(stack) == 0
-       
+
+class Solution:
+    def validPalindrome(self, s: str) -> bool:
+        def validPalindromeHelper(s, l, r):
+            while l < r:
+                if s[l] != s[r]:
+                    return False
+                l += 1
+                r -= 1
+            return True
+        
+        if not s or len(s) <= 2:
+            return True
+        
+        l = 0
+        r = len(s) - 1
+        while l < r:
+            if s[l] != s[r]:
+                return validPalindromeHelper(s , l + 1, r) or validPalindromeHelper(s, l, r - 1)
+            l += 1
+            r -= 1
+        return True
+
 
 if __name__ == "__main__":
-    s="(){}}{"
-    print(isValid(s))
+    s="abaasba"
+    palindromeChecker = Solution()
+    print(palindromeChecker.validPalindrome(s))
