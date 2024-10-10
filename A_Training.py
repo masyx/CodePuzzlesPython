@@ -1,6 +1,4 @@
 from collections import defaultdict
-#
-# abcbwa
 
 # 012345
 #    i
@@ -8,6 +6,13 @@ from collections import defaultdict
 #      j
 # seen = a b
 # longest = 2
+
+# 0123
+#  i
+# dvdf
+#    j
+# seen = v
+# longest = 
 
 # O(n) time | O(1) space
 def longest_substring(s):
@@ -22,7 +27,19 @@ def longest_substring(s):
         longest = max(longest, j - i + 1)
     return longest
 
+def longest_substring_array(s):
+    seen = [" "] * 128
+    i = 0
+    longest = 0
+    for j in range(len(s)):
+        while seen[ord(s[j])] == s[j]:
+            seen[ord(s[i])] = " "
+            i += 1
+        seen[ord(s[j])] = s[j]
+        longest = max(longest, j - i + 1)
+    return longest
+
 
 if __name__ == "__main__":
     s="dvdf"
-    print(longest_substring(s))
+    print(longest_substring_array(s))
