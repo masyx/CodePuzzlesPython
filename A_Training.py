@@ -1,45 +1,38 @@
-from collections import defaultdict
+# 0  1  2 3 4 5
+# -------------
+# 1 -2 -1 0 4 2  target 0
 
-# 012345
-#    i
-# abaabc
-#      j
-# seen = a b
-# longest = 2
 
-# 0123
-#  i
-# dvdf
-#    j
-# seen = v
-# longest = 
-
-# O(n) time | O(1) space
-def longest_substring(s):
+# result = [[1, 3, 0], [-2, 4, 2]]
+  
+def two_sum(numbers, target):
+    if not numbers:
+        return []
+    result = []
     seen = {}
-    longest = 0
-    i = 0
-    for j in range(len(s)):
-        while s[j] in seen:
-            del seen[s[i]]
-            i += 1
-        seen[s[j]] = True
-        longest = max(longest, j - i + 1)
-    return longest
+    for number in numbers:
+        possible_match = target - number
+        if possible_match in seen:
+            result.append([number, possible_match])
+        seen[number] = True
+    return result
 
-def longest_substring_array(s):
-    seen = [" "] * 128
-    i = 0
-    longest = 0
-    for j in range(len(s)):
-        while seen[ord(s[j])] == s[j]:
-            seen[ord(s[i])] = " "
-            i += 1
-        seen[ord(s[j])] = s[j]
-        longest = max(longest, j - i + 1)
-    return longest
-
-
+def three_sum(numbers):
+    if not numbers:
+        return []
+    result = {}
+    for i in range(len(numbers)):
+        seen = {}
+        for j in range(i + 1, len(numbers)):
+            possible_match = 0 - numbers[i] - numbers[j]
+            if possible_match in seen:
+                curr_result = sorted([numbers[i], numbers[j], possible_match])
+                curr_result_tuple = tuple(curr_result)
+                if curr_result_tuple not in result:
+                    result[curr_result_tuple] = curr_result
+            seen[numbers[j]] = True
+    return list(result.values())
+            
 if __name__ == "__main__":
-    s="dvdf"
-    print(longest_substring_array(s))
+    numbers = [-1,0,1,2,-1,-4]
+    print(three_sum(numbers))
