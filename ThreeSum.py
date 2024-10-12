@@ -34,35 +34,33 @@ Constraints:
 -10^5 <= nums[i] <= 10^5
 '''
 # i 0  1  2 3 4 5
-# [-4,-1,-1,0,1,2]
+# [-4,-1,-1,-1,0,1,2]
 # 
 
 def three_sum(numbers):
-    def two_sum(i, numbers, result):
+    if not numbers:
+        return []
+    result = []
+    numbers.sort()
+    for i, a in enumerate(numbers):
+        if a > 0: # not possible to get 0 as a sum
+            break
+        if i != 0 and a == numbers[i - 1]: # avoiding duplicates in the result
+            continue
         l = i + 1
         r = len(numbers) - 1
         while l < r:
-            curr_sum = numbers[i] + numbers[l] + numbers[r]
+            curr_numbers = [numbers[i], numbers[l], numbers[r]]
+            curr_sum = sum(curr_numbers)
             if curr_sum > 0:
                 r -= 1
             elif curr_sum < 0:
                 l += 1
             else:
-                result.append([numbers[i], numbers[l], numbers[r]])
+                result.append(curr_numbers)
                 l += 1
-                while numbers[l] == numbers[l - 1] and l < r:
-                    l += 1 
-                
-    if not numbers:
-        return []
-    numbers.sort()
-    result = []
-    for i, a in enumerate(numbers):
-        if a > 0: # not possible to get 0 as a sum
-            continue
-        elif i != 0 and numbers[i - 1] == a: # avoiding duplicates in the result
-            continue
-        two_sum(i, numbers, result)
+                while l < r and numbers[l] == numbers[l - 1]:
+                    l += 1
     return result
 
 
