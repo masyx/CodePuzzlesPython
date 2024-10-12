@@ -35,8 +35,13 @@ Constraints:
 '''
 # i 0  1  2 3 4 5
 # [-4,-1,-1,-1,0,1,2]
-# 
+#
 
+# Time and space complexity analysis
+# sorting n log n
+# iteration: two_sum run in O(n)(this is while loop) and we run in O(n) time(this is for loop), 
+# so overall time complexity is O(n^2)
+# O(n^2) time | O(n log n) space for sorting
 def three_sum(numbers):
     if not numbers:
         return []
@@ -62,6 +67,8 @@ def three_sum(numbers):
                 while l < r and numbers[l] == numbers[l - 1]:
                     l += 1
     return result
+
+
 
 
 if __name__ == "__main__":
