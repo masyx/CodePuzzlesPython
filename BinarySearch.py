@@ -1,24 +1,33 @@
-def binary_search(lst, target):
-    if not lst:
-        return -1
-    lst.sort()
+#   0 1 2 3 4 5
+# [-1,0,3,5,9,12] target 2
+# l = 2, r = 1, mid = 1
+
+
+#  0
+# [5] target 5
+# l = 0, r = 01, mid = 1
+
+# O(log n) time | O(1) space
+def binary_search(nums, target):
+    nums.sort()
     l = 0
-    r = len(lst) - 1
+    r = len(nums) - 1
     while l <= r:
-        middle = (l + r) // 2
-        if lst[middle] == target:
-            return middle
-        elif lst[middle] < target:
-            l = middle + 1
+        mid = (l + r) // 2
+        curr_num = nums[mid]
+        if curr_num == target:
+            return mid
+        elif curr_num > target:
+            r = mid - 1
         else:
-            r = middle - 1
+            l = mid + 1
     return -1
 
 
 if __name__ == "__main__":
-    lst = [3, 10, 4, 1, 99] # [1,3,4,10,99]
+    nums = [3, 10, 4, 1, 99] # [1,3,4,10,99]
     target = 11
-    print(binary_search(lst, target))
+    print(binary_search(nums, target))
 
 
         
