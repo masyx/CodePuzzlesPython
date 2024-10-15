@@ -1,28 +1,36 @@
+# O(n) time | O(1) space
+def isAnagram(s: str, t: str) -> bool:
+    if len(s) != len(t):
+        return False
+    seen = {}
+    for char in s:
+        seen[char] = seen.get(char, 0) + 1
+    
+    for char in t:
+        if char not in seen:
+            return False
+        seen[char] -= 1
+        if seen[char] == 0:
+            del seen[char]
+    return len(seen) == 0
 
-#   0 1 2 3 4 5
-# [-1,0,3,5,9,12] target 2
-# l = 2, r = 1, mid = 1
+def isAnagramArray(s, t):
+    if len(s) != len(t):
+        return False
+    chars_count = [0] * 26
+    for char in s:
+        chars_count[ord(char) - ord('a')] += 1
+    for char in t:
+        chars_count[ord(char) - ord('a')] -= 1
+    for char_count in chars_count:
+        if char_count != 0:
+            return False
+    return True
 
 
-#  0
-# [5] target 5
-# l = 0, r = 01, mid = 1
 
-def binary_search(nums, target):
-    nums.sort()
-    l = 0
-    r = len(nums) - 1
-    while l <= r:
-        mid = (l + r) // 2
-        curr_num = nums[mid]
-        if curr_num == target:
-            return mid
-        elif curr_num > target:
-            r = mid - 1
-        else:
-            l = mid + 1
-    return -1
-            
+
 if __name__ == "__main__":
-    numbers = [-1,0,3,5,9,12]
-    print(binary_search(numbers, 9))
+    nums = [3, 10, 4, 1, 99] # [1,3,4,10,99]
+    target = 11
+    print(isAnagramArray("tar", "rac"))
