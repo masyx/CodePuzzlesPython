@@ -23,11 +23,31 @@ def binary_search(nums, target):
             l = mid + 1
     return -1
 
+#   0  1  2  3   4   5   6
+#   2, 4, 6, 10, 10, 10, 11   target = 10
+# l = 6, r = 6
+'''
+Upper Bound: Find the first element that is greater than the given value.
+Goal is to continue moving right until you find the first element greater than target.
+
+If l == len(array), it means all elements in the array are less than or equal to the given value.
+This means the upper bound is beyond the end of the array, and the element would go at the end to maintain the sorted order.
+'''
+def binary_search_upper_bound(nums, target):
+    l = 0
+    r = len(nums) # Note that the maximum insert position can be nums.size
+    while l < r:
+        mid = (l + r) // 2
+        if nums[mid] > target:
+            r = mid
+        else:
+            l = mid + 1
+    return l
 
 if __name__ == "__main__":
-    nums = [3, 10, 4, 1, 99] # [1,3,4,10,99]
-    target = 11
-    print(binary_search(nums, target))
+    nums = [2, 4, 6, 10, 10, 10, 11] 
+    target = 10
+    print(binary_search_upper_bound(nums, target))
 
 
         
