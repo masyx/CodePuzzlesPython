@@ -23,9 +23,9 @@ def binary_search(nums, target):
             l = mid + 1
     return -1
 
-#   0  1  2  3   4   5   6
-#   2, 4, 6, 10, 10, 10, 11   target = 10
-# l = 6, r = 6
+#i  0  1  2  3  4   5
+# [-1, 3, 4, 4, 6, 10] target = 11, answer = 1
+# l = 4, r = 6, mid = 5
 '''
 Upper Bound: Find the first element that is greater than the given value.
 Goal is to continue moving right until you find the first element greater than target.
