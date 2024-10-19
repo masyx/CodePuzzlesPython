@@ -35,18 +35,21 @@ This means the upper bound is beyond the end of the array, and the element would
 '''
 def binary_search_upper_bound(nums, target):
     l = 0
-    r = len(nums) # Note that the maximum insert position can be nums.size
+    r = len(nums)
     while l < r:
         mid = (l + r) // 2
-        if nums[mid] > target:
-            r = mid
-        else:
+        if nums[mid] <= target:
             l = mid + 1
-    return l
+        else:
+            r = mid
+    if l > 0 and nums[l - 1] == target:
+        return l - 1
+    else:
+        return -1
 
 if __name__ == "__main__":
     nums = [2, 4, 6, 10, 10, 10, 11] 
-    target = 10
+    target = 4
     print(binary_search_upper_bound(nums, target))
 
 
