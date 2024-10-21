@@ -47,7 +47,8 @@ def binary_search_upper_bound(nums, target):
 #i 0  1  2  3   4   5    6
 # [2, 4, 6, 10, 10, 10, 11]  target = 2
 # l = 0, r = 0, mid = 0
-# Lower bound is the position of the biggest number that is less then the target
+'''The lower bound in binary search is the smallest index where nums[i] is greater 
+   than or equal to (>=) the target.'''
 def binary_search_lower_bound(nums, target):
     l = 0
     r = len(nums) - 1
@@ -61,8 +62,9 @@ def binary_search_lower_bound(nums, target):
     
 if __name__ == "__main__":
     nums = [2, 4, 6, 10, 10, 10, 11] 
-    target = 11
+    target = 10
     print(binary_search_lower_bound(nums, target))
+    print(binary_search_upper_bound(nums, target))
 
 
         
