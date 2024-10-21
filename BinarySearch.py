@@ -3,10 +3,6 @@
 # l = 2, r = 1, mid = 1
 
 
-#  0
-# [5] target 5
-# l = 0, r = 01, mid = 1
-
 # O(log n) time | O(1) space
 def binary_search(nums, target):
     nums.sort()
@@ -47,10 +43,26 @@ def binary_search_upper_bound(nums, target):
     else:
         return -1
 
+
+#i 0  1  2  3   4   5    6
+# [2, 4, 6, 10, 10, 10, 11]  target = 2
+# l = 0, r = 0, mid = 0
+# Lower bound is the position of the biggest number that is less then the target
+def binary_search_lower_bound(nums, target):
+    l = 0
+    r = len(nums) - 1
+    while l < r:
+        mid = (l + r) // 2
+        if nums[mid] >= target:
+            r = mid
+        else:
+            l = mid + 1
+    return l if l < len(nums) and nums[l] == target else -1
+    
 if __name__ == "__main__":
     nums = [2, 4, 6, 10, 10, 10, 11] 
-    target = 4
-    print(binary_search_upper_bound(nums, target))
+    target = 11
+    print(binary_search_lower_bound(nums, target))
 
 
         
