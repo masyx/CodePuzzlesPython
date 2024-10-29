@@ -45,8 +45,8 @@ nums is sorted and rotated between 1 and n times.
 # o(log n) time, O(1) space
 def find_min_in_rotated_arr(nums):
     if not nums:
-        return -1
-    if nums[-1] > nums[0]: # Array is not rotated
+        return None
+    if nums[-1] > nums[0] or len(nums) == 1: # Array is not rotated or has one element
         return nums[0]
     
     l, r = 0, len(nums) - 1
@@ -61,17 +61,27 @@ def find_min_in_rotated_arr(nums):
         else:
             r = mid - 1
 
-def find_min(nums):
-    l, r = 0, len(nums) - 1 
+
+#  0 1 2 3 4 5 6
+# [2,1]
+# l = 0, r = 1, mid = 0
+def find_min_in_rotated_arr_2(nums):
+    if not nums:
+        return None
+    if nums[-1] > nums[0]:
+        return nums[0]
+    l, r = 0, len(nums) - 1
     while l < r:
         mid = (l + r) // 2
-        if nums[mid] > nums[r]:
+        if nums[mid] >= nums[0]:
             l = mid + 1
         else:
             r = mid
     return nums[l]
-
-            
+    
+    
+    
 if __name__  == "__main__":
-    nums = [2]
+    nums = [2,1]
     print(find_min_in_rotated_arr(nums))
+    print(find_min_in_rotated_arr_2(nums))
