@@ -37,7 +37,7 @@ nums is an ascending array that is possibly rotated.
 
 #  0 1 2 3 4 5 6 7
 # [5,6,7,8,9,2,3,4] target = 9
-# l = 4, r = 4, m = 5
+# l = 4, r = 7, m = 5
 def search_in_rotated_array(nums, target):
         l, r = 0, len(nums) - 1
 
@@ -45,15 +45,14 @@ def search_in_rotated_array(nums, target):
             mid = (l + r) // 2
             if target == nums[mid]:
                 return mid
-
+            # sorted portion
             if nums[l] <= nums[mid]:
-                if target > nums[mid] or target < nums[l]:
-                    l = mid + 1
-                else:
+                if nums[l] <= target < nums[mid]:
                     r = mid - 1
-                    
+                else:
+                    l = mid + 1
             else:
-                if target < nums[mid] or target > nums[r]:
+                if target > nums[r] or target < nums[mid]:
                     r = mid - 1
                 else:
                     l = mid + 1
@@ -61,6 +60,8 @@ def search_in_rotated_array(nums, target):
 
 
 
+
+
 if __name__ == "__main__":
-    nums = [5,6,7,8,9,2,3,4]
-    print(search_in_rotated_array(nums, 9))
+    nums = [3,1]
+    print(search_in_rotated_array(nums, 1))

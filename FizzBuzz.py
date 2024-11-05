@@ -1,4 +1,30 @@
 class Solution:
+    def fizzBuzz_best(self, n):
+        result = []
+        for i in range(1, n + 1):
+            if i % 15 == 0:
+                result.append("FizzBuzz")
+            elif i % 3 == 0:
+                result.append("Fizz")
+            elif i % 5 == 0:
+                result.append("Buzz")
+            else:
+                result.append(str(i))
+        return result
+    
+    def fizzBuzz_secondToBest(self, n: int):
+        result = [str(i + 1) for i in range(n)]
+        for i in range(1, n + 1):
+            curr = ""
+            if i % 3 == 0:
+                curr += "Fizz"
+            if i % 5 == 0:
+                curr += "Buzz"
+            if curr:
+                result[i - 1] = curr
+        return result
+    
+    
     # O(n) time | O(n) space
     def fizzBuzz(self, n: int) -> list[str]:
         answer = []
@@ -36,36 +62,9 @@ class Solution:
             answer.append(temp)
         return answer
     
-        
-    def fizz_buzz_5(n):
-        result = [i for i in range(1, n + 1)]
-        for i in range(1, n + 1):
-            current = ["", ""]
-            if i % 3 == 0:
-                current[0] = "Fizz"
-            if i % 5 == 0:
-                current[1] = "Buzz"
-            if current[0] or current[1]:
-                result[i - 1] = "".join(current)
-        return result
-
-    def fizz_buzz_6(n):
-        result = [str(i + 1) for i in range(n)]
-        for i in range(1, n + 1):
-            curr = ""
-            if i % 3 == 0:
-                curr += "Fizz"
-            if i % 5 == 0:
-                curr += "Buzz"
-            if curr:
-                result[i - 1] = curr
-        return result
-
-    
-    
 def main():
     sol = Solution()
-    print(sol.fizzBuzz_4(5))
+    print("\n".join(sol.fizzBuzz_best(15)))
     
     
 if __name__ == "__main__":
