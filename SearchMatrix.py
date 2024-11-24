@@ -1,5 +1,4 @@
-'''
-74. Search a 2D Matrix
+'''74. Search a 2D Matrix - Description
 Medium
 
 You are given an m x n integer matrix matrix with the following two properties:
@@ -56,9 +55,83 @@ def search_matrix(matrix: List[List[int]], target: int) -> bool:
                     l = mid_col + 1
             return False
     return False
-    
-    
+
+"""Why does row = mid // cols and col = mid % cols work?
+
+This mapping works because we simulate the matrix as a flattened 1D array of size m * n 
+(where m is the number of rows and n is the number of columns). The relationship between 
+the 1D index and 2D row/column indices comes from basic arithmetic.
+
+Breakdown:
+- mid: The current 1D index in the simulated array.
+- cols: The number of columns in each row.
+
+Row Calculation: row = mid // cols
+- Integer division (//) gives the number of complete rows before the element at index mid.
+- Example (matrix with 4 columns, cols = 4):
+  - Index 0 to 3 belongs to row 0 because:
+    - 0 // 4 = 0, 1 // 4 = 0, 2 // 4 = 0, 3 // 4 = 0.
+  - Index 4 to 7 belongs to row 1 because:
+    - 4 // 4 = 1, 5 // 4 = 1, 6 // 4 = 1, 7 // 4 = 1.
+
+Column Calculation: col = mid % cols
+- The remainder of the division (%) gives the column position within the row.
+- Example (same 4-column matrix):
+  - Index 0 % 4 = 0, index 1 % 4 = 1, index 2 % 4 = 2, index 3 % 4 = 3.
+  - Index 4 % 4 = 0, index 5 % 4 = 1, index 6 % 4 = 2, index 7 % 4 = 3.
+
+Example Walkthrough:
+Consider the matrix:
+matrix = [
+    [1,  3,  5,  7],
+    [10, 11, 16, 20],
+    [23, 30, 34, 60]
+]
+Here, cols = 4 (4 columns per row).
+
+1. Suppose mid = 5:
+   - Row: 5 // 4 = 1 → 2nd row (0-indexed).
+   - Column: 5 % 4 = 1 → 2nd column (0-indexed).
+   - Element: matrix[1][1] = 11.
+
+2. Suppose mid = 10:
+   - Row: 10 // 4 = 2 → 3rd row (0-indexed).
+   - Column: 10 % 4 = 2 → 3rd column (0-indexed).
+   - Element: matrix[2][2] = 34.
+
+3. Suppose mid = 3:
+   - Row: 3 // 4 = 0 → 1st row (0-indexed).
+   - Column: 3 % 4 = 3 → 4th column (0-indexed).
+   - Element: matrix[0][3] = 7.
+
+Why This Works:
+This mapping relies on the fixed number of columns (cols) to correctly interpret the flattened 1D index. 
+The row is determined by the number of complete rows before the index, and the column is the remainder 
+within the current row.
+
+If the matrix were jagged, you'd need a different approach to handle variable row lengths.
+"""
+def search_matrix_flattened(matrix: List[List[int]], target: int) -> bool:
+    rows = len(matrix)
+    cols = len(matrix[0])
+    l = 0
+    r = rows * cols - 1
+    while l <= r:
+        mid = (l + r) // 2
+        row = mid // cols
+        col = mid % cols
+        if target == matrix[row][col]:
+            return True
+        elif target < matrix[row][col]:
+            r = mid - 1
+        else:
+            l = mid + 1
+    return False
+        
+
+
 if __name__ == "__main__":
     matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]] 
-    target = 8
+    target = 34
     print(search_matrix(matrix, target))
+    print(search_matrix_flattened(matrix, target))
