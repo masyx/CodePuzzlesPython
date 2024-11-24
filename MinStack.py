@@ -18,7 +18,7 @@ Constraints:
 - At most 3 * 10^4 calls will be made to `push`, `pop`, `top`, and `getMin`.
 """
 
-from typing import List
+from typing import List, Tuple
 
 class MinStack:
     def __init__(self):
@@ -40,17 +40,54 @@ class MinStack:
 
     def getMin(self) -> int:
         return self.min_vals[-1] if self.min_vals else None
+    
+class min_stack:
+    def __init__(self):
+        self.stack = []
+        self.min_stack = []
+        
 
+    def push(self, val: int) -> None:
+        self.stack.append(val)
+        if not self.min_stack or val < self.min_stack[-1][0]:
+            self.min_stack.append([val, 1])
+        elif self.min_stack[-1][0] == val:
+                self.min_stack[-1][1] += 1
+                
+    def pop(self) -> None:
+        item = self.stack.pop()
+        if item == self.min_stack[-1][0]:
+            self.min_stack[-1][1] -= 1
+            if self.min_stack[-1][1] == 0:
+                self.min_stack.pop()
+
+    def top(self) -> int:
+        return self.stack[-1]
+
+    def getMin(self) -> int:
+        return self.min_stack[-1][0]
+
+
+# Your MinStack object will be instantiated and called as such:
+# obj = MinStack()
+# obj.push(val)
+# obj.pop()
+# param_3 = obj.top()
+# param_4 = obj.getMin()
 
 
 if __name__ == "__main__":
-    minStack = MinStack()
+    minStack = min_stack()
     minStack.push(100)
     minStack.push(2000)
     minStack.push(4000)
     minStack.push(8000)
     minStack.push(10)
     minStack.push(80000)
+    minStack.push(10)
+    print(minStack.getMin())
+    print(minStack.top())
+    minStack.pop()
     print(minStack.getMin())
     print(minStack.top())
     minStack.pop()
