@@ -1,5 +1,4 @@
-'''
-33. Search in Rotated Sorted Array
+'''33. Search in Rotated Sorted Array
 
 Medium
 
@@ -40,7 +39,6 @@ nums is an ascending array that is possibly rotated.
 # l = 4, r = 7, m = 5
 def search_in_rotated_array(nums, target):
         l, r = 0, len(nums) - 1
-
         while l <= r:
             mid = (l + r) // 2
             if target == nums[mid]:
