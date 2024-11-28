@@ -37,25 +37,36 @@ nums is an ascending array that is possibly rotated.
 #  0 1 2 3 4 5 6 7
 # [5,6,7,8,9,2,3,4] target = 9
 # l = 4, r = 7, m = 5
-def search_in_rotated_array(nums, target):
-        l, r = 0, len(nums) - 1
-        while l <= r:
-            mid = (l + r) // 2
-            if target == nums[mid]:
-                return mid
-            # sorted portion
-            if nums[l] <= nums[mid]:
-                if nums[l] <= target < nums[mid]:
-                    r = mid - 1
-                else:
-                    l = mid + 1
-            else:
-                if target > nums[r] or target < nums[mid]:
-                    r = mid - 1
-                else:
-                    l = mid + 1
-        return -1
 
+#  0 1 
+# [6,5] target = 5
+# l = 1, r = 1, m = 0
+
+#  0 1 2 
+# [5,1,3] target = 3
+# l = 2, r = 2, m = 1
+
+# O(log n) time | O(1) space
+def search_in_rotated_array(nums, target):
+    l = 0
+    r = len(nums) - 1
+    while l <= r:
+        mid = (l + r) // 2
+        if target == nums[mid]:
+            return mid
+        # left subarray is sorted
+        if nums[l] <= nums[mid]:
+            if target >= nums[l] and target < nums[mid]:
+                r = mid - 1
+            else:
+                l = mid + 1
+        # right subarray is sorted
+        else:
+            if target > nums[mid] and target <= nums[r]:
+                l = mid + 1
+            else:
+                r = mid - 1
+    return -1
 
 
 
