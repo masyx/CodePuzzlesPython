@@ -33,12 +33,26 @@ def hummingWeight(n):
         mask <<= 1
     return count
 
+# O(k) where k is the number of set bits -> O(1) | O(1) space
 def humming_weight_kernighans(n):
     count = 0
     while n != 0:
-        n  = n & n - 1
+        n  &= n - 1 # every iteration removes the least significant bit
         count += 1
     return count
-    
+
+""" Example of Kernighans algorithm
+ This effectively reduces the number of 1s in n by 1 with each operation. The algorithm stops when 
+ n becomes 0, and the number of operations is equal to the number of 1s in n.
+ 1 -> 0001     # 5 -> 0101
+ 2 -> 0010     # 6 -> 0110
+ 3 -> 0011     # 7 -> 0111
+ 4 -> 0100
+ 
+ if we have n equals decimal 7(binary 0111)
+ 1st iteration 7 & 6 -> 0111 & 0110 = 0110
+ 2nd iteration 6 & 5 -> 0110 & 0101 = 0100
+ 3rd iteration 4 & 3 -> 0100 & 0011 = 0000"""
+
 if __name__ == "__main__":
     print(hummingWeight(10))

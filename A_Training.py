@@ -1,29 +1,32 @@
 from typing import List
 
-#  0 1 2 3 4 5 6 7
-# [5,6,7,8,9,1,2,3]
-# l = 0, r = 7, mid = 3
-def search_array(nums, target):
-    l = 0
-    r = len(nums) - 1
-    while l <= r:
-        mid = (l + r) // 2
-        if nums[mid] == target:
-            return mid
-        elif nums[mid] >= nums[l]:
-            if nums[l] <= target < nums[mid]:
-                r = mid - 1
-            else:
-                l = mid + 1
-        else:
-            if nums[mid] < target <= nums[r]:
-                l = mid + 1
-            else:
-                r = mid - 1
-    return -1
-    
+# O(32) -> O(1) time | O(1) space
+def hammingWeight(n):
+    count = 0
+    mask = 1 # ... 0001
+    for _ in range(32):
+        if (n & mask) != 0:
+            count += 1
+        mask <<= 1
+    return count
 
+# n & (n - 1)
+def hamming_weight(n: int):
+    count = 0
+    while n != 0:
+        n &= (n - 1)
+        count += 1
+    return count
+
+# 1 -> 0001     # 5 -> 0101
+# 2 -> 0010     # 6 -> 0110
+# 3 -> 0011     # 7 -> 0111
+# 4 -> 0100
+
+# if we have n equals decimal 7(binary 0111)
+# 1st iteration 7 & 6 -> 0111 & 0110 = 0110
+# 2nd iteration 6 & 5 -> 0110 & 0101 = 0100
+# 3rd iteration 4 & 3 -> 0100 & 0011 = 0000
 if __name__ == "__main__":
-    nums = [5,6,7,8,9,1,2,3]
-    target = 1
-    print(search_array(nums, target))
+    print(hammingWeight(7))
+    print(hamming_weight(7))
