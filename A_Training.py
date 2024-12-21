@@ -18,6 +18,13 @@ def hamming_weight(n: int):
         count += 1
     return count
 
+
+def singleNumber(nums: List[int]):
+    result = 0
+    for num in nums:
+        result ^= num
+    return result
+    
 # 1 -> 0001     # 5 -> 0101
 # 2 -> 0010     # 6 -> 0110
 # 3 -> 0011     # 7 -> 0111
@@ -28,5 +35,4 @@ def hamming_weight(n: int):
 # 2nd iteration 6 & 5 -> 0110 & 0101 = 0100
 # 3rd iteration 4 & 3 -> 0100 & 0011 = 0000
 if __name__ == "__main__":
-    print(hammingWeight(7))
-    print(hamming_weight(7))
+    print(singleNumber([2,2,99,5,5]))
