@@ -1,7 +1,7 @@
 from typing import List
 
 # O(32) -> O(1) time | O(1) space
-def hammingWeight(n):
+def hamming_weight_simple(n):
     count = 0
     mask = 1 # ... 0001
     for _ in range(32):
@@ -14,11 +14,9 @@ def hammingWeight(n):
 def hamming_weight(n: int):
     count = 0
     while n != 0:
-        n &= (n - 1)
+        n &= n - 1 # clears least significant bit
         count += 1
     return count
-
-
 def singleNumber(nums: List[int]):
     result = 0
     for num in nums:
@@ -35,4 +33,4 @@ def singleNumber(nums: List[int]):
 # 2nd iteration 6 & 5 -> 0110 & 0101 = 0100
 # 3rd iteration 4 & 3 -> 0100 & 0011 = 0000
 if __name__ == "__main__":
-    print(singleNumber([2,2,99,5,5]))
+    print(hamming_weight_simple(5))
