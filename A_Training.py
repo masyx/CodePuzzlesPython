@@ -17,12 +17,22 @@ def hamming_weight(n: int):
         n &= n - 1 # clears least significant bit
         count += 1
     return count
+
 def singleNumber(nums: List[int]):
     result = 0
     for num in nums:
         result ^= num
     return result
-    
+
+def countBits(n):
+    result = [0] * (n + 1)
+    for i in range(1, n + 1):
+        result[i] = hamming_weight(i)
+    return result
+
+
+
+
 # 1 -> 0001     # 5 -> 0101
 # 2 -> 0010     # 6 -> 0110
 # 3 -> 0011     # 7 -> 0111
