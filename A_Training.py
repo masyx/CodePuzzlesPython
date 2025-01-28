@@ -27,7 +27,10 @@ def singleNumber(nums: List[int]):
 def countBits(n):
     result = [0] * (n + 1)
     for i in range(1, n + 1):
-        result[i] = hamming_weight(i)
+        j = i
+        while j != 0:
+            j &= j - 1
+            result[i] += 1
     return result
 
 
@@ -43,4 +46,4 @@ def countBits(n):
 # 2nd iteration 6 & 5 -> 0110 & 0101 = 0100
 # 3rd iteration 4 & 3 -> 0100 & 0011 = 0000
 if __name__ == "__main__":
-    print(hamming_weight_simple(5))
+    print(countBits(5))

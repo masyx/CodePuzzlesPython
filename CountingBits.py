@@ -34,6 +34,9 @@ Constraints:
 from typing import List
 
 # O(n log n) time | O(n) space
+# - Outer loop: O(n) (runs n+1 times)
+# - Inner loop: O(log i) per i (runs once per set bit in i)
+# Total set bits from 0 to n is O(n log n). Example: n=8 → 13 set bits.
 def counting_bits_my(n: int) -> List[int]:
     result = [0] * (n + 1)
     for i in range(n + 1):
