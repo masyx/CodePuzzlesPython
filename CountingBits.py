@@ -46,13 +46,87 @@ def counting_bits_my(n: int) -> List[int]:
             result[i] += 1
     return result
 
+
+"""
+Example 2: n = 8
+We want counts for [0, 1, 2, 3, 4, 5, 6, 7, 8].
+
+Initialization:
+    ans = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+x = 1:
+    1 & 0 = 0
+    ans[1] = ans[0] + 1 = 0 + 1 = 1
+    ans = [0, 1, 0, 0, 0, 0, 0, 0, 0]
+
+x = 2:
+    2 & 1 = 0
+    ans[2] = ans[0] + 1 = 0 + 1 = 1
+    ans = [0, 1, 1, 0, 0, 0, 0, 0, 0]
+
+x = 3:
+    3 in binary: 11
+    3 & 2 = 2 (11 & 10 = 10)
+    ans[3] = ans[2] + 1 = 1 + 1 = 2
+    ans = [0, 1, 1, 2, 0, 0, 0, 0, 0]
+
+x = 4:
+    4 in binary: 100
+    4 & 3 = 0 (100 & 011 = 000)
+    ans[4] = ans[0] + 1 = 0 + 1 = 1
+    ans = [0, 1, 1, 2, 1, 0, 0, 0, 0]
+
+x = 5:
+    5 in binary: 101
+    5 & 4 = 4 (101 & 100 = 100)
+    ans[5] = ans[4] + 1 = 1 + 1 = 2
+    ans = [0, 1, 1, 2, 1, 2, 0, 0, 0]
+
+x = 6:
+    6 in binary: 110
+    6 & 5 = 4 (110 & 101 = 100)
+    ans[6] = ans[4] + 1 = 1 + 1 = 2
+    ans = [0, 1, 1, 2, 1, 2, 2, 0, 0]
+
+x = 7:
+    7 in binary: 111
+    7 & 6 = 6 (111 & 110 = 110)
+    ans[7] = ans[6] + 1 = 2 + 1 = 3
+    ans = [0, 1, 1, 2, 1, 2, 2, 3, 0]
+
+x = 8:
+    8 in binary: 1000
+    8 & 7 = 6 (1000 & 0111 = 0000)
+    ans[8] = ans[0] + 1 = 0 + 1 = 1
+    ans = [0, 1, 1, 2, 1, 2, 2, 3, 1]
+
+Result:
+    ans = [0, 1, 1, 2, 1, 2, 2, 3, 1]
+
+Interpretation (binary → count of 1s):
+    0:  0   → 0
+    1:  1   → 1
+    2:  10  → 1
+    3:  11  → 2
+    4:  100 → 1
+    5:  101 → 2
+    6:  110 → 2
+    7:  111 → 3
+    8: 1000 → 1
+
+Why It Works:
+    - x & (x - 1) removes the rightmost 1-bit from x.
+    - Therefore, ans[x & (x - 1)] is the count of set bits before removing that rightmost bit.
+    - Adding 1 compensates for the bit we just removed.
+"""
+
 # O(n) time | O(n) space
 def counting_bits(n: int) -> List[int]:
-    ans = [0] * (n + 1)
-    for x in range(1, n + 1):
-        ans[x] = ans[x & (x - 1)] + 1
-    return ans 
-
+    result = [0] * (n + 1)
+    for i in range(1, n + 1):
+        result[i] = result[i & (i - 1)] + 1
+    return result
+    
 # 1 -> 0001     # 5 -> 0101
 # 2 -> 0010     # 6 -> 0110
 # 3 -> 0011     # 7 -> 0111
@@ -65,4 +139,4 @@ def counting_bits(n: int) -> List[int]:
 
 
 if __name__ == "__main__":
-    print(counting_bits(5))
+    print(counting_bits(16))
