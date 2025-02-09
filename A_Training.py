@@ -46,4 +46,4 @@ def countBits(n):
 # 2nd iteration 6 & 5 -> 0110 & 0101 = 0100
 # 3rd iteration 4 & 3 -> 0100 & 0011 = 0000
 if __name__ == "__main__":
-    print(countBits(5))
+    print(hamming_weight_simple(5))
