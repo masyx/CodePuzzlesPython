@@ -103,6 +103,16 @@ def reverse_bits_2(n: int) -> int:
     n = (n >> 16) | (n << 16) # Swap 16-bit halves
     return n & 0xFFFFFFFF
 
+# I just don't have time to understand that thoroughly 
+def reverse_bits_3(self, n: int) -> int:
+    res = n
+    res = (res >> 16) | (res << 16) & 0xFFFFFFFF
+    res = ((res & 0xff00ff00) >> 8) | ((res & 0x00ff00ff) << 8)
+    res = ((res & 0xf0f0f0f0) >> 4) | ((res & 0x0f0f0f0f) << 4)
+    res = ((res & 0xcccccccc) >> 2) | ((res & 0x33333333) << 2)
+    res = ((res & 0xaaaaaaaa) >> 1) | ((res & 0x55555555) << 1)
+    return res & 0xFFFFFFFF
+
 
 def main():
     n = 5
