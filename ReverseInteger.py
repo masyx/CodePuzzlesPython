@@ -1,3 +1,30 @@
+"""7. Reverse Integer
+Medium
+Given a signed 32-bit integer x, return x with its digits reversed. If reversing x causes the value to go outside the signed 32-bit integer 
+range [-231, 231 - 1], then return 0.
+
+Assume the environment does not allow you to store 64-bit integers (signed or unsigned).
+
+ 
+
+Example 1:
+Input: x = 123
+Output: 321
+
+Example 2:
+Input: x = -123
+Output: -321
+
+Example 3:
+Input: x = 120
+Output: 21
+ 
+
+Constraints:
+-231 <= x <= 231 - 1
+"""
+
+import math
 
 # Time Complexity:
     #   O(log_10(|x|)) because we process each digit of the number once.
@@ -6,33 +33,45 @@
     #
     # Space Complexity:
     #   O(1) since we only use a fixed number of variables regardless of the size of x.
-def reverse_int(x):
-    # Define the 32-bit singed int boundaries
-    INT_MAX = 2**31 - 1 # 2147483647
-    INT_MIN = 2**31     # 2147483648
+def reverse_int(x: int) -> int:
+    MIN = -2147483648  # -2^31,
+    MAX = 2147483647  #  2^31 - 1
+
+    res = 0
+    while x:
+        pop = int(math.fmod(x, 10))
+        x = int(x / 10)
+
+        if res > MAX // 10 or (res == MAX // 10 and pop > MAX % 10):
+            return 0
+        if res < MIN // 10 or (res == MIN // 10 and pop < MIN % 10):
+            return 0
+        res = (res * 10) + pop
+
+    return res
+
+def reverse_int_my(x: int) -> int:
+    MAX_INT = 2**31 - 1
     
-    result = 0
-    # Record the sing and work with the absolute value
-    sign = 1 if x >= 0 else -1
+    sing = 1 if x >= 0 else -1
+    res = 0
     x = abs(x)
     
     while x != 0:
-        # Pop the last digit from x
         pop = x % 10
-        x //= 10
+        x = x // 10
+        x, pop = divmod(x, 10)
         
-        if result > (INT_MAX - pop) // 10:
+        if res > (MAX_INT - pop) // 10:
             return 0
         
-        result = result * 10 + pop
-        # 10 = result*8 + result*2
-        #result = (result << 3) + (result << 1) + pop
+        res = res * 10 + pop
     
-    return sign * result
+    return sing * res
 
 
 def main():
-    print(reverse_int(-2147483642))
+    print(reverse_int_my(-1563847412))
     
 
 if __name__ == "__main__":
