@@ -27,10 +27,9 @@ Constraints:
 def hummingWeight(n):
     count = 0
     mask = 1
-    for _ in range(32):
-        if (n & mask) != 0:
+    for i in range(32):
+        if (n & (1 << i)) != 0:
             count += 1
-        mask <<= 1
     return count
 
 # O(k) where k is the number of set bits -> O(1) | O(1) space
@@ -39,6 +38,13 @@ def humming_weight_kernighans(n):
     while n != 0:
         n  &= n - 1 # every iteration removes the least significant bit
         count += 1
+    return count
+
+def set_bits(n):
+    count = 0
+    for i in range(32):
+        if ((n >> i) & 1) != 0:
+            count += 1
     return count
 
 """ Example of Kernighans algorithm
@@ -55,4 +61,8 @@ def humming_weight_kernighans(n):
  3rd iteration 4 & 3 -> 0100 & 0011 = 0000"""
 
 if __name__ == "__main__":
-    print(hummingWeight(10))
+    n = 2147483648
+    print(bin(n))
+    print(humming_weight_kernighans(n))
+    print(hummingWeight(n))
+    print(set_bits(n))
