@@ -95,16 +95,8 @@ The 8-bit reversed value is 01100000, which equals 96 in decimal.
 """
 
 
-def reverse_bits_2(n: int) -> int:
-    n = ((n >> 1) & 0x55555555) | ((n & 0x55555555) << 1) # Swap adjacent bits
-    n = ((n >> 2) & 0x33333333) | ((n & 0x33333333) << 2) # Swap pairs of bits
-    n = ((n >> 4) & 0x0F0F0F0F) | ((n & 0x0F0F0F0F) << 4) # Swap nibbles (4-bit groups)
-    n = ((n >> 8) & 0x00FF00FF) | ((n & 0x00FF00FF) << 8) # Swap bytes (8-bit groups)
-    n = (n >> 16) | (n << 16) # Swap 16-bit halves
-    return n & 0xFFFFFFFF
-
 # I just don't have time to understand that thoroughly 
-def reverse_bits_3(self, n: int) -> int:
+def reverseBits(n: int) -> int:
     res = n
     res = (res >> 16) | (res << 16) & 0xFFFFFFFF
     res = ((res & 0xff00ff00) >> 8) | ((res & 0x00ff00ff) << 8)
@@ -115,9 +107,9 @@ def reverse_bits_3(self, n: int) -> int:
 
 
 def main():
-    n = 5
+    n = 2147483648
     print(bin(n & 0xFFFFFFFF)[2:].zfill(32))
-    print(bin(reverse_bits_2(n) & 0xFFFFFFFF)[2:].zfill(32))
+    print(bin(reverseBits(n) & 0xFFFFFFFF)[2:].zfill(32))
     
     
 if __name__ == "__main__":
