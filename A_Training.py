@@ -1,44 +1,49 @@
 from typing import List
 
-def two_sum(a, b):
-    while b != 0:
-        sum = a ^ b
-        carry = (a & b) << 1
-        a = sum
-        b = carry
-    return a
-
-def two_sum_legit(a, b):
-    mask = 0xFFFFFFFF #2147483647
-    while b != 0:
-        sum_wo_carry = (a ^ b) & mask
-        carry = ((a & b) & mask) << 1
-        a = sum_wo_carry
-        b = carry
-    return a if a <= 0x7FFFFFFF else ~(a ^ mask)
-
-def counting_bits_bf(n):
-    res = [0] * (n + 1)
-    for i in range(1, len(res)):
-        j = i
-        count = 0
-        while j != 0:
-            j = j & (j - 1)
-            count += 1
-        res[i] = count
-    return res
+#  0  1  2  3   4   5
+# [0, 4, 8, 10, 22, 29], target 29
+# l = 5, r = 5, mid = 4
+def binary_search(nums, target):
+    l = 0
+    r = len(nums) - 1
     
-def counting_bits_dp(n):
-    res = [0] * (n + 1)
-    for i in range(1, len(res)):
-        res[i] = res[i & (i - 1)] + 1
-    return res
+    while l <= r:
+       mid = (l + r) // 2
+       if nums[mid] == target:
+           return mid
+       elif nums[mid] > target:
+           r = mid - 1
+       else:
+           l = mid + 1
+    return None
 
+def search_rotated(nums: List[int], target: int) -> int:
+    l = 0
+    r = len(nums) - 1
+    while l <= r:
+        mid = (l + r) // 2
+        if nums[mid] == target:
+            return mid
+        
+        # left subarray is sorted
+        if nums[mid] >= nums[l]:
+            if nums[l] <= target < nums[mid]:
+                r = mid - 1
+            else:
+                l = mid + 1
+        # right subarray is sorted    
+        else:
+            if nums[mid] < target <= nums[r]:
+                l = mid + 1
+            else:
+                r = mid - 1
+    return None
+            
+                 
+                          
 def main():
-    num = 10
-    print(counting_bits_dp(num))
-    print(two_sum(2147483646, 1))
-    print(two_sum_legit(214748368, -214748368))
+    nums = [3,1]
+    print(search_rotated(nums, 1))
 
 if __name__ == "__main__":
     main()
