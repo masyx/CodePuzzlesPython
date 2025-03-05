@@ -26,6 +26,8 @@ Constraints:
 
 import math
 
+# This solution should be DISCARDED, because it makes check unnecessary for when the input 'x' is int
+# Leaving it here just for the record
 # Time Complexity:
     #   O(log_10(|x|)) because we process each digit of the number once.
     #   For a 32-bit integer, the maximum number of digits is constant (at most 10),
@@ -42,9 +44,12 @@ def reverse_int(x: int) -> int:
         pop = int(math.fmod(x, 10))
         x = int(x / 10)
 
-        if res > MAX // 10 or (res == MAX // 10 and pop > MAX % 10):
+        # the description says that x is int, so actually the input more than int is impossible
+        if res > MAX // 10 or (res == MAX // 10 and pop > 7):
             return 0
-        if res < MIN // 10 or (res == MIN // 10 and pop < MIN % 10):
+        if res < int(MIN / 10) or (res == int(MIN / 10) and pop < int(math.fmod(MIN, 10))): # if x is -9463847412, returns 0
+        # Neetcode version, doesn't work with numbers less than -2147483648, if x is -9463847412 returns -2147483649
+        #if res < MIN // 10 or (res == MIN // 10 and pop < MIN % 10): 
             return 0
         res = (res * 10) + pop
 
@@ -52,26 +57,54 @@ def reverse_int(x: int) -> int:
 
 def reverse_int_my(x: int) -> int:
     MAX_INT = 2**31 - 1
+    MIN_INT = 2**31 # leaving it positive, because operating with x = abs(x) 
     
-    sing = 1 if x >= 0 else -1
+    sign = 1 if x >= 0 else -1
     res = 0
     x = abs(x)
     
     while x != 0:
-        pop = x % 10
-        x = x // 10
         x, pop = divmod(x, 10)
         
-        if res > (MAX_INT - pop) // 10:
+        if sign == 1 and res > (MAX_INT - pop) // 10:
+            return 0
+        elif sign == -1 and res > (MIN_INT - pop) // 10:
+            return 0
+            
+        res = res * 10 + pop
+    return sign * res
+
+
+def reverse_rec(x: int) -> int:
+    def rec(n: int, rev: int) -> int:
+        if n == 0:
+            return rev
+        
+        if sign == -1 and rev < (1 << 31) // 10:
+            return 0
+        elif sign == 1 and rev > ((1 << 31) - 1) // 10:
             return 0
         
-        res = res * 10 + pop
+        rev = rev * 10 + n % 10
+        return rec(n // 10, rev)
     
-    return sing * res
-
+    sign = -1 if x < 0 else 1
+    x = abs(x)        
+    reversed_num = rec(x, 0)
+    # reversed_num *= sign        
+    # if reversed_num < -(1 << 31) or reversed_num > (1 << 31) - 1:
+    #     return 0
+        
+    return reversed_num * sign
 
 def main():
-    print(reverse_int_my(-1563847412))
+    # Solution reverse_int_my works with this number -8463847412, even though description explicitly says
+    # that x is int
+    
+    #print(reverse_int_my(-8463847412))
+    
+    #print(reverse_rec(2143847412))
+    print(reverse_rec(2147847412))
     
 
 if __name__ == "__main__":
