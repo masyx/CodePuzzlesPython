@@ -18,17 +18,18 @@ def isAnagram(s, t):
             del seen[char]
     return not seen
 
-def isAnagramArray(s, t):
+# O(n + m) time | O(1) space
+def valid_anagram(s, t) -> bool:
     if len(s) != len(t):
         return False
-    chars_counter = [0] *26
-    for i, char_s in enumerate(s):
-        char_t = t[i]
-        chars_counter[ord(char_s) - ord('a')] += 1
-        chars_counter[ord(char_t) - ord('a')] -= 1
-        
-    for char_counter in chars_counter:
-        if char_counter != 0:
+    
+    counter = [0] * 26
+    for i in range(len(s)):
+        counter[ord(s[i]) - ord('a')] += 1
+        counter[ord(t[i]) - ord('a')] -= 1
+    
+    for count in counter:
+        if count != 0:
             return False
     return True
 
@@ -41,5 +42,5 @@ if __name__ == "__main__":
     s = "car"
     t = "acr"
     print(isAnagram(s, t))
-    print(isAnagramArray(s, t))
+    print(valid_anagram(s, t))
     print()

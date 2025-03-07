@@ -2,31 +2,23 @@ from collections import defaultdict
 from typing import List
 
 
-# O(n * m *log(m)) time | O(n) space
-def groupAnagrams_bf(strs: List[str]) -> List[List[str]]:
-    groups = {}
-    for word in strs:
-        key = str(sorted(word))
-        groups.setdefault(key, []).append(word)
-    return list(groups.values())
-
-# O(n * m) time | O(n) space
-def groupAnagrams(strs: List[str]) -> List[List[str]]:
-    #groups = defaultdict(list)
-    groups = {} 
-    for word in strs:
-        count = [0] * 26
-        for char in word:
-            count[ord(char) - ord('a')] += 1
-        #groups[tuple(count)].append(word)
-        groups.setdefault(tuple(count), []).append(word)
-    return list(groups.values())
+def valid_anagram(s, t) -> bool:
+    if len(s) != len(t):
+        return False
+    
+    counter = [0] * 26
+    for i in range(len(s)):
+        counter[ord(s[i]) - ord('a')] += 1
+        counter[ord(t[i]) - ord('a')] -= 1
+    
+    for count in counter:
+        if count != 0:
+            return False
+    return True
 
 
 def main():
-    strs = ["eat","tea","tan","ate","nat","bat"]
-    print(groupAnagrams(strs))
-    
+    print(valid_anagram("rat", "car"))    
     
 if __name__ == "__main__":
     main()
