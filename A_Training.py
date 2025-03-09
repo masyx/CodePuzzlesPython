@@ -13,8 +13,7 @@ class Codec:
             return ""
         res = ""
         for word in strs:
-            res += f"{len(word):03}"
-            res += word
+            res += f"{len(word):03}{word}"
         return res
         
     #  012345678901234567890

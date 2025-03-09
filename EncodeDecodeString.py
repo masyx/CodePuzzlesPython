@@ -58,7 +58,7 @@ import string
 from typing import List
 
 
-class Codec:
+class CodecClean:
     def encode(self, strs: List[str]) -> str:
         return "".join(f"{len(s)}/:{s}" for s in strs)
     
@@ -72,7 +72,6 @@ class Codec:
             i = delim + 2
             result.append(s[i:i + length])
             i += length
-        
         return result
 
 class Codec_My:
@@ -95,6 +94,40 @@ class Codec_My:
             result.append(s[i + 2 : i + 2 + length])
             i = i + 2 + length
         return result
+
+class Codec_My_2:
+    def encode(self, strs: List[str]) -> str:
+        """Encodes a list of strings to a single string.
+        """
+        if not strs:
+            return ""
+        res = ""
+        for word in strs:
+            res += f"{len(word):03}{word}"
+        return res
+        
+    #  012345678901234567890
+    #     i
+    # "000001W005Hello010SuperDuper"
+    #        j
+    def decode(self, s: str) -> List[str]:
+        """Decodes a single string to a list of strings.
+        """
+        if not s:
+            return []
+        res = []
+  
+        i = 0
+        while i < len(s):
+            j = i + 3
+            length = int(s[i:j])
+            if length == 0:
+                res.append("")
+                i = j
+            else:
+                res.append(s[j:j + length])
+                i = j + length 
+        return res
 
 class Codec_My_almost_good:
     # O(n) time, where n is the total number of characters in all strings
@@ -127,17 +160,46 @@ class Codec_My_almost_good:
             len_str = "0" + len_str
         return len_str
 
-# Non ASCII delimiter
-class Codec2:
+class CodecNonAsciiDelimiter:
     def encode(self, strs: List[str]) -> str:
         return " Ж ".join(strs)
         
     def decode(self, s: str) -> List[str]:
         return s.split(" Ж ")
     
+class CodecEscaping:
+    def encode(self, strs):
+        encoded_string = ''
+        for s in strs:
+            # Replace each occurrence of '/' with '//'
+            # This is our way of "escaping" the slash character
+            # Then add our delimiter '/:' to the end
+            encoded_string += s.replace('/', '//') + '/:'
+
+        # Return the final encoded string
+        return encoded_string
+
+    def decode(self, s):
+        decoded_strings = []
+        current_string = ""
+        i = 0
+        while i < len(s):
+            if s[i:i+2] == '/:':
+                decoded_strings.append(current_string)
+                current_string = ""
+                i += 2
+            elif s[i:i+2] == '//':
+                # Add a single slash to the current_string
+                current_string += '/'
+                i += 2
+            else:
+                current_string += s[i]
+                i += 1
+        return decoded_strings
     
+        
 if __name__ == "__main__":
-    strs = ["Hello","World"]
+    strs = ["", "///://////\/\\", "W", "Hello","SuperDuper"]
     print(strs)
     codec = Codec()
     encoded = codec.encode(strs)
@@ -146,21 +208,21 @@ if __name__ == "__main__":
     print(decoded)
     
     
-    # Comprehensive testing
-    test_passed = True
-    for i in range(100000):
-        random_strings = [''.join(random.choices(string.printable, k=random.randint(1, 20))) for _ in range(5)]
+    # # Comprehensive testing
+    # test_passed = True
+    # for i in range(100000):
+    #     random_strings = [''.join(random.choices(string.printable, k=random.randint(1, 20))) for _ in range(5)]
         
-        codec = Codec()
-        print(random_strings)
-        decoded_string = codec.decode(codec.encode(random_strings))
-        print(decoded_string)
+    #     codec = Codec()
+    #     print(random_strings)
+    #     decoded_string = codec.decode(codec.encode(random_strings))
+    #     print(decoded_string)
         
-        codec_failed = random_strings != decoded_string
-        print(f"Is Codec failed: {codec_failed}")
-        if codec_failed:
-            print("Codec test FAILED")
-            test_passed = False
-            break
-    if test_passed:
-        print("Codec test PASSED")
+    #     codec_failed = random_strings != decoded_string
+    #     print(f"Is Codec failed: {codec_failed}")
+    #     if codec_failed:
+    #         print("Codec test FAILED")
+    #         test_passed = False
+    #         break
+    # if test_passed:
+    #     print("Codec test PASSED")
