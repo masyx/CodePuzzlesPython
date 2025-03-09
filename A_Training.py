@@ -1,55 +1,36 @@
-from collections import defaultdict
 from typing import List
 
+'''Time/Space complexity
+Time Complexity Analysis:
+Constructing the frequency dictionary: O(n)
+Sorting the unique keys: O(u log u)
+Slicing the first k elements: O(k) (negligible in big-O notation)
+Overall: O(n + u log u)
+Since u (unique elements) is at most n (worst case: all elements unique),
+this simplifies to O(n log n) in the worst case.
 
-class Codec:
-    # ["", "W" "Hello","SuperDuper"]
-    
-
-    def encode(self, strs: List[str]) -> str:
-        """Encodes a list of strings to a single string.
-        """
-        if not strs:
-            return ""
-        res = ""
-        for word in strs:
-            res += f"{len(word):03}{word}"
-        return res
+Space Complexity Analysis:
+Dictionary `counts`: O(u)
+Sorted list `sorted_keys`: O(u)
+Output list: O(k)
+Overall: O(u + k)
+Since u ≤ n, this simplifies to O(n + k) in the worst case.
+'''
+def top_k_frequent(nums: List[int], k):
+    counts = {}
+    for num in nums:
+        counts[num] = counts.get(num, 0) + 1
         
-    #  012345678901234567890
-    #     i
-    # "000001W005Hello010SuperDuper"
-    #        j
-    def decode(self, s: str) -> List[str]:
-        """Decodes a single string to a list of strings.
-        """
-        if not s:
-            return []
-        res = []
-  
-        i = 0
-        while i < len(s):
-            j = i + 3
-            length = int(s[i:j])
-            if length == 0:
-                res.append("")
-                i = j
-            else:
-                res.append(s[j:j + length])
-                i = j + length 
-        return res
+    # def get_value(key):
+    #     return counts[key]
+    # sorted_keys = sorted(counts, key=get_value, reverse=True)
+    sorted_keys = sorted(counts, key=lambda k: counts[k], reverse=True)
+    return sorted_keys[0:k]
 
-
-# Your Codec object will be instantiated and called as such:
-# codec = Codec()
-# codec.decode(codec.encode(strs))
 
 def main():
-    codec = Codec()
-    arr = ["", "W", "Hello","SuperDuper"]
-    s = codec.encode(arr)
-    print(s)
-    print(codec.decode(s))    
+    arr = [2,2,5,5,5,3,3,3,3,1,1,1,1,1,1,1,1,1,1]
+    print(top_k_frequent(arr, 3))
     
 if __name__ == "__main__":
     main()
