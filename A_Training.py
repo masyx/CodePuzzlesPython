@@ -1,58 +1,54 @@
+from collections import defaultdict
 from typing import List
 
-'''Time/Space complexity
-Time Complexity Analysis:
-Constructing the frequency dictionary: O(n)
-Sorting the unique keys: O(u log u)
-Slicing the first k elements: O(k) (negligible in big-O notation)
-Overall: O(n + u log u)
-Since u (unique elements) is at most n (worst case: all elements unique),
-this simplifies to O(n log n) in the worst case.
+#   j   0   1   2   3   4   5   6   7   8 
+#   i
+#[  0 ["5","3",".",".","7",".",".",".","."],
+#   1 ["6",".",".","1","9","5",".",".","."],
+#   2 [".","9","8",".",".",".",".","6","."],
+#   3 ["8",".",".",".","6",".",".",".","3"],
+#   4 ["4",".",".","8",".","3",".",".","1"],
+#   5 ["7",".",".",".","2",".",".",".","6"],
+#   6 [".","6",".",".",".",".","2","8","."],
+#   7 [".",".",".","4","1","9",".",".","5"],
+#   8 [".",".",".",".","8",".",".","7","9"]]
+# i = 0, j = 0, box = 0, curr_val = 0
 
-Space Complexity Analysis:
-Dictionary `counts`: O(u)
-Sorted list `sorted_keys`: O(u)
-Output list: O(k)
-Overall: O(u + k)
-Since u ≤ n, this simplifies to O(n + k) in the worst case.
-'''
-def top_k_frequent(nums: List[int], k):
-    counts = {}
-    for num in nums:
-        counts[num] = counts.get(num, 0) + 1
-        
-    # def get_value(key):
-    #     return counts[key]
-    # sorted_keys = sorted(counts, key=get_value, reverse=True)
-    sorted_keys = sorted(counts, key=lambda k: counts[k], reverse=True)
-    return sorted_keys[0:k]
-
-
-def top_k_bucket_sort(nums, k):
-    #   0    1     2
-    # [[], [2,5], [7]]
-    # nums = [7,7,2,5]
-    bucket_array = [[] for _ in range(len(nums) + 1)]
+def valid_sudoku(sudoku: List[List[int]]) -> bool:
+    rows = defaultdict(set)
+    columns = defaultdict(set)
+    box = defaultdict(set)
     
-    counts = {}
-    for num in nums:
-        counts[num] = counts.get(num, 0) + 1
-        
-    for num, count in counts.items():
-        bucket_array[count].append(num)
-        
-    res = []
-    for i in range(len(bucket_array) - 1, 0, -1):
-        for num in bucket_array[i]:
-            res.append(num)
-            if len(res) == k:
-                return res
+    for i in range(len(sudoku)):
+        for j in range(len(sudoku[i])):
+            curr_val = sudoku[i][j]
+            if curr_val == ".":
+                continue
+            
+            box_number = (i // 3) * 3 + j // 3
+            
+            if (curr_val in rows[i] or 
+                curr_val in columns[j] or 
+                curr_val in box[box_number]):
+                return False
+            
+            rows[i].add(curr_val)
+            columns[j].add(curr_val)
+            box[box_number].add(curr_val)
+    return True
 
 def main():
-    arr = [2,2,5,5,5,5,3,3,3,3,1,1,1,1,1,1,1,1,1,1]
-    arr = [7,7]
-    print(top_k_frequent(arr, 3))
-    print(top_k_bucket_sort(arr, 3))
+    # s[0][1] != s[1][1]
+    sudoku = [["5","3",".",".","7",".",".",".","."],
+              ["6",".",".","1","9","5",".",".","."],
+              [".","9","8",".",".",".",".","6","."],
+              ["8",".",".",".","6",".",".",".","3"],
+              ["4",".",".","8",".","3",".",".","1"],
+              ["7",".",".",".","2",".",".",".","6"],
+              [".","6",".",".",".",".","2","8","."],
+              [".",".",".","4","1","9",".",".","5"],
+              [".",".",".",".","8",".",".","7","9"]]
+    print(f"Is sudoku valid? - {'Yes' if valid_sudoku(sudoku) else 'No'}")
     
 if __name__ == "__main__":
     main()
