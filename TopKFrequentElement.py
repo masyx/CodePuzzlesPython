@@ -24,7 +24,7 @@ Follow up: Your algorithm's time complexity must be better than O(n log n), wher
 
 from typing import List
 
-
+# O(n) time | O(n) space
 def topKFrequent(nums: List[int], k: int) -> List[int]:
     count = {}
     freq = [[] for i in range(len(nums) + 1)]

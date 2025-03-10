@@ -28,9 +28,31 @@ def top_k_frequent(nums: List[int], k):
     return sorted_keys[0:k]
 
 
+def top_k_bucket_sort(nums, k):
+    #   0    1     2
+    # [[], [2,5], [7]]
+    # nums = [7,7,2,5]
+    bucket_array = [[] for _ in range(len(nums) + 1)]
+    
+    counts = {}
+    for num in nums:
+        counts[num] = counts.get(num, 0) + 1
+        
+    for num, count in counts.items():
+        bucket_array[count].append(num)
+        
+    res = []
+    for i in range(len(bucket_array) - 1, 0, -1):
+        for num in bucket_array[i]:
+            res.append(num)
+            if len(res) == k:
+                return res
+
 def main():
-    arr = [2,2,5,5,5,3,3,3,3,1,1,1,1,1,1,1,1,1,1]
+    arr = [2,2,5,5,5,5,3,3,3,3,1,1,1,1,1,1,1,1,1,1]
+    arr = [7,7]
     print(top_k_frequent(arr, 3))
+    print(top_k_bucket_sort(arr, 3))
     
 if __name__ == "__main__":
     main()
