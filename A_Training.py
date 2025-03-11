@@ -14,7 +14,7 @@ from typing import List
 #   8 [".",".",".",".","8",".",".","7","9"]]
 # i = 0, j = 0, box = 0, curr_val = 0
 
-def valid_sudoku(sudoku: List[List[int]]) -> bool:
+def valid_sudokuSergey(sudoku: List[List[int]]) -> bool:
     rows = defaultdict(set)
     columns = defaultdict(set)
     box = defaultdict(set)
@@ -37,17 +37,41 @@ def valid_sudoku(sudoku: List[List[int]]) -> bool:
             box[box_number].add(curr_val)
     return True
 
+def valid_sudoku(board: List[List[str]]) -> bool:
+    rows = defaultdict(set)
+    columns = defaultdict(set)
+    boxes = defaultdict(set)
+
+    for row in range(len(board)):
+        for column in range(len(board[row])):
+            curr_val = board[row][column]
+            
+            if curr_val == ".":
+                continue
+            box = (row // 3, column // 3)
+            
+            if (curr_val in rows[row] or
+                curr_val in columns[column] or
+                curr_val in boxes[box]):
+                return False
+            
+            rows[row].add(curr_val)
+            columns[column].add(curr_val)
+            boxes[box].add(curr_val)
+    return True
+
 def main():
-    # s[0][1] != s[1][1]
+    # invalid box(1,2), number 1 at row 1 and column 9
     sudoku = [["5","3",".",".","7",".",".",".","."],
               ["6",".",".","1","9","5",".",".","."],
               [".","9","8",".",".",".",".","6","."],
-              ["8",".",".",".","6",".",".",".","3"],
+              ["8",".",".",".","6",".","1",".","3"],
               ["4",".",".","8",".","3",".",".","1"],
               ["7",".",".",".","2",".",".",".","6"],
               [".","6",".",".",".",".","2","8","."],
               [".",".",".","4","1","9",".",".","5"],
               [".",".",".",".","8",".",".","7","9"]]
+    
     print(f"Is sudoku valid? - {'Yes' if valid_sudoku(sudoku) else 'No'}")
     
 if __name__ == "__main__":
