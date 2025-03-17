@@ -2,7 +2,7 @@ from typing import List
 
 # [100,4,200,1,3,2] Output:4
 def longest_consec_seq_bf(nums):
-    longest_streak = 1
+    longest_streak = 0
     
     for i in range(len(nums)):
         current_streak = 1
@@ -62,27 +62,26 @@ for a hash table to store the O(n) numbers in nums. Other than that,
 the space complexity is identical to that of the brute force solution.
 '''
 def longest_consec_seq(nums: List):
+    nums_set = set(nums)
     longest_streak = 0
-    num_set = set(nums)
-
-    for num in num_set:
-        if num - 1 not in num_set:
-            current_num = num
+    
+    for num in nums_set:
+        if num - 1 not in nums_set:
             current_streak = 1
-
-            while current_num + 1 in num_set:
-                current_num += 1
+            while num + 1 in nums_set:
                 current_streak += 1
-
+                num += 1
             longest_streak = max(longest_streak, current_streak)
-
+            
     return longest_streak
 
 def main():
-    nums = [12,14,10,13,11,4,200,1,3,2]
+    nums = []
+    #nums = [12,14,10,13,11,4,200,1,3,2]
     nums_2 = [1,0,1,1,1,1,2]
     print(longest_consec_seq_bf(nums))
     print(longest_consec_seq_sort(nums))
+    print(longest_consec_seq(nums))
 
 if __name__ == "__main__":
     main()
