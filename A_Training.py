@@ -24,32 +24,37 @@ def three_sum(nums):
                 l += 1
     return [list(i) for i in result]
 
+#   0  1  2  3 4 5  6  7  8
+# [-1, 0, 1, 1,2,2,-1,-1,-4]
+# [-4,-1,-1,-1,0,1, 1, 2, 2]
+# i = 4, l = 5, r = 8
+# res=[[-4,2,2],[-1,-1,2],[-1,0,1]]
 def three_sum_neetcode(nums: List[int]) -> List[List[int]]:
-    res = []
     nums.sort()
-
+    result = []
+    
     for i, num in enumerate(nums):
         if num > 0:
             break
-
         if i > 0 and num == nums[i - 1]:
             continue
-
-        l, r = i + 1, len(nums) - 1
+        
+        l = i + 1
+        r = len(nums) - 1
         while l < r:
-            threeSum = num + nums[l] + nums[r]
-            if threeSum > 0:
-                r -= 1
-            elif threeSum < 0:
-                l += 1
-            else:
-                res.append([num, nums[l], nums[r]])
+            curr_sum = num + nums[l] + nums[r]
+            if curr_sum == 0:
+                result.append([num, nums[l], nums[r]])
                 l += 1
                 r -= 1
-                while nums[l] == nums[l - 1] and l < r:
+                while l < r and nums[l] == nums[l - 1]:
                     l += 1
-                    
-    return res
+            elif curr_sum > 0:
+                r -= 1
+            else:
+                l += 1
+    return result
+  
             
     
 
