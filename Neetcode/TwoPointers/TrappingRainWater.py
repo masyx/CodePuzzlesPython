@@ -32,25 +32,51 @@ class Solution:
     def trap(self, height: List[int]) -> int:
         if not height:
             return 0
-        n = len(height)
+        
         res = 0
-
-        for i in range(n):
-            leftMax = rightMax = height[i]
+        
+        for i in range(1, len(height)):
+            left_max = right_max = height[i]
             
-            # Find the tallest bar on the left
             for j in range(i):
-                leftMax = max(leftMax, height[j])
-            # Find the tallest bar on the right
-            for j in range(i + 1, n):
-                rightMax = max(rightMax, height[j])
-            # Calculate trapped water at index i
-            res += min(leftMax, rightMax) - height[i]
+                left_max = max(left_max, height[j])
+            for j in range(i + 1, len(height)):
+                right_max = max(right_max, height[j])
+                
+            res += min(left_max, right_max) - height[i]
         return res
     
+    #      i:     0 1 2 3 5 6
+    # height:    [3,2,0,5,2,4]
+    # left_max:  [3,3,3,5,5,5]
+    # right_max: [5,5,5,5,4,4]
+    def trap_dp_neet(self, height: List[int]) -> int:
+        n = len(height)
+        if n == 0:
+            return 0
+        
+        leftMax = [0] * n
+        rightMax = [0] * n
+        
+        leftMax[0] = height[0]
+        for i in range(1, n):
+            leftMax[i] = max(leftMax[i - 1], height[i])
+        
+        rightMax[n - 1] = height[n - 1]
+        for i in range(n - 2, -1, -1):
+            rightMax[i] = max(rightMax[i + 1], height[i])
+        
+        res = 0
+        for i in range(n):
+            res += min(leftMax[i], rightMax[i]) - height[i]
+        return res
+            
+        
+            
+            
     
 def main():
-    #  5            #
+    #  5        #    
     #  4        #   #
     #  3  #     #   # 
     #  2  # #   # # #
@@ -58,8 +84,10 @@ def main():
     #  0  -----------
     #     0 1 2 3 4 5
   
-    height = [3,2,0,4,2,5]
+    height = [3,2,0,5,2,4]
     print(Solution().trap(height))
+    print(Solution().trap_dp(height))
+    print(Solution().trap_dp_neet(height))
     
 
 if __name__ == "__main__":
