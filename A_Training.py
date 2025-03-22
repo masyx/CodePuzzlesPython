@@ -1,35 +1,38 @@
+from typing import List
 
 
-def max_area_bf(height):
-    if not height:
-        return 0
-    res = 0
-    for i in range(len(height)):
-        for j in range(len(height)):
-            res = max(res, min(height[i], height[j]) * (j - i))
-    return res
-
-def max_area(height):
-    if not height:
-        return 0
-    res = 0
-    l = 0
-    r = len(height) - 1
-    while l < r:
-        res = max(res, min(height[l], height[r]) * (r - l))
-        if height[l] < height[r]:
-            l += 1
-        else:
-            r -= 1
-    return res
-
+class Solution:
+    
+    """
+    i              0  1 2  3
+    nums:         [3, 8,2, 1]
+    left_product: [1, 3,24,48]
+    right_product:[16,2,1, 1]
+    result:       [16,6,24,48]
+    
+    """
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        if not nums:
+            return 0
+        n = len(nums)
+        res = [0] * n
+        left_product = [1] * n
+        right_product = [1] * n
+        
+        for i in range(1, n):
+            left_product[i] = nums[i - 1] * left_product[i - 1]
+        for i in range(n - 2, -1, -1):
+            right_product[i] = nums[i + 1] * right_product[i + 1]
+            
+        for i in range(n):
+            res[i] = left_product[i] * right_product[i]
+        
+        return res
 
 def main():
-    #i:0 1 2 3 4 5 6 7 8
-    # [1,8,6,2,5,4,8,3,7]
-    height = [1,8,6,2,5,4,8,3,7]
-    print(max_area_bf(height))
-    print(max_area(height))
+    nums = [3,8,2,1]
+    s = Solution()
+    print(s.productExceptSelf(nums))
     
      
 if __name__ == "__main__":
