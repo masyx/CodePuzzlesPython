@@ -58,28 +58,8 @@ import string
 from typing import List
 
 
-class CodecClean:
-    def encode(self, strs: List[str]) -> str:
-        return "".join(f"{len(s)}/:{s}" for s in strs)
-    
-    def decode(self, s: str) -> List[str]:
-        i = 0
-        result = []
-        
-        while i < len(s):
-            delim = s.find('/:', i)
-            length = int(s[i:delim])
-            i = delim + 2
-            result.append(s[i:i + length])
-            i += length
-        return result
-
 class Codec_My:
     def encode(self, strs: List[str]) -> str:
-        # result = ""
-        # for s in strs:
-        #     result += f"{len(s)}/:{s}"
-        # return result
         return "".join(f"{len(s)}/:{s}" for s in strs)
     
     def decode(self, s: str):
@@ -94,39 +74,25 @@ class Codec_My:
             result.append(s[i + 2 : i + 2 + length])
             i = i + 2 + length
         return result
-
+    
 class Codec_My_2:
     def encode(self, strs: List[str]) -> str:
-        """Encodes a list of strings to a single string.
-        """
-        if not strs:
-            return ""
-        res = ""
-        for word in strs:
-            res += f"{len(word):03}{word}"
-        return res
+        encoded_strs_hard_to_remember = "".join(str(len(s)).zfill(3) + s for s in strs)
+        encoded_strs = ""
+        for s in strs:
+            encoded_strs += str(len(s)).zfill(3) + s
+        return encoded_strs
         
-    #  012345678901234567890
-    #     i
-    # "000001W005Hello010SuperDuper"
-    #        j
     def decode(self, s: str) -> List[str]:
-        """Decodes a single string to a list of strings.
-        """
         if not s:
             return []
         res = []
-  
-        i = 0
-        while i < len(s):
-            j = i + 3
-            length = int(s[i:j])
-            if length == 0:
-                res.append("")
-                i = j
-            else:
-                res.append(s[j:j + length])
-                i = j + length 
+        pointer = 0
+        while pointer <= len(s) - 1:
+            word_length = int(s[pointer:pointer + 3])
+            word_end_index = pointer + 3 + word_length
+            res.append(s[pointer + 3: word_end_index])
+            pointer = word_end_index
         return res
 
 class Codec_My_almost_good:
@@ -201,7 +167,7 @@ class CodecEscaping:
 if __name__ == "__main__":
     strs = ["", "///://////\/\\", "W", "Hello","SuperDuper"]
     print(strs)
-    codec = Codec()
+    codec = Codec_My_2()
     encoded = codec.encode(strs)
     print(encoded)
     decoded = codec.decode(encoded)

@@ -1,64 +1,36 @@
-from collections import defaultdict
 from typing import List
 
 
 class Solution:
-    
-    """
-    board = 
-                0           1           2
-     j  0   1   2   3   4   5   6   7   8
-   i
-   0 [["5","3",".",".","7",".",".",".","."]
-0  1 ,["6",".",".","1","9","5",".",".","."]
-   2 ,[".","9","8",".",".",".",".","6","."]
-   3 ,["8",".",".",".","6",".",".",".","3"]
-1  4 ,["4",".",".","8",".","3",".",".","1"]
-   5 ,["7",".",".",".","2",".",".",".","6"]
-   6 ,[".","6",".",".",".",".","2","8","."]
-2  7 ,[".",".",".","4","1","9",".",".","5"]
-   8 ,[".",".",".",".","8",".",".","7","9"]]
-    
-    """
-    # O(n^2) time | O(n^2) space, but it is sudoku so time and space are both O(1)
-    def valid_sudoku(self, board: List[List[int]]) -> bool:
-        rows = defaultdict(set)
-        columns = defaultdict(set)
-        boxes = defaultdict(set)
+    def encode(self, strs: List[str]) -> str:
+        encoded_strs_hard_to_remember = "".join(str(len(s)).zfill(3) + s for s in strs)
+        encoded_strs = ""
+        for s in strs:
+            encoded_strs += str(len(s)).zfill(3) + s
+        return encoded_strs
         
-        for i in range(9):
-            for j in range(9):
-                curr_number = board[i][j]
-                if curr_number == ".":
-                    continue
-                
-                curr_box = (i // 3, j // 3)
-                if (curr_number in rows[i] or
-                    curr_number in columns[j] or
-                    curr_number in boxes[curr_box]):
-                    return False
-                
-                rows[i].add(curr_number)
-                columns[j].add(curr_number)
-                boxes[curr_box].add(curr_number)
-        return True
+    def decode(self, s: str) -> List[str]:
+        if not s:
+            return []
+        res = []
+        pointer = 0
+        while pointer <= len(s) - 1:
+            word_length = int(s[pointer:pointer + 3])
+            word_end_index = pointer + 3 + word_length
+            res.append(s[pointer + 3: word_end_index])
+            pointer = word_end_index
+        return res
 
         
         
 
 def main():
     
-    board = [["5","3",".",".","7",".",".",".","."]
-            ,["6",".",".","1","9","5",".",".","."]
-            ,[".","9","8",".",".",".",".","6","."]
-            ,["8",".",".",".","6",".",".",".","3"]
-            ,["4",".",".","8",".","3",".",".","1"]
-            ,["7",".",".",".","2",".",".",".","6"]
-            ,[".","6",".",".",".",".","2","8","."]
-            ,[".",".",".","4","1","9",".",".","5"]
-            ,[".",".",".",".","8",".",".","7","9"]]
+    strs = ["we","say",":","yes"]
+
     s = Solution()
-    print(s.valid_sudoku(board))
+    print(s.encode(strs))
+    print(s.decode(s.encode(strs)))
     
      
 if __name__ == "__main__":
