@@ -1,38 +1,64 @@
+from collections import defaultdict
 from typing import List
 
 
 class Solution:
     
     """
-    i              0  1 2  3
-    nums:         [3, 8,2, 1]
-    left_product: [1, 3,24,48]
-    right_product:[16,2,1, 1]
-    result:       [16,6,24,48]
+    board = 
+                0           1           2
+     j  0   1   2   3   4   5   6   7   8
+   i
+   0 [["5","3",".",".","7",".",".",".","."]
+0  1 ,["6",".",".","1","9","5",".",".","."]
+   2 ,[".","9","8",".",".",".",".","6","."]
+   3 ,["8",".",".",".","6",".",".",".","3"]
+1  4 ,["4",".",".","8",".","3",".",".","1"]
+   5 ,["7",".",".",".","2",".",".",".","6"]
+   6 ,[".","6",".",".",".",".","2","8","."]
+2  7 ,[".",".",".","4","1","9",".",".","5"]
+   8 ,[".",".",".",".","8",".",".","7","9"]]
     
     """
-    def productExceptSelf(self, nums: List[int]) -> List[int]:
-        if not nums:
-            return 0
-        n = len(nums)
-        res = [0] * n
-        left_product = [1] * n
-        right_product = [1] * n
+    # O(n^2) time | O(n^2) space, but it is sudoku so time and space are both O(1)
+    def valid_sudoku(self, board: List[List[int]]) -> bool:
+        rows = defaultdict(set)
+        columns = defaultdict(set)
+        boxes = defaultdict(set)
         
-        for i in range(1, n):
-            left_product[i] = nums[i - 1] * left_product[i - 1]
-        for i in range(n - 2, -1, -1):
-            right_product[i] = nums[i + 1] * right_product[i + 1]
-            
-        for i in range(n):
-            res[i] = left_product[i] * right_product[i]
+        for i in range(9):
+            for j in range(9):
+                curr_number = board[i][j]
+                if curr_number == ".":
+                    continue
+                
+                curr_box = (i // 3, j // 3)
+                if (curr_number in rows[i] or
+                    curr_number in columns[j] or
+                    curr_number in boxes[curr_box]):
+                    return False
+                
+                rows[i].add(curr_number)
+                columns[j].add(curr_number)
+                boxes[curr_box].add(curr_number)
+        return True
+
         
-        return res
+        
 
 def main():
-    nums = [3,8,2,1]
+    
+    board = [["5","3",".",".","7",".",".",".","."]
+            ,["6",".",".","1","9","5",".",".","."]
+            ,[".","9","8",".",".",".",".","6","."]
+            ,["8",".",".",".","6",".",".",".","3"]
+            ,["4",".",".","8",".","3",".",".","1"]
+            ,["7",".",".",".","2",".",".",".","6"]
+            ,[".","6",".",".",".",".","2","8","."]
+            ,[".",".",".","4","1","9",".",".","5"]
+            ,[".",".",".",".","8",".",".","7","9"]]
     s = Solution()
-    print(s.productExceptSelf(nums))
+    print(s.valid_sudoku(board))
     
      
 if __name__ == "__main__":
