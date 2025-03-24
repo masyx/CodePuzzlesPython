@@ -30,17 +30,16 @@ from typing import List
 def maxProfit(prices: List[int]) -> int:
     if not prices:
         return 0
-    lowest = prices[0]
-    profit = 0
+    min_price = prices[0]
+    res = 0
     for i in range(1, len(prices)):
-        curr_price = prices[i]
-        if curr_price <= lowest:
-            lowest = curr_price
-        elif (curr_price - lowest) > profit:
-            profit = curr_price - lowest
-    return profit
+        if prices[i] < min_price:
+            min_price = prices[i]
+        else:
+            res = max(res, prices[i] - min_price)
+    return res
 
-def maxProfitImproved(prices: List[int]):
+def maxProfit2(prices: List[int]):
     if not prices:
         return 0
     lowest = prices[0]
@@ -50,7 +49,20 @@ def maxProfitImproved(prices: List[int]):
         profit = max(profit, curr_price - lowest)
     return profit
 
+def max_profit_sliding_window(prices: List[int]) -> int:
+    l, r = 0, 1
+    max_profit = 0
+    
+    while r < len(prices):
+        if prices[r] > prices[l]:
+            profit = prices[r] - prices[l]
+            max_profit = max(max_profit, profit)
+        else:
+            l = r
+        r += 1
+    return max_profit
+
 if __name__ == "__main__":
     prices = [7,1,5,3,6,4]
     print(maxProfit(prices))
-    print(maxProfitImproved(prices))
+    print(max_profit_sliding_window(prices))
