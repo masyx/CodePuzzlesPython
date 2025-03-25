@@ -45,7 +45,7 @@ def length_of_longest_substring_my_original(s: str)-> int:
         r += 1
     return res
 
-#O(2n) -> O(n) time | O(1) space
+# O(n) time | O(m) space, where m is the total number of distinct chars in array
 def lengthOfLongestSubstring(s):
     longest = 0
     used_chars = {}
@@ -60,6 +60,7 @@ def lengthOfLongestSubstring(s):
         longest = max(longest, r - l + 1)
     return longest
 
+# O(n) time | O(m) space, where m is the total number of distinct chars in array
 def length_of_longest_substring(s: str) -> int:
     seen = set()
     l = 0
