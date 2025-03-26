@@ -26,7 +26,53 @@ s consists of only uppercase English letters.
 
 '''
 
+from collections import defaultdict
 
+
+
+class Solution:
+    # We don't update max_freq when shrinking the window because it's only used to check if the window is valid.
+    # A stale (too high) max_freq might cause us to shrink the window earlier than necessary,
+    # but it never breaks correctness and avoids expensive recomputation, keeping the algorithm O(n).
+    def character_replacement(self, s: str, k: int) -> int:
+        l = 0
+        counts = defaultdict(int)
+        max_freq = 0
+        res = 0
+        for r in range(len(s)):
+            counts[s[r]] += 1
+            max_freq = max(max_freq, counts[s[r]])
+            
+            if (r - l + 1) - max_freq > k:
+                counts[s[l]] -= 1
+                l += 1
+            
+            res = max(res, r - l + 1)
+        return res
+            
+    #       r
+    #   l
+    #  0123456
+    # "AAABABB"
+    # A = 3, B = 2
+    # max_freq = 4
+    # res = 5
+    def characterReplacement(self, s: str, k: int) -> int:
+        res = 0
+        counts = [0] * 26
+        l = 0
+        max_freq = 0
+        for r, char in enumerate(s):
+            counts[ord(char) - ord('A')] += 1
+            max_freq = max(max_freq, counts[ord(char) - ord('A')])
+            if (r - l + 1) - max_freq > k:
+                counts[ord(s[l]) - ord('A')] -= 1
+                l += 1
+            res = max(res, r - l + 1)
+
+        return res
+    
+    
 # The key insight is that we are always trying to maximize the window size while keeping the 
 # number of replacement <= k. We do this by maintaining a window where 
 # window_size - max_frequent_char_count <=k. This inequality represents the number of replacements
