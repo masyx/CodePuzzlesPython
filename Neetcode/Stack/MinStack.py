@@ -20,7 +20,7 @@ Constraints:
 
 from typing import List, Tuple
 
-class MinStack:
+class MinStack2:
     def __init__(self):
         self.stack: List[int] = []
         self.min_vals = []
@@ -41,33 +41,39 @@ class MinStack:
     def getMin(self) -> int:
         return self.min_vals[-1] if self.min_vals else None
     
-class min_stack:
+# Commands: push 11, push 11, push 2, push 11, push 2, pop, top, get_min,pop
+# Stack: [11, 11, 2]
+# mins: [[11, 2], [2, 1]]
+# Returns: top - 11,get_min - 2
+class MinStack:
     def __init__(self):
-        self.stack = []
-        self.min_stack = []
+        self.values = []
+        self.min_values = []
         
-
+    
     def push(self, val: int) -> None:
-        self.stack.append(val)
-        if not self.min_stack or val < self.min_stack[-1][0]:
-            self.min_stack.append([val, 1])
-        elif self.min_stack[-1][0] == val:
-                self.min_stack[-1][1] += 1
+        self.values.append(val)
+        if not self.min_values or val < self.min_values[-1][0]:
+            self.min_values.append([val, 1])
+        elif val == self.min_values[-1][0]:
+            self.min_values[-1][1] += 1
+    
+    def pop(self) -> int:
+        val = self.values.pop()
+        if val == self.min_values[-1][0]:
+            self.min_values[-1][1] -= 1
+            if self.min_values[-1][1] == 0:
+                self.min_values.pop()
                 
-    def pop(self) -> None:
-        item = self.stack.pop()
-        if item == self.min_stack[-1][0]:
-            self.min_stack[-1][1] -= 1
-            if self.min_stack[-1][1] == 0:
-                self.min_stack.pop()
-
     def top(self) -> int:
-        return self.stack[-1]
-
-    def getMin(self) -> int:
-        return self.min_stack[-1][0]
-
-
+        return self.values[-1] if self.values else None
+    
+    def get_min(self) -> int:
+        return self.min_values[-1][0] if self.min_values else None
+        
+        
+        
+        
 # Your MinStack object will be instantiated and called as such:
 # obj = MinStack()
 # obj.push(val)
@@ -77,7 +83,7 @@ class min_stack:
 
 
 if __name__ == "__main__":
-    minStack = min_stack()
+    minStack = MinStack()
     minStack.push(100)
     minStack.push(2000)
     minStack.push(4000)
@@ -85,12 +91,12 @@ if __name__ == "__main__":
     minStack.push(10)
     minStack.push(80000)
     minStack.push(10)
-    print(minStack.getMin())
+    print(minStack.get_min())
     print(minStack.top())
     minStack.pop()
-    print(minStack.getMin())
+    print(minStack.get_min())
     print(minStack.top())
     minStack.pop()
-    print(minStack.getMin())
+    print(minStack.get_min())
     print(minStack.top())
     
