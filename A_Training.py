@@ -9,27 +9,16 @@ class TreeNode:
         self.right = right
         
 class Solution:
-    def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-        def postOrderHelper(node, res):
+    def post_order_traversal_helper(self, node, res):
             if not node:
                 return
-
-            if node.left:
-                postOrderHelper(node.left, res)
-            if node.right:
-                postOrderHelper(node.right, res)
-            if node.val:
-                res.append(node.val)
-
-        if not root:
-            return []
+            self.post_order_traversal_helper(node.left, res)
+            self.post_order_traversal_helper(node.right, res)
+            res.append(node.val)
+    
+    def post_order_traversal(self, root: Optional[TreeNode]) -> List[int]:
         res = []
-        if root.left:
-            postOrderHelper(root.left, res)
-        if root.right:
-            postOrderHelper(root.right, res)
-        
-        res.append(root.val)
+        self.post_order_traversal_helper(root, res)        
         return res
 
 def main():
@@ -38,7 +27,7 @@ def main():
     root.right.left = TreeNode(3)
     
     sol = Solution()
-    print(sol.postorderTraversal(root))
+    print(sol.post_order_traversal(root))
     
      
 if __name__ == "__main__":
