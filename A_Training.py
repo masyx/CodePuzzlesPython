@@ -20,7 +20,17 @@ class Solution:
         res = []
         self.post_order_traversal_helper(root, res)        
         return res
-
+    
+    def generate_bin(self, n, current = "") -> int:
+        if len(current) == n:
+            print(current)
+            return 1
+        
+        count = 0
+        count += self.generate_bin(n, f"{current}0")
+        count += self.generate_bin(n, f"{current}1")
+        return count
+        
 def main():
     root = TreeNode(1)
     root.right = TreeNode(2)
@@ -28,6 +38,9 @@ def main():
     
     sol = Solution()
     print(sol.post_order_traversal(root))
+    
+    print("Generate possible binary numbers: ")
+    sol.generate_bin(12)
     
      
 if __name__ == "__main__":
