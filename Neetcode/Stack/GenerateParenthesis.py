@@ -21,7 +21,7 @@ from typing import List
 from collections import deque
 
 class Solution:
-    # "()"
+    # O(2^2n * n) time | O(2^2n * n) space
     def generate_parenthesis_bf(self, n: int) -> List[str]:
         def is_valid(s):
             open = 0
@@ -40,6 +40,8 @@ class Solution:
             if len(curr_str) == 2 * n:
                 if is_valid(curr_str):
                     res.append(curr_str)
+                # Using the continue statement here to skip the rest of the loop iteration after
+                # checking if curr is a complete string (i.e. has length 2 * n)
                 continue
             
             queue.append(curr_str + "(")
