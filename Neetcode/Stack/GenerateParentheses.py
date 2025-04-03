@@ -22,7 +22,7 @@ from collections import deque
 
 class Solution:
     # O(2^2n * n) time | O(2^2n * n) space
-    def generate_parenthesis_bf(self, n: int) -> List[str]:
+    def generate_parentheses_bf(self, n: int) -> List[str]:
         def is_valid(s):
             open = 0
             for char in s:
@@ -49,7 +49,37 @@ class Solution:
             
         return res
 
-    def generate_parenthesis(self, n: int) -> List[str]:
+    """Backtracking Tree for generate_parentheses(n=3) visualization 
+
+    Each level adds either '(' or ')' depending on the counts,
+    and only valid states are explored.
+
+    ""  
+    ├── "("  
+    │   ├── "(("  
+    │   │   ├── "((("  
+    │   │   │   └── "((()"  
+    │   │   │       └── "((())"  
+    │   │   │           └── "((()))"  ✅
+    │   │   └── "(()"  
+    │   │       ├── "(()("  
+    │   │       │   └── "(()()"  
+    │   │       │       └── "(()())"  ✅
+    │   │       └── "(())"  
+    │   │           └── "(())("  
+    │   │               └── "(())()"  ✅
+    │   └── "()"  
+    │       ├── "()("  
+    │       │   ├── "()(("  
+    │       │   │   └── "()(()"  
+    │       │   │       └── "()(())"  ✅
+    │       │   └── "()()"  
+    │       │       └── "()()("  
+    │       │           └── "()()()"  ✅
+
+    Final results: [ "((()))", "(()())", "(())()", "()(())", "()()()" ]
+"""
+    def generate_parentheses(self, n: int) -> List[str]:
         result = []
         current = []
 
@@ -73,10 +103,10 @@ class Solution:
     
     
 def main():
-    n = 1
+    n = 2
     sol = Solution()
-    print(sol.generate_parenthesis_bf(n))
-    print(sol.generate_parenthesis(n))
+    print(sol.generate_parentheses_bf(n))
+    print(sol.generate_parentheses(n))
     
     
 if __name__ == "__main__":
