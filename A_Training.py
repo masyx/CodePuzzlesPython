@@ -9,68 +9,67 @@ class TreeNode:
         self.right = right
         
 class Solution:
-    def post_order_traversal_helper(self, node, res):
-            if not node:
-                return
-            self.post_order_traversal_helper(node.left, res)
-            self.post_order_traversal_helper(node.right, res)
-            res.append(node.val)
+    def binary_search(self, nums: List[int], target: int) -> int:
+        l = 0
+        r = len(nums) - 1
+
+        while l <= r:
+            mid = (l + r) // 2
+            if nums[mid] == target:
+                return mid
+            elif target < nums[mid]:
+                r = mid - 1
+            else:
+                l = mid + 1
+        return -1       
     
-    def post_order_traversal(self, root: Optional[TreeNode]) -> List[int]:
-        res = []
-        self.post_order_traversal_helper(root, res)        
-        return res
-    
-    def generate_bin(self, n, current = "") -> int:
-        if len(current) == n:
-            print(current)
-            return 1
+    #  c  0   1  2  3
+    # r    
+    # 0 [[1,  3, 5, 7],
+    # 1  [10,11,16,20],
+    # 2  [23,30,34,60]]
+    # 10 -> (r * 4) + c = 1 * 4 + 0 = 4; r = (4 - 0)/ 4
+    # 34 -> 2 * 4 + 2 = 10 
+    # l = 0, r = 11
+    # ind = (r * len(matrix[0])) + c; r = (ind - c) / len(matrix[0])
+    # r      0              1             2
+    # c 0  1  2  3     4  5  6  7     8  9 10 11
+    # [[1, 3, 5, 7], [10,11,16,20], [23,30,34,60]]
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        rows = len(matrix)
+        columns = len(matrix[0])
+        l = 0
+        r = columns * rows - 1
         
-        count = 0
-        count += self.generate_bin(n, current + "0")
-        count += self.generate_bin(n, current + "1")
-        return count
-    
-    def generate_parentheses_bf(self, n):
-        def is_valid(s):
-            count = 0
-            for c in s:
-                count += 1 if c == "(" else -1
-                if count < 0:
-                    return False
-            return count == 0
+        while l <= r:
+            mid = (l + r) // 2
+            column = mid % columns
+            row = mid // columns
+            
+            curr_number = matrix[row][column]
+            if target == curr_number:
+                return True
+            elif target > curr_number:
+                l = mid + 1
+            else:
+                r = mid - 1
         
-        res = []
-        queue = deque([""])
-        while queue:
-            curr = queue.popleft()
-            if len(curr) == 2 * n:
-                if is_valid(curr):
-                    res.append(curr)
-                continue
-            
-            queue.append(curr + "(")
-            queue.append(curr + ")")
-            
-        return res
-            
+        return False
             
         
     
     
     
 def main():
-    root = TreeNode(1)
-    root.right = TreeNode(2)
-    root.right.left = TreeNode(3)
+    arr = [1,4,6]
+    target = 6
+    solution = Solution()
+    print(solution.search(arr, target))
     
-    sol = Solution()
-    print(sol.post_order_traversal(root))
-    
-    print("Generate possible binary numbers: ")
-    print(f"The total number of possible binary combinations is: {sol.generate_bin(4)}")
-    
-    print(sol.generate_parentheses_bf(5))
+    matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]]
+    #matrix = [[1,1]]
+    target = 34
+    print(solution.searchMatrix(matrix, target))
     
      
 if __name__ == "__main__":
