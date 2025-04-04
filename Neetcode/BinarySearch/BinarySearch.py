@@ -34,7 +34,7 @@ def binary_search_upper_bound(nums, target):
     r = len(nums)
     while l < r:
         mid = (l + r) // 2
-        if nums[mid] <= target:
+        if target >= nums[mid]:
             l = mid + 1
         else:
             r = mid
@@ -59,30 +59,27 @@ def binary_search_lower_bound(nums, target):
         else:
             l = mid + 1
     return l if l < len(nums) and nums[l] == target else -1
+
+# Recursive binary search
+# O(log(n)) time | O(log(n)) space
+def binarySearchRecursive(arr, target):
+    return binarySearchHelper(arr, target, 0, len(arr) - 1)
+    
+def binarySearchHelper(arr, target, left, right):
+    if left > right:
+        return -1
+    
+    mid = (left + right) // 2
+    
+    if target == arr[mid]:
+        return mid
+    elif target > arr[mid]:
+        return binarySearchHelper(arr, target, mid + 1, right)
+    else:
+        return binarySearchHelper(arr, target, left, mid - 1)
     
 if __name__ == "__main__":
     nums = [2, 4, 6, 10, 10, 10, 11] 
     target = 10
     print(binary_search_lower_bound(nums, target))
     print(binary_search_upper_bound(nums, target))
-
-
-        
-# Recursive binary search
-# O(log(n)) time | O(log(n)) space
-def binarySearchRecursive(arr, target):
-    return binarySearchHelper(arr, target, 0, len(arr) - 1)
-    
-def binarySearchHelper(arr, target, leftIdx, rightIdx):
-    if leftIdx > rightIdx:
-        return -1
-    
-    mediumIdx = (leftIdx + rightIdx) // 2
-    valueAtMediumIdx = arr[mediumIdx]
-    
-    if target == valueAtMediumIdx:
-        return mediumIdx
-    elif target > valueAtMediumIdx:
-        return binarySearchHelper(arr, target, mediumIdx + 1, rightIdx)
-    else:
-        return binarySearchHelper(arr, target, leftIdx, mediumIdx - 1)
