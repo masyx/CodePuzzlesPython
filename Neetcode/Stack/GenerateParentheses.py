@@ -101,12 +101,27 @@ class Solution:
         backtrack(0, 0)
         return result
     
+    def generateParentheses(self, n: int) -> List[str]:
+        res = []
+
+        def backtracking(left_count, right_count, curr = ""):
+            if left_count == right_count == n:
+                res.append(curr)
+
+            if left_count < n:
+                backtracking(left_count + 1, right_count, curr + "(")
+            if right_count < left_count:
+                backtracking(left_count, right_count + 1, curr + ")")
+
+        backtracking(0, 0)
+        return res
     
 def main():
     n = 2
     sol = Solution()
     print(sol.generate_parentheses_bf(n))
     print(sol.generate_parentheses(n))
+    print(sol.generateParentheses(n))
     
     
 if __name__ == "__main__":
