@@ -3,43 +3,30 @@ from typing import List, Optional
 import math
 
 class Solution:
-    # O(nm) time, where n is speed and m is number of piles | O(1) space
-    def minEatingSpeed_bf(self, piles: List[int], h: int) -> int:
-        speed = 1
-        while True:
-            hours_spent = 0
-            
-            for pile in piles:
-                hours_spent += math.ceil(pile / speed)
-                
-            if hours_spent > h:
-                speed += 1
-            else:
-                return speed
-                
-    def minEatingSpeed(self, piles: List[int], h: int) -> int:
-        min_speed, max_speed = 0, max(piles)
-        while min_speed <= max_speed:
-            mid_speed = (min_speed + max_speed) // 2
-            
-            hours_spent = 0
-            for pile in piles:
-                hours_spent += math.ceil(pile / mid_speed)
-            
-            if hours_spent > h:
-                min_speed = mid_speed + 1
-            else:
-                max_speed = mid_speed - 1
-        return min_speed
-        
-    
-    
+    # n - number of pairs
+    # We CAN keep adding "(" if its count is less than n
+    # We CAN keep adding the ")" if its count is less than the count of "("
+    # ()
+    # ((
+    def generateParenthesis(self, n: int) -> List[str]:
+        res = []
+
+        def backtracking(left_count, right_count, curr = ""):
+            if left_count == right_count == n:
+                res.append("".join(curr))
+
+            if left_count < n:
+                backtracking(left_count + 1, right_count, curr + "(")
+            if right_count < left_count:
+                backtracking(left_count, right_count + 1, curr + ")")
+
+        backtracking(0, 0)
+        return res
+
 def main():
-    piles = [30,11,23,4,20]
-    h = 6
+    n = 10
     solution = Solution()
-    print(solution.minEatingSpeed_bf(piles, h))
-    print(solution.minEatingSpeed(piles, h))
+    print(solution.generateParenthesis(n))
     
      
 if __name__ == "__main__":
