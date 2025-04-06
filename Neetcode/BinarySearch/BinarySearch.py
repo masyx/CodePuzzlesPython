@@ -19,47 +19,6 @@ def binary_search(nums, target):
             l = mid + 1
     return -1
 
-#i  0  1  2  3  4   5
-# [-1, 3, 4, 4, 6, 10] target = 11, answer = 1
-# l = 4, r = 6, mid = 5
-'''
-Upper Bound: Find the first element that is greater than the given value.
-Goal is to continue moving right until you find the first element greater than target.
-
-If l == len(array), it means all elements in the array are less than or equal to the given value.
-This means the upper bound is beyond the end of the array, and the element would go at the end to maintain the sorted order.
-'''
-def binary_search_upper_bound(nums, target):
-    l = 0
-    r = len(nums)
-    while l < r:
-        mid = (l + r) // 2
-        if target >= nums[mid]:
-            l = mid + 1
-        else:
-            r = mid
-    if l > 0 and nums[l - 1] == target:
-        return l - 1
-    else:
-        return -1
-
-
-#i 0  1  2  3   4   5    6
-# [2, 4, 6, 10, 10, 10, 11]  target = 2
-# l = 0, r = 0, mid = 0
-'''The lower bound in binary search is the smallest index where nums[i] is greater 
-   than or equal to (>=) the target.'''
-def binary_search_lower_bound(nums, target):
-    l = 0
-    r = len(nums) - 1
-    while l < r:
-        mid = (l + r) // 2
-        if nums[mid] >= target:
-            r = mid
-        else:
-            l = mid + 1
-    return l if l < len(nums) and nums[l] == target else -1
-
 # Recursive binary search
 # O(log(n)) time | O(log(n)) space
 def binarySearchRecursive(arr, target):

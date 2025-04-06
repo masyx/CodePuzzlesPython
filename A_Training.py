@@ -3,30 +3,27 @@ from typing import List, Optional
 import math
 
 class Solution:
-    # n - number of pairs
-    # We CAN keep adding "(" if its count is less than n
-    # We CAN keep adding the ")" if its count is less than the count of "("
-    # ()
-    # ((
-    def generateParenthesis(self, n: int) -> List[str]:
-        res = []
-
-        def backtracking(left_count, right_count, curr = ""):
-            if left_count == right_count == n:
-                res.append("".join(curr))
-
-            if left_count < n:
-                backtracking(left_count + 1, right_count, curr + "(")
-            if right_count < left_count:
-                backtracking(left_count, right_count + 1, curr + ")")
-
-        backtracking(0, 0)
-        return res
+    def binarySearch(self, nums, target):    
+        def binary_search_recursive(l, r):
+            if l > r:
+                return None
+            
+            mid = (l + r) // 2
+            if nums[mid] == target:
+                return mid
+            elif target > nums[mid]:
+                return binary_search_recursive(mid + 1, r)
+            else:
+                return binary_search_recursive(l, mid - 1)
+                
+        return binary_search_recursive(0, len(nums) - 1)
 
 def main():
-    n = 10
+    nums = [0,1,2,3,4,5,6,7,8,9,10]
+    
+    target = 9
     solution = Solution()
-    print(solution.generateParenthesis(n))
+    print(solution.binarySearch(nums, target))
     
      
 if __name__ == "__main__":
