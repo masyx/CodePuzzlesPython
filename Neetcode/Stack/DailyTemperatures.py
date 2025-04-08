@@ -33,7 +33,7 @@ class Solution:
     #stack[0,1,2,3,4,5]
     
     
-    # When I see repeating statement '' it means that there is definitely a room for optimization
+    # When I see repeating statement 'stack.append(i - 1)' it means that there is definitely a room for optimization
     # Here I have if-else statement but in both cases I append to the stack, which means if-else
     # can be removed. 
     def daily_temperatures_my(self, temperatures: List[int]) -> List[int]:
@@ -67,6 +67,19 @@ class Solution:
                 prev_day = prev_days.pop()
                 answer[prev_day] = curr_day - prev_day
         return answer
+    
+    def daily_temperatures(self, temperatures: List[int]) -> List[int]:
+        answer = [0] * len(temperatures)
+        prev_days = []
+        for curr_day in range(len(temperatures)):
+            curr_temp = temperatures[curr_day]
+            
+            while prev_days and curr_temp > temperatures[prev_days[-1]]:
+                prev_day = prev_days.pop()
+                answer[prev_day] = curr_day - prev_day
+            
+            prev_days.append(curr_day)
+        return answer
 
 
 def main():
@@ -75,6 +88,7 @@ def main():
     solution = Solution()
     print(solution.daily_temperatures_my(temps))
     print(solution.daily_temperatures_my_optimized(temps))
+    print(solution.daily_temperatures(temps))
     
     
      
