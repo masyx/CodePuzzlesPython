@@ -2,49 +2,40 @@ from typing import List
 from collections import defaultdict
 
 class Solution:
-    #nums:    [-1,0,1,2,-1,-4]
-    #
-    #   i:      0  1  2 3 4 5
-    #nums:    [-4,-1,-1,0,1,2]
-    # target = x + y + z => target - x = y + z => 0 - x = y + z => -x = y + z
-    def threeSum(self, nums: List[int]) -> List[List[int]]:
-        res = []
-        nums.sort()
-        for i in range(len(nums) - 2):
-            curr_num = nums[i]
-            if curr_num > 0:
-                break
-            if i > 0 and curr_num == nums[i - 1]:
-                continue
-            
-            self.two_sum(i + 1, nums, -curr_num, res)
-        return res
-    # length = 3
-    #       v
-    #   0 1 2
-    # [-2,1,1]
-    # seen: 1
-    def two_sum(self, start, nums, target, res):
-        seen = set()
-        i = start
-        while i < len(nums):
-            curr_num = nums[i]            
-            compliment = target - curr_num
-            if compliment in seen:
-                res.append([nums[start - 1], compliment, curr_num])
-                while i + 1 < len(nums) and curr_num == nums[i + 1]:
-                    i += 1
-            seen.add(curr_num)
-            i += 1
-        return res
+    #               v
+    # i:      0 1 2 3 4 5 6
+    # nums:  [4,5,6,7,0,1,2]
+    # l = 0; r = 6
+    def search(self, nums: List[int], target: int) -> int:
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            mid = (l + r) // 2
+            if nums[mid] == target:
+                return mid
+            # left subarray is sorted
+            if nums[mid] >= nums[l]:
+                if nums[l] <= target < nums[mid]:
+                    r = mid - 1
+                else:
+                    l = mid + 1
+            # right subarray is sorted
+            else:
+                if nums[mid] < target <= nums[r]:
+                    l = mid + 1
+                else:
+                    r = mid - 1
+        return -1
+        
+
+        
         
         
     
 def main():
-    nums = [-1,0,1,2,-1,-4]
-    nums = [0,0,0,0]
+    nums = [4,5,6,7,0,1,2]
+    target = 0
     solution = Solution()
-    print(solution.threeSum(nums))
+    print(solution.search(nums, target))
     
     
      
