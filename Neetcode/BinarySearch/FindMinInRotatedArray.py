@@ -56,6 +56,8 @@ def find_min_in_rotated_arr(nums):
             return nums[mid]
         elif nums[mid + 1] < nums[mid]:
             return nums[mid + 1]
+        # left subarray is sorted so the infliction point is guaranteed to be
+        # on the right
         elif nums[mid] > nums[0]:
             l = mid + 1
         else:
@@ -66,22 +68,18 @@ def find_min_in_rotated_arr(nums):
 # [2,1]
 # l = 0, r = 1, mid = 0
 def find_min_in_rotated_arr_2(nums):
-    if not nums:
-        return None
-    if nums[-1] > nums[0]:
-        return nums[0]
     l, r = 0, len(nums) - 1
     while l < r:
-        mid = (l + r) // 2
-        if nums[mid] >= nums[0]:
-            l = mid + 1
+        m = l + (r - l) // 2
+        if nums[m] > nums[r]:
+            l = m + 1
         else:
-            r = mid
+            r = m
     return nums[l]
     
     
     
 if __name__  == "__main__":
-    nums = [2,1]
+    nums = [3,4,5,1,2]
     print(find_min_in_rotated_arr(nums))
     print(find_min_in_rotated_arr_2(nums))
