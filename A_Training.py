@@ -1,48 +1,43 @@
-from typing import List
-from collections import defaultdict
-
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+        
+class LinkedList:
+    def __init__(self, head: Node = None):
+        self.head  = head
+        
+    def __str__(self):
+        curr = self.head
+        res = []
+        while curr:
+            res.append(str(curr.value))
+            curr = curr.next
+        return "->".join(res)
+        
 class Solution:
-    #                    r  
-    #                m
-    #            l   
-    #    i:      0 1 2 3 4 5 6
-    # nums:     [3,4,5,1,2]
-    # l = 3, r = 4, mid = 3
-    #
-    def findMin(self, nums: List[int]) -> int:
-        if len(nums) == 1:
-            return nums[0]
-
-        l, r = 0, len(nums) - 1
-        # if array not rotated return first element
-        if nums[r] > nums[l]:
-            return nums[l]
-        while l <= r:
-            mid = (l + r) // 2
-
-            if nums[mid] > nums[mid + 1]:
-                return nums[mid + 1]
-            elif nums[mid] < nums[mid - 1]:
-                return nums[mid]
-            # left subarray is sorted so inflection point is
-            # guaranteed to be on the right
-            if nums[mid] > nums[l]:
-                l = mid + 1
-            else:
-                r = mid - 1
-        
-        
-        
-
-        
-        
-        
-    
+    def reverse_list(self, head):
+        curr = head
+        prev = None
+        while curr:
+            next = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next
+        return prev
+            
+            
 def main():
-    nums = [3,4,5,1,2]
-    target = 0
+    ll = LinkedList()
+    ll.head = Node(1)
+    ll.head.next = Node(2)
+    ll.head.next.next = Node(3)
+    ll.head.next.next.next = Node(4)
+    
     solution = Solution()
-    print(solution.findMin(nums))
+    print(ll)
+    ll.head = solution.reverse_list(ll.head)
+    print(ll)
     
     
      

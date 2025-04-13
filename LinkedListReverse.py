@@ -1,44 +1,45 @@
 class Node:
-    def __init__(self, value, next=None):
+    def __init__(self, value):
         self.value = value
-        self.next = next
-
-    def print_list(self):
-        temp = self
-        while temp is not None:
-            print(temp.value, end=" ")
-            temp = temp.next
-        print()
-
-# O(n) time | O(n) space
-def reverse(head):
-    current = head # adding this variable just for readability
-    new_next_node = None
-    while current:
-        next_to_traverse = current.next
-        current.next = new_next_node
-        new_next_node = current
-        current = next_to_traverse
-    return new_next_node
-
-
+        self.next = None
+        
+class LinkedList:
+    def __init__(self, head: Node = None):
+        self.head  = head
+        
+    def __str__(self):
+        curr = self.head
+        res = []
+        while curr:
+            res.append(str(curr.value))
+            curr = curr.next
+        return "->".join(res)
+        
+class Solution:
+    def reverse_list(self, head):
+        curr = head
+        prev = None
+        while curr:
+            next = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next
+        return prev
+            
+            
 def main():
-    head = Node(2)
-    head.next = Node(4)
-    head.next.next = Node(6)
-    head.next.next.next = Node(8)
-    head.next.next.next.next = Node(10)
-
-    print("Nodes of original LinkedList are: ", end='')
-    head.print_list()
+    ll = LinkedList()
+    ll.head = Node(1)
+    ll.head.next = Node(2)
+    ll.head.next.next = Node(3)
+    ll.head.next.next.next = Node(4)
     
-    new_head = reverse(head)
-    print("Nodes of reversed LinkedList are: ", end='')
-    new_head.print_list()
+    solution = Solution()
+    print(ll)
+    ll.head = solution.reverse_list(ll.head)
+    print(ll)
     
-    reverse(new_head)
-    print("Nodes of original LinkedList are: ", end='')
-    head.print_list()
-
-
-main()
+    
+     
+if __name__ == "__main__":
+    main()
