@@ -4,11 +4,11 @@ class Node:
         self.next = None
         
 class LinkedList:
-    def __init__(self, head: Node = None):
-        self.head  = head
+    def __init__(self, curr: Node = None):
+        self.curr  = curr
         
     def __str__(self):
-        curr = self.head
+        curr = self.curr
         res = []
         while curr:
             res.append(str(curr.value))
@@ -16,27 +16,52 @@ class LinkedList:
         return "->".join(res)
         
 class Solution:
-    def reverse_list(self, head):
-        curr = head
-        prev = None
-        while curr:
-            next = curr.next
-            curr.next = prev
-            prev = curr
-            curr = next
-        return prev
+        def mergeTwoLists(self, list1, list2):
+            if not list1 or not list2:
+                return list2 if not list1 else list1
             
+            curr = None
+            if list1.value < list2.value:
+                curr = list1
+                list1 = list1.next
+            else:
+                curr = list2
+                list2 = list2.next
             
+            head = curr
+            while list1 and list2:
+                if list1.value < list2.value:
+                    curr.next = list1
+                    curr = curr.next
+                    list1 = list1.next
+                else:
+                    curr.next = list2
+                    curr = curr.next
+                    list2 = list2.next
+                    
+            while list1:
+                curr.next = list1
+                curr = curr.next
+                list1 = list1.next
+            while list2:
+                curr.next = list2
+                curr = curr.next
+                list2 = list2.next
+            
+            return head
+                    
 def main():
     ll = LinkedList()
-    ll.head = Node(1)
-    ll.head.next = Node(2)
-    ll.head.next.next = Node(3)
-    ll.head.next.next.next = Node(4)
+    ll.curr = Node(1)
+    ll.curr.next = Node(3)
+    
+    ll_2 = LinkedList()
+    ll_2.curr = Node(2)
+    ll_2.curr.next = Node(4)
     
     solution = Solution()
     print(ll)
-    ll.head = solution.reverse_list(ll.head)
+    ll.curr = solution.mergeTwoLists(ll.curr, ll_2.curr)
     print(ll)
     
     
