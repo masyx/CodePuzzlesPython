@@ -1,6 +1,6 @@
 class Node:
     def __init__(self, value):
-        self.value = value
+        self.val = value
         self.next = None
         
 class LinkedList:
@@ -11,7 +11,7 @@ class LinkedList:
         curr = self.head
         res = []
         while curr:
-            res.append(str(curr.value))
+            res.append(str(curr.val))
             curr = curr.next
         return "->".join(res)
         
@@ -25,18 +25,33 @@ class Solution:
             prev = curr
             curr = next
         return prev
+    
+    # 1-> 2
+    def reverse_list_recursion(self, head):
+        if not head:
+            return None
+
+        newHead = head
+        if head.next:
+            newHead = self.reverse_list_recursion(head.next)
+            head.next.next = head
+        head.next = None
+        
+        return newHead
+        
+        
             
             
 def main():
     ll = LinkedList()
     ll.head = Node(1)
     ll.head.next = Node(2)
-    ll.head.next.next = Node(3)
-    ll.head.next.next.next = Node(4)
+    # ll.head.next.next = Node(3)
+    # ll.head.next.next.next = Node(4)
     
     solution = Solution()
     print(ll)
-    ll.head = solution.reverse_list(ll.head)
+    ll.head = solution.reverse_list_recursion(ll.head)
     print(ll)
     
     
