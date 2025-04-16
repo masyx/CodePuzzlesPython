@@ -44,6 +44,11 @@ public class Solution {
 
 """
 
+
+# CORE IDEA: Each iteration pushes the carry one bit to the left, resolving more of the actual sum.
+# We repeat until the carry (b) becomes 0. At that point, all carry bits have been resolved, and a holds the final result.
+# This process gradually builds the full sum, one carry layer at a time.
+
 # O(1) time | O(1) space
 def get_sum(a: int, b: int) -> int:
     # Define a 32-bit mask: 0xFFFFFFFF has all 32 bits set to 1.

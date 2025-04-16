@@ -1,64 +1,64 @@
-class Node:
-    def __init__(self, value = None):
-        self.val = value
-        self.next = None
-        
-class LinkedList:
-    def __init__(self, curr: Node = None):
-        self.curr  = curr
-        
-    def __str__(self):
-        curr = self.curr
-        res = []
-        while curr:
-            res.append(str(curr.val))
-            curr = curr.next
-        return "->".join(res)
-        
 class Solution:
-        def mergeTwoLists(self, list1, list2):
-            dummy = node = Node()
-            while list1 and list2:
-                if list1.val < list2.val:
-                    node.next = list1
-                    list1 = list1.next
-                else:
-                    node.next = list2
-                    list2 = list2.next
-                node = node.next
-            
-            node.next = list1 or list2
-                
-            return dummy.next
-        # l1: 1           l2: 2
-        def merge_two_list_recursion(self, list1, list2):
-            if not list1:
-                return list2
-            if not list2:
-                return list1
-            if list1.val < list2.val:
-                list1.next = self.merge_two_list_recursion(list1.next, list2)
-                return list1
-            else:
-                list2.next = self.merge_two_list_recursion(list1, list2.next)
-                return list2
+    def hammingWeight_bf(self, n: int) -> int:
+        count = 0
+        for i in range(32):
+            if 1 & (n >> i) != 0:
+                count += 1
+        return count
+    
+    def hammingWeight(self, n: int) -> int:
+        count = 0
+        while n:
+            n = n & (n - 1)
+            count += 1
+        return count
+    
+    def reverse_bits(self, n: int) -> int:
+        res = 0
+        for i in range(32):
+            bit = n >> i
+            res |= bit << (31 - i)
+        return res
+    
+    def missing_number(self, nums):
+        max_possible_missing = len(nums)
+        res = max_possible_missing
+        for i, num in enumerate(nums):
+            res = res ^ i ^ num
+        return res
+    
+    #   3 ->  11
+    #   5 -> 101
+    # res   
+    #   1 ->  01
+    #   1 ->  01
+    # res      0
+    #
+    #
+    def get_sum(self, a: int, b: int) -> int:
+        res = 0
+        carry = 0
+        for i in range(32):
+            carry = (a >> i) & (b >> i)
+            xor = (a >> i) ^ (b >> i)
+            res = 
+        return
+        
                     
                 
 def main():
-    ll = LinkedList()
-    ll.curr = Node(1)
-    ll.curr.next = Node(3)  
+    sol = Solution()
     
-    ll_2 = LinkedList()
-    ll_2.curr = Node(2)
-    ll_2.curr.next = Node(4)
+    n = 2 ** 31 - 1 # 2147483647
+    print(f"Number of set bits in '{n}' is: {sol.hammingWeight(n)}")
+    print()
     
-    solution = Solution()
-    print(ll)
-    print(ll_2)
-    ll.curr = solution.merge_two_list_recursion(ll.curr, ll_2.curr)
-    print(ll)
+    n = 1
+    print(f"Reversed '{n}' is: {sol.reverse_bits(n)}")
+    print()
     
+    nums = [3,0,1]
+    print(f"Missing number in an array {nums} is: {sol.missing_number(nums)}")
     
      
 if __name__ == "__main__":
