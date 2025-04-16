@@ -22,7 +22,7 @@ def is_palindrome_2(s):
         r -= 1
     return True
 
-def is_palindrome(s):
+def is_palindrome(s: str):
     l = 0
     length = len(s)
     r = length - 1
@@ -36,6 +36,12 @@ def is_palindrome(s):
         l += 1
         r -= 1
     return True
+
+def is_alphanum(c):
+    return (ord('A') <= ord(c) <= ord('Z') or
+            ord('a') <= ord(c) <= ord('z') or
+            ord('0') <= ord(c) <= ord('9') )
+    
 
 if __name__ == "__main__":
     s = "A man, a plan, a canal: Panama"

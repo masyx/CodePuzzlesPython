@@ -43,6 +43,7 @@ class Solution:
             
             
 def main():
+    'l'.lower()
     ll = LinkedList()
     ll.head = Node(1)
     ll.head.next = Node(2)
