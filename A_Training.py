@@ -36,13 +36,15 @@ class Solution:
     #
     #
     def get_sum(self, a: int, b: int) -> int:
-        res = 0
-        carry = 0
-        for i in range(32):
-            carry = (a >> i) & (b >> i)
-            xor = (a >> i) ^ (b >> i)
-            res = 
-        return
+        mask = 0xFFFFFFFF
+        MAX_INT = 2 ** 31 - 1 # 0x7FFFFFFF
+        
+        while b:
+            sum = a ^ b
+            carry = (a & b) << 1
+            a = sum & mask
+            b = carry & mask
+        return a if a <= MAX_INT else ~(a ^ mask)
         
                     
                 
@@ -59,6 +61,10 @@ def main():
     
     nums = [3,0,1]
     print(f"Missing number in an array {nums} is: {sol.missing_number(nums)}")
+    print()
+    
+    a, b = 3, 3
+    print(f"Sum of {a} and {b} is: {sol.get_sum(a, b)}")
     
      
 if __name__ == "__main__":
