@@ -48,25 +48,23 @@ class SolutionBitManipulation:
         return a if a <= MAX_INT else ~(a ^ mask)
         
 class Solution:
-    def search_rotated(self, nums: List[int], target: int):
-        l, r = 0, len(nums) - 1
-        while l <= r:
-            mid = (l + r) // 2
-            if nums[mid] == target:
-                return mid
-            # left subarray is sorted
-            if nums[mid] >= nums[l]:
-                if nums[l] <= target < nums[mid]:
-                    r = mid - 1
-                else:
-                    l = mid + 1
-            # right subarray is sorted
+    def trap(self, height: List[int]) -> int:
+        if not height:
+            return 0
+
+        l, r = 0, len(height) - 1
+        leftMax, rightMax = height[l], height[r]
+        res = 0
+        while l < r:
+            if leftMax < rightMax:
+                l += 1
+                leftMax = max(leftMax, height[l])
+                res += leftMax - height[l]
             else:
-                if nums[mid] < target <= nums[r]:
-                    l = mid + 1
-                else:
-                    r = mid - 1
-        return -1
+                r -= 1
+                rightMax = max(rightMax, height[r])
+                res += rightMax - height[r]
+        return res
                 
 def main():
     sol = SolutionBitManipulation()
@@ -89,10 +87,10 @@ def main():
     
     # endregion
 
-    #  i    0 1 2 3 4 5 6 7 8 9
-    nums = [5,6,7,8,9,0,1,2,3,4]
+    nums = [0,1,0,2,1,0,1,3,2,1,2,1]
+    ums = [0,0,20,0,20,2,1]
     s = Solution()
-    print(s.search_rotated(nums, 8))
+    print(s.trap(nums))
     
     
 if __name__ == "__main__":
