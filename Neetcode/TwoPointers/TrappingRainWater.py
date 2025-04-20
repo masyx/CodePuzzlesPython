@@ -76,11 +76,23 @@ class Solution:
         return res
 
     """Key Point
-    The core trick is that at any point, you only need to focus on the side (left or right) that has a smaller "max height so far."
-    Why? Because if, for example, the left side has a smaller “max bar” than the right side, the right side is tall enough to ensure 
-    that the left side’s water trapping capacity depends only on the left side’s height. You move the pointer inward from the side 
-    with the smaller max height, update that side’s max height, and calculate how much water is trapped based on how far below that 
-    max height the current bar is.
+    The key insight is that the amount of water trapped at any position is limited by the smaller of the two maxima (left and right).
+    By always moving the pointer on the side with the smaller maximum, we can be sure that the water at the new position is determined 
+    by that smaller maximum, because the other side’s maximum is at least as tall. This lets us calculate the water on the fly without 
+    needing to know the exact maximum on the opposite side for every position—we just need to know it’s bigger.
+    
+    Start with the goal: for each bar, we need min(max_left, max_right) - height[i]
+    
+    Key Decision: Compare leftMax and rightMax. If leftMax is smaller, the water at the next left position can’t exceed leftMax, 
+    no matter how tall the right side is (since it’s at least rightMax). So, we can safely move left and compute water based on leftMax. 
+    If rightMax is smaller or equal, the same applies on the right.
+    
+    This reasoning leads to the comparison if leftMax < rightMax: it’s about identifying which side’s maximum is the limiting factor right
+    now and processing that side, trusting that the other side’s height will hold the water.
+    
+    
+    By always stepping forward from the side with the shorter maximum wall, you can figure out how much water sits at each spot as you go, 
+    because the taller wall on the other side ensures the water won’t spill over there. 
     """
     def trap_two_pointers(self, height: List[int]) -> int:
         if not height:
