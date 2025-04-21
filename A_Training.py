@@ -46,7 +46,13 @@ class SolutionBitManipulation:
             a = sum & mask
             b = carry & mask
         return a if a <= MAX_INT else ~(a ^ mask)
-        
+
+
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left = None
+        self.right = None
 class Solution:
     def trap(self, height: List[int]) -> int:
         if not height:
@@ -65,32 +71,57 @@ class Solution:
                 rightMax = max(rightMax, height[r])
                 res += rightMax - height[r]
         return res
+    
+    @staticmethod
+    def invert_tree_recursive(root: TreeNode):
+        if not root:
+            return
+        if root.left:
+            Solution.invert_tree(root.left)
+        if root.right:
+            Solution.invert_tree(root.right)
+        root.left, root.right = root.right, root.left
+        return root
+    
+    @staticmethod
+    def invert_tree_iterative(root: TreeNode):
+        if not root:
+            return None
+        stack = [root]
+        while stack:
+            current = stack.pop()
+            if current.left:
+                stack.append(current.left)
+            if current.right:
+                stack.append(current.right)
+            current.left, current.right = current.right, current.left
+        return root
                 
 def main():
-    sol = SolutionBitManipulation()
-    
-    # region BitManipulation testing
-    n = 2 ** 31 - 1 # 2147483647
-    print(f"Number of set bits in '{n}' is: {sol.hammingWeight(n)}")
-    print()
-    
-    n = 1
-    print(f"Reversed '{n}' is: {sol.reverse_bits(n)}")
-    print()
-    
-    nums = [3,0,1]
-    print(f"Missing number in an array {nums} is: {sol.missing_number(nums)}")
-    print()
-    
-    a, b = 3, 3
-    print(f"Sum of {a} and {b} is: {sol.get_sum(a, b)}")
-    
-    # endregion
+    # Creating a simple binary tree manually
+    # root = TreeNode(1)
+    # root.left = TreeNode(2)
+    # root.right = TreeNode(3)
+    # root.left.left = TreeNode(4)
+    # root.left.right = TreeNode(5)
+    # root.right.left = TreeNode(6)
+    # root.right.right = TreeNode(7)
+    # root.left.left.left = TreeNode(8)
+    # root.left.left.right = TreeNode(9)
+    # root.left.right.left = TreeNode(10)
 
-    nums = [0,1,0,2,1,0,1,3,2,1,2,1]
-    ums = [0,0,20,0,20,2,1]
-    s = Solution()
-    print(s.trap(nums))
+    #Solution.invert_binary_tree(root)
+    Solution.invert_tree_iterative(None)
+    
+    
+    # Visual representation of the tree:
+    #         1
+    #       /   \
+    #      2     3
+    #     / \   / \
+    #    4   5 6   7
+    #   / \ /
+    #  8  9 10
     
     
 if __name__ == "__main__":

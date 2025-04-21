@@ -27,8 +27,8 @@ Inverted:
 def invert_binary_tree1(root):
     if not root:
         return
-    invert_binary_tree(root.left)
-    invert_binary_tree(root.right)
+    invert_binary_tree1(root.left)
+    invert_binary_tree1(root.right)
     root.left, root.right = root.right, root.left
     return root
 
@@ -78,11 +78,11 @@ if __name__ == "__main__":
     print_in_order(root)
     
     print("\nInverted: ", )
-    print_in_order(invert_binary_tree(root))
+    print_in_order(invert_binary_tree1(root))
     
     # Checking iterative solution
     print("\n\nIterative solution")
-    invert_binary_tree(root)
+    invert_binary_tree_iterative_stack(root)
     print("Original: ")
     print_in_order(root)
     
