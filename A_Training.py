@@ -77,9 +77,9 @@ class Solution:
         if not root:
             return
         if root.left:
-            Solution.invert_tree(root.left)
+            Solution.invert_tree_recursive(root.left)
         if root.right:
-            Solution.invert_tree(root.right)
+            Solution.invert_tree_recursive(root.right)
         root.left, root.right = root.right, root.left
         return root
     
@@ -96,13 +96,22 @@ class Solution:
                 stack.append(current.right)
             current.left, current.right = current.right, current.left
         return root
+    
+    @staticmethod
+    def max_depth(root: TreeNode) -> int:
+        if root is None:
+            return 0
+        else:
+            left_height = Solution.max_depth(root.left)
+            right_height = Solution.max_depth(root.right)
+            return max(left_height, right_height) + 1
                 
 def main():
     # Creating a simple binary tree manually
-    # root = TreeNode(1)
-    # root.left = TreeNode(2)
-    # root.right = TreeNode(3)
-    # root.left.left = TreeNode(4)
+    root = TreeNode(1)
+    root.left = TreeNode(2)
+    root.right = TreeNode(3)
+    root.left.left = TreeNode(4)
     # root.left.right = TreeNode(5)
     # root.right.left = TreeNode(6)
     # root.right.right = TreeNode(7)
@@ -111,7 +120,7 @@ def main():
     # root.left.right.left = TreeNode(10)
 
     #Solution.invert_binary_tree(root)
-    Solution.invert_tree_iterative(None)
+    print(Solution.max_depth(root))
     
     
     # Visual representation of the tree:
