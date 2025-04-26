@@ -99,13 +99,14 @@ class Solution:
     
     @staticmethod
     def max_depth(root: TreeNode) -> int:
-        if root is None:
+        if not root:
             return 0
-        else:
-            left_height = Solution.max_depth(root.left)
-            right_height = Solution.max_depth(root.right)
-            return max(left_height, right_height) + 1
-                
+        
+        left = Solution.max_depth(root.left)
+        right = Solution.max_depth(root.right)
+        max_depth = max(left, right) + 1
+        return max_depth
+        
 def main():
     # Creating a simple binary tree manually
     root = TreeNode(1)
