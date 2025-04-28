@@ -30,34 +30,47 @@ class TreeNode:
         self.left = None
         self.right = None
 
-
-# O(n) time | O(n) space
-def find_maximum_depth(root):
-    max_tree_depth = 0
-    if root is None:
-        return max_tree_depth
-    queue = collections.deque()
-    queue.append(root)
-    while queue:
-        level_size = len(queue)
-        max_tree_depth += 1
-        for _ in range(level_size):
-            current_node = queue.popleft()
-            
-            if current_node.left:
-                queue.append(current_node.left)
-            if current_node.right:
-                queue.append(current_node.right)
-    return max_tree_depth
-
 # O(n) time | O(log n) space for balanced binary tree, O(n) for unbalanced
-def max_depth(root):
+def max_depth_dfs_recursion(root):
     if not root:
         return 0
     
     left_height = max_depth(root.left)
     right_height = max_depth(root.right)
     return max(left_height, right_height) + 1
+
+def max_depth_dfs_iterative(root):
+    if not root:
+        return 0
+    stack = [(root, 1)] # stack holds a pair (node, depth)
+    max_depth = 0
+   
+    while stack:
+        curr, depth = stack.pop()
+        max_depth = max(max_depth, depth)
+        if curr.left:
+            stack.append((curr.left, depth + 1))
+        if curr.right:
+            stack.append((curr.right, depth + 1))
+    
+    return max_depth
+
+# O(n) time | O()
+def max_depth_bfs(root):
+    queue = collections.deque()
+    if root:
+        queue.append(root)
+    level = 0
+    
+    while queue:
+        level += 1
+        for i in range(len(queue)):
+            curr_node = queue.popleft()
+            if curr_node.left:
+                queue.append(curr_node.left)
+            if curr_node.right:
+                queue.append(curr_node.right)
+    return level
 
 
 def main():
@@ -73,8 +86,9 @@ def main():
     root.left.left.right = TreeNode(9)
     root.left.right.left = TreeNode(10)
 
-    print(f"Max tree depth is: {find_maximum_depth(root)}")
+    print(f"Max tree depth is: {max_depth_bfs(root)}")
     print(f"Max tree depth is: {max_depth(root)}")
+    
     
     
     # Visual representation of the tree:
