@@ -1,3 +1,27 @@
+"""100. Same Tree
+Easy
+
+Given the roots of two binary trees p and q, write a function to check if they are the same or not.
+Two binary trees are considered the same if they are structurally identical, and the nodes have the same value.
+
+Example 1:
+Input: p = [1,2,3], q = [1,2,3]
+Output: true
+
+Example 2:
+Input: p = [1,2], q = [1,null,2]
+Output: false
+
+Example 3:
+Input: p = [1,2,1], q = [1,1,2]
+Output: false
+ 
+
+Constraints:
+The number of nodes in both trees is in the range [0, 100].
+-104 <= Node.val <= 104
+"""
+
 
 from typing import List, Optional
 
@@ -9,7 +33,7 @@ class TreeNode:
         self.right = right
         
 class Solution:
-    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+    def isSameTree_extra_space(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
         return self.dfs_inorder(p, []) == self.dfs_inorder(q, [])
 
     def dfs_inorder(self, root: TreeNode, result: List[int])-> List[int]:
@@ -21,25 +45,16 @@ class Solution:
         self.dfs_inorder(root.left, result)
         self.dfs_inorder(root.right, result)
         return result
-
-class Solution2:
-    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
-        return self.dfs_inorder(p, q)
-
-    def dfs_inorder(self, root: TreeNode, root2: TreeNode)-> bool:
-        if root.val != root2.val:
+    
+    def is_same_tree(self, p: TreeNode, q: TreeNode) -> bool:
+        if p is None and q is None:
+            return True
+        if (p is None and q is not None) or (p is not None and q is None):
+            return False
+        if p.val != q.val:
             return False
         
-        if root.left and root2.left:
-            self.dfs_inorder(root.left, root2.left)
-        else:
-            return False
-        
-        if root.right and root2.right:
-            self.dfs_inorder(root.right, root2.right)
-        else:
-            return False
-        return True
+        return self.is_same_tree(p.left, q.left) and self.is_same_tree(p.right, q.right) 
 
         
 def main():
@@ -63,7 +78,7 @@ def main():
     sol2 = Solution()
     # print(sol.dfs_inorder(root, []))
     # print(sol.dfs_inorder(root2, []))
-    print(sol2.isSameTree(root, root2))
+    print(sol2.is_same_tree(root, root2))
     
     
     # Visual representation of the tree:
