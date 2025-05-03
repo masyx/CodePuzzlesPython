@@ -1,46 +1,51 @@
-
-from typing import List, Optional
+import collections
 
 
 class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
+    def __init__(self, val):
         self.val = val
-        self.left = left
-        self.right = right
-        
+        self.left = None
+        self.right = None
+
 class Solution:
-    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
-        return self.dfs_inorder(p, []) == self.dfs_inorder(q, [])
-
-    def dfs_inorder(self, root: TreeNode, result: List[int])-> List[int]:
-        if not root:
-            result.append(None)
-            return
+    def invertTreeRecursive(self, root):
+        if root is None:
+            return None
         
-        result.append(root.val)
-        self.dfs_inorder(root.left, result)
-        self.dfs_inorder(root.right, result)
-        return result
-
-class Solution2:
-    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
-        return self.dfs_inorder(p, q)
-
-    def dfs_inorder(self, root: TreeNode, root2: TreeNode)-> bool:
-        if root.val != root2.val:
-            return False
+        root.left, root.right = root.right, root.left
+        self.invertTreeRecursive(root.left)
+        self.invertTreeRecursive(root.right)
+        return root
+    
+    def invert_tree_iterative_dfs(self, root):
+        if root is None:
+            return None
+        stack = [root]
+        while stack:
+            curr_node = stack.pop()
+            curr_node.left, curr_node.right = curr_node.right, curr_node.left
+            
+            if curr_node.left:
+                stack.append(curr_node.left)
+            if curr_node.right:
+                stack.append(curr_node.right)
+        return root
+    
+    def invert_tree_iterative_bfs(self, root):
+        if root is None:
+            return None
+        q = collections.deque([root])
+        while q:
+            curr = q.popleft()
+            curr.left, curr.right = curr.right, curr.left
+            if curr.left:
+                q.append(curr.left)
+            if curr.right:
+                q.append(curr.right)
+        return root
+                
+                
         
-        if root.left and root2.left:
-            self.dfs_inorder(root.left, root2.left)
-        else:
-            return False
-        
-        if root.right and root2.right:
-            self.dfs_inorder(root.right, root2.right)
-        else:
-            return False
-        return True
-
         
 def main():
     # Creating a simple binary tree manually
