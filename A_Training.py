@@ -1,5 +1,6 @@
 import collections
-
+from typing import Optional
+from collections import deque
 
 class TreeNode:
     def __init__(self, val):
@@ -8,42 +9,20 @@ class TreeNode:
         self.right = None
 
 class Solution:
-    def invertTreeRecursive(self, root):
-        if root is None:
-            return None
-        
-        root.left, root.right = root.right, root.left
-        self.invertTreeRecursive(root.left)
-        self.invertTreeRecursive(root.right)
-        return root
-    
-    def invert_tree_iterative_dfs(self, root):
-        if root is None:
-            return None
-        stack = [root]
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        stack = [(root, 1)] # a pair (node, depth)
+        max_depth = 0
         while stack:
-            curr_node = stack.pop()
-            curr_node.left, curr_node.right = curr_node.right, curr_node.left
-            
+            curr_node, depth = stack.pop()
+            max_depth = max(max_depth, depth)
             if curr_node.left:
-                stack.append(curr_node.left)
+                stack.append((curr_node.left, depth + 1))
             if curr_node.right:
-                stack.append(curr_node.right)
-        return root
-    
-    def invert_tree_iterative_bfs(self, root):
-        if root is None:
-            return None
-        q = collections.deque([root])
-        while q:
-            curr = q.popleft()
-            curr.left, curr.right = curr.right, curr.left
-            if curr.left:
-                q.append(curr.left)
-            if curr.right:
-                q.append(curr.right)
-        return root
-                
+                stack.append((curr_node.left, depth + 1))
+        return max_depth
+            
                 
         
         
@@ -65,10 +44,10 @@ def main():
     root2.right = TreeNode(3)
     root2.left.left = TreeNode(4)
 
-    sol2 = Solution()
+    sol = Solution()
     # print(sol.dfs_inorder(root, []))
     # print(sol.dfs_inorder(root2, []))
-    print(sol2.isSameTree(root, root2))
+    print(sol.maxDepth(root))
     
     
     # Visual representation of the tree:
