@@ -24,6 +24,7 @@ The number of nodes in both trees is in the range [0, 100].
 
 
 from typing import List, Optional
+from collections import deque
 
 
 class TreeNode:
@@ -46,15 +47,30 @@ class Solution:
         self.dfs_inorder(root.right, result)
         return result
     
-    def is_same_tree(self, p: TreeNode, q: TreeNode) -> bool:
+    def is_same_tree_recursion(self, p: TreeNode, q: TreeNode) -> bool:
         if p is None and q is None:
             return True
-        if (p is None and q is not None) or (p is not None and q is None):
+        if p is None or q is None:
             return False
         if p.val != q.val:
             return False
         
-        return self.is_same_tree(p.left, q.left) and self.is_same_tree(p.right, q.right) 
+        return self.is_same_tree_recursion(p.left, q.left) \
+            and self.is_same_tree_recursion(p.right, q.right)
+    
+    def is_same_tree_iterative(self, p, q):
+        queue = deque([(p, q)])
+        while queue:
+            node1, node2 = queue.popleft()
+            if not node1 and not node2:
+                continue
+            if not node1 or not node2:
+                return False
+            elif node1.val != node2.val:
+                return False
+            queue.append((node1.left, node2.left))
+            queue.append((node2.right, node2.right))
+        return True
 
         
 def main():
@@ -78,7 +94,8 @@ def main():
     sol2 = Solution()
     # print(sol.dfs_inorder(root, []))
     # print(sol.dfs_inorder(root2, []))
-    print(sol2.is_same_tree(root, root2))
+    print(sol2.is_same_tree_recursion(root, root2))
+    print(sol2.is_same_tree_iterative(root, root2))
     
     
     # Visual representation of the tree:

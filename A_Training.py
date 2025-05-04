@@ -9,20 +9,31 @@ class TreeNode:
         self.right = None
 
 class Solution:
-    def maxDepth(self, root: Optional[TreeNode]) -> int:
-        if not root:
-            return 0
-        stack = [(root, 1)] # a pair (node, depth)
-        max_depth = 0
-        while stack:
-            curr_node, depth = stack.pop()
-            max_depth = max(max_depth, depth)
-            if curr_node.left:
-                stack.append((curr_node.left, depth + 1))
-            if curr_node.right:
-                stack.append((curr_node.left, depth + 1))
-        return max_depth
+    def isSameTreeRecursion(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+        if not p and not q:
+            return True
+        if not p or not q:
+            return False
+        if p.val != q.val:
+            return False
+        return self.isSameTreeRecursion(p.left, q.left)  \
+            and self.isSameTreeRecursion(p.right, q.right)
+    
+    def isSameTreeIterative(self, p, q):
+        q = deque()
+        q.append((q, p))
+        while q:
+            node_1, node_2 = q.popleft()
+            if not node_1 and not node_2:
+                continue
+            if not node_1 or not node_2:
+                return False
+            if node_1.val != node_2.val:
+                return False
             
+            q.append((p.left, q.left))
+            q.append((p.right, q.right))
+        return True        
                 
         
         
@@ -42,12 +53,13 @@ def main():
     root2 = TreeNode(1)
     root2.left = TreeNode(2)
     root2.right = TreeNode(3)
-    root2.left.left = TreeNode(4)
+    root2.left.left = TreeNode(44)
 
     sol = Solution()
     # print(sol.dfs_inorder(root, []))
     # print(sol.dfs_inorder(root2, []))
-    print(sol.maxDepth(root))
+    print(sol.isSameTreeRecursion(root, root2))
+    print(sol.isSameTreeIterative(root, root2))
     
     
     # Visual representation of the tree:
