@@ -108,22 +108,40 @@ class Solution:
             second.next = tmp1
             first, second = tmp1, tmp2
         
+    def mergeTwoLists(self, list1, list2):
+        if not list1:
+            return list2
+        if not list2:
+            return list1
         
+        if list1.val < list2.val:
+            list1.next = self.mergeTwoLists(list1.next, list2)
+            return list1
+        else:
+            list2.next = self.mergeTwoLists(list1, list2.next)
+            return list2
         
         
 def main():
-    ll = LinkedList(1)
-    ll.insert_at_end(2)
-    ll.insert_at_end(3)
-    ll.insert_at_end(4)
-    ll.insert_at_end(5)
-    print(ll)
+    ll1 = LinkedList(1)
+    ll1.insert_at_end(2)
+    ll1.insert_at_end(3)
+    ll1.insert_at_end(4)
+    ll1.insert_at_end(5)
+    print(ll1)
     # ll.reverse()
     # print(ll)
     
     sol = Solution()
-    sol.reorderList(ll.head)
-    print(ll)
+    
+    ll2 = LinkedList(0)
+    sol.mergeTwoLists(ll1.head, ll2.head)
+    print(ll2)
+    print(ll1)
+    
+    
+    sol.reorderList(ll1.head)
+    print(ll1)
 
     
     
