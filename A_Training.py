@@ -38,6 +38,7 @@ class LinkedList:
         self.head = previous
                 
 class Solution:
+    # O(n) time | O(n) space
     def reorderListRecursion(self, head: Optional[ListNode]) -> None:
 
         def rec(root: ListNode, cur: ListNode) -> ListNode:
@@ -60,7 +61,7 @@ class Solution:
 
         head = rec(head, head.next)
         
-
+    # O(n) time | O(1) space
     def reorderList(self, head: Optional[ListNode]) -> None:
         slow, fast = head, head.next
         while fast and fast.next:
@@ -82,23 +83,49 @@ class Solution:
             second.next = tmp1
             first, second = tmp1, tmp2
         
+    def mergeTwoLists(self, list1, list2):
+        if not list1:
+            return list2
+        if not list2:
+            return list1
         
+        if list1.val < list2.val:
+            list1.next = self.mergeTwoLists(list1.next, list2)
+            return list1
+        else:
+            list2.next = self.mergeTwoLists(list1, list2.next)
+            return list2
+    
+    def mergeTwoListsIterative(self, list1, list2):
+        pre_head = ListNode(-1)
+        tail = pre_head # will point to the last node of the merged list
         
+        while list1 and list2:
+            if list1.val < list2.val:
+                tail.next = list1
+                list1 = list1.next
+            else:
+                tail.next = list2
+                list2 = list2.next
+            tail = tail.next
+            
+        if list1:
+            tail.next = list1
+        if list2:
+            tail.next = list2
+        return pre_head.next.next
         
 def main():
-    ll = LinkedList(1)
-    ll.insert_at_end(2)
-    ll.insert_at_end(3)
-    ll.insert_at_end(4)
-    ll.insert_at_end(5)
-    print(ll)
-    # ll.reverse()
-    # print(ll)
+    ll1 = LinkedList(1)
+    ll1.insert_at_end(2)
+    # ll1.insert_at_end(3)
+    # ll1.insert_at_end(4)
+    # ll1.insert_at_end(5)
+    print(ll1)
     
     sol = Solution()
-    sol.reorderList(ll.head)
-    print(ll)
-
+    ll2 = LinkedList(3) 
+    print(sol.mergeTwoListsIterative(ll1.head, ll2.head))
     
     
 if __name__ == "__main__":

@@ -108,20 +108,6 @@ class Solution:
             second.next = tmp1
             first, second = tmp1, tmp2
         
-    def mergeTwoLists(self, list1, list2):
-        if not list1:
-            return list2
-        if not list2:
-            return list1
-        
-        if list1.val < list2.val:
-            list1.next = self.mergeTwoLists(list1.next, list2)
-            return list1
-        else:
-            list2.next = self.mergeTwoLists(list1, list2.next)
-            return list2
-        
-        
 def main():
     ll1 = LinkedList(1)
     ll1.insert_at_end(2)
@@ -138,6 +124,7 @@ def main():
     sol.mergeTwoLists(ll1.head, ll2.head)
     print(ll2)
     print(ll1)
+    print(ll2)
     
     
     sol.reorderList(ll1.head)
