@@ -87,27 +87,43 @@ class Solution:
         head = rec(head, head.next)
         
     # O(n) time | O(1) space
+    # 1-2-3-4-5
     def reorderList(self, head: Optional[ListNode]) -> None:
-        slow, fast = head, head.next
+        # STEP1: Find the middle of the list using slow/fast pointers
+        slow = fast = head
         while fast and fast.next:
-            slow = slow.next
+            slow = slow.next # stops at 3
             fast = fast.next.next
-
-        second = slow.next
-        prev = slow.next = None
-        while second:
-            tmp = second.next
-            second.next = prev
-            prev = second
-            second = tmp
-
-        first, second = head, prev
+        # At this point: slow = end of first half(stops at 3)
+        
+        # STEP2: Reverse the second half of the list
+        second = slow.next # Start of the second ll
+        slow.next = previous = None # Cut the list in half
+        curr = second
+        while curr:
+            next_to_precess = curr.next
+            curr.next = previous
+            previous = curr
+            curr = next_to_precess
+        # Now: 'head' is the start of the first list, 
+        # 'previous' is the head of the second reversed half 
+        
+        # STEP3: Merge two halves together  
+        first = head # first ll
+        second = previous # second ll
         while second:
             tmp1, tmp2 = first.next, second.next
             first.next = second
             second.next = tmp1
-            first, second = tmp1, tmp2
-        
+            first, second = tmp1, tmp2 
+        return head
+        # tmp1:       V
+        # ll1:    1-2-3-None
+        # tmp2:        V
+        # ll2:    5-4-None
+        # 
+        # new ll: 1-5-2-4-3
+    
 def main():
     ll1 = LinkedList(1)
     ll1.insert_at_end(2)
@@ -119,13 +135,6 @@ def main():
     # print(ll)
     
     sol = Solution()
-    
-    ll2 = LinkedList(0)
-    sol.mergeTwoLists(ll1.head, ll2.head)
-    print(ll2)
-    print(ll1)
-    print(ll2)
-    
     
     sol.reorderList(ll1.head)
     print(ll1)
