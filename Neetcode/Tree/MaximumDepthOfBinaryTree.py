@@ -35,10 +35,11 @@ def max_depth_dfs_recursion(root):
     if not root:
         return 0
     
-    left_height = max_depth(root.left)
-    right_height = max_depth(root.right)
+    left_height = max_depth_dfs_recursion(root.left)
+    right_height = max_depth_dfs_recursion(root.right)
     return max(left_height, right_height) + 1
 
+# O(n) time | O(log n) space for balanced binary tree, O(n) for unbalanced
 def max_depth_dfs_iterative(root):
     if not root:
         return 0
@@ -55,7 +56,10 @@ def max_depth_dfs_iterative(root):
     
     return max_depth
 
-# O(n) time | O()
+# Time: O(n) – visits each node once
+# Space: O(w) – w = max width of tree (nodes at the widest level), roughly n/2
+# In the worst case, for a perfect binary tree, the width is about n / 2, so O(n).
+# In the best case, for a skewed tree, the width is just 1, so O(1).
 def max_depth_bfs(root):
     queue = collections.deque()
     if root:
@@ -87,7 +91,7 @@ def main():
     root.left.right.left = TreeNode(10)
 
     print(f"Max tree depth is: {max_depth_bfs(root)}")
-    print(f"Max tree depth is: {max_depth(root)}")
+    print(f"Max tree depth is: {max_depth_dfs_recursion(root)}")
     
     
     
