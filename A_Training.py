@@ -96,24 +96,28 @@ class Solution:
             list2.next = self.mergeTwoLists(list1, list2.next)
             return list2
     
-    def mergeTwoListsIterative(self, list1, list2):
-        pre_head = ListNode(-1)
-        tail = pre_head # will point to the last node of the merged list
-        
-        while list1 and list2:
-            if list1.val < list2.val:
-                tail.next = list1
-                list1 = list1.next
+    def mergeTwoListsIterative(self, l1, l2):
+        dummy = node = ListNode(-1)
+        while l1 and l2:
+            if l1.val < l2.val:
+                node.next = l1
+                l1 = l1.next
             else:
-                tail.next = list2
-                list2 = list2.next
-            tail = tail.next
-            
-        if list1:
-            tail.next = list1
-        if list2:
-            tail.next = list2
-        return pre_head.next.next
+                node.next = l2
+                l2 = l2.next
+            node = node.next
+        node.next = l1 or l2
+        return dummy.next
+    
+    def linkedListCycle(head: ListNode):
+        slow = fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                return True
+        return False
+        
         
 def main():
     ll1 = LinkedList(1)
@@ -121,11 +125,14 @@ def main():
     # ll1.insert_at_end(3)
     # ll1.insert_at_end(4)
     # ll1.insert_at_end(5)
-    print(ll1)
+    #print(ll1)
     
     sol = Solution()
-    ll2 = LinkedList(3) 
-    print(sol.mergeTwoListsIterative(ll1.head, ll2.head))
+    ll2 = LinkedList(3)
+    head = curr = sol.mergeTwoListsIterative(ll1.head, ll2.head)
+    while curr:
+        print(curr.val, "->", end=" ")
+        curr = curr.next
     
     
 if __name__ == "__main__":
