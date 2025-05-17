@@ -68,13 +68,13 @@ class Solution:
         return dp(0)
     
     def climbStairs(self, n):
-        one, two = 1, 1
+        one, two = 0, 1
         
-        for i in range(n - 1):
-            third = one + two # 5
-            one = two # 3
-            two = third # 5
-        return one
+        for i in range(n):
+            third = one + two
+            one = two
+            two = third 
+        return (one, two)
         
         
 def main():
@@ -82,6 +82,8 @@ def main():
     print(sol.climbStairs_BF(8))
     print(sol.climbStairs_BF_2(8))
     print(sol.climbStairs_DP_topDown(8))
+    print(sol.climbStairs(1))
+    print(sol.getNthFib(8))
 
     
     
