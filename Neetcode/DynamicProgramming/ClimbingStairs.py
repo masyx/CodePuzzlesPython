@@ -83,7 +83,6 @@ def main():
     print(sol.climbStairs_BF_2(8))
     print(sol.climbStairs_DP_topDown(8))
     print(sol.climbStairs(1))
-    print(sol.getNthFib(8))
 
     
     
