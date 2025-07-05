@@ -2,41 +2,35 @@ from typing import Optional
 from collections import deque
 
 class Solution:
-    # Brute Force: O(2^n) time |O(log n) space
-    def climbStairs(self, n: int) -> int:
-        def climbStairsHelper(i):
-            if i >= n:
-                return i == n
-            return climbStairsHelper(i + 1) + climbStairsHelper(i + 2)
-            
-        return climbStairsHelper(0)
     
-    def climbStairsMemo(self, n):
-        memo = {}
-        def climbStairsHelper(i):
-            if i == n:
-                return 1
-            if i > n:
+    # [1,5,3,8,50,9,6,9]
+    def houseRobber(self, nums):
+        cache = [-1] * len(nums)
+        
+        def best(i):
+            if i >= len(nums):
                 return 0
             
-            if i in memo:
-                return memo[i]
+            if cache[i] != -1:
+                return cache[i]
             
+            explore_hose = nums[i] + best(i + 2)
+            skip_hose = best(i + 1)
             
-            l = climbStairsHelper(i + 1)
-            r = climbStairsHelper(i + 2)
-            memo[i] = l + r
-            return memo[i]
+            cache[i] = max(explore_hose, skip_hose)
+            return cache[i]
         
-        return climbStairsHelper(0)
-        
-        
+        return best(0)
+
+          
 
 # n = 3       
 def main():
+    # i:      0 1 2   3
+    nums = [100,5,3,200]
     sol = Solution()
-    print(sol.climbStairs(4))
-    print(sol.climbStairsMemo(4))
+    print(sol.houseRobber(nums))
+
 
     
     
