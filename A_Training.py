@@ -11,18 +11,32 @@ class Solution:
             if i >= len(nums):
                 return 0
             
-            if cache[i] != -1:
-                return cache[i]
+            skip_house = best(i + 1)
+            rob_house = nums[i] + best(i + 2)
             
-            rob_curr = nums[i] + best(i + 2)
-            skip_curr = best(i + 1)
+            cache[i] = max(skip_house, rob_house)
             
-            cache[i] = max(rob_curr, skip_curr)
             return cache[i]
-        
         return best(0)
-            
-            
+    
+    # [100,5,3,200]
+    # [100,100, 103, 0]
+    def houseRobber_bottomUp(self, nums):
+        if len(nums) == 0:
+            return 0
+        
+        if len(nums) == 1:
+            return nums[0]
+        
+        best = [0] * len(nums)
+        best[0] = 100
+        best[1] = max(nums[0], nums[1])
+        
+        for i in range(2, len(nums)):
+            skip_house = best[i - 1]
+            rob_house = nums[i] + best[i - 2]
+            best[i] = max(skip_house, rob_house)
+        return best[-1]    
 
 # n = 3       
 def main():
@@ -30,6 +44,7 @@ def main():
     nums = [100,5,3,200]
     sol = Solution()
     print(sol.houseRobber_topDown(nums))
+    print(sol.houseRobber_bottomUp(nums))
 
 
     
