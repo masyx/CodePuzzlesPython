@@ -19,6 +19,27 @@ class Solution:
             n &= n - 1
         return counter
     
+    def reverseBits(self, n: int) -> int:
+        result = 0
+        for i in range(32):
+            bit = (n >> i) & 1
+            result = result | ( bit << (31 - i))
+        return result
+    
+    def missingNumber(self, nums) -> int:
+        res = len(nums)
+        for i, n in enumerate(nums):
+            res = res ^ n ^ i
+        return res
+    
+    def getSum(self, a: int, b: int) -> int:
+        while b != 0:
+            carry = (a & b) << 1
+            a = (a ^ b)
+            b = carry
+        return a
+            
+    
     # 1 - 001
     # 2 - 010
     # 3 - 011
@@ -33,6 +54,11 @@ def main():
     sol = Solution()
     print(sol.hammingWeight_bf(n))
     print(sol.hammingWeight(n))
+    
+    print(sol.reverseBits(4))
+    
+    nums = [3, 0, 1]
+    print(sol.missingNumber(nums))
 
 
     
