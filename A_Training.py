@@ -1,65 +1,37 @@
-from typing import Optional
+from typing import List, Optional
 from collections import deque
 
 class Solution:
-    
-    def hammingWeight_bf(self, n: int) -> int:
-        counter = 0
-        mask = 1
-        for i in range(32):
-            if n & mask != 0:
-                counter += 1
-            mask = mask << 1
-        return counter
-    
-    def hammingWeight(self, n):
-        counter = 0
-        while n:
-            counter += 1
-            n &= n - 1
-        return counter
-    
-    def reverseBits(self, n: int) -> int:
-        result = 0
-        for i in range(32):
-            bit = (n >> i) & 1
-            result = result | ( bit << (31 - i))
-        return result
-    
-    def missingNumber(self, nums) -> int:
-        res = len(nums)
-        for i, n in enumerate(nums):
-            res = res ^ n ^ i
-        return res
-    
-    def getSum(self, a: int, b: int) -> int:
-        mask = 0xFFFFFFFF
-        max_int = 2 ** 31
-        while b:
-            sum = (a ^ b) & mask
-            carry = ((a & b) << 1) & mask
-            a = sum
-            b = carry
-        return a if a <= max_int else ~(a ^ mask)
-    # 1 - 001
-    # 2 - 010
-    # 3 - 011
-    # 4 - 100
-    # 5 - 101
-    # 6 - 110
-    # 7 - 111
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        if not matrix:
+            return False
+        rows = len(matrix)
+        columns = len(matrix[0])
+        l = 0
+        r = (rows * columns) - 1
+        
+        while l <= r:
+            mid = (l + r) // 2
+            
+            row = mid // columns
+            column = mid % columns
+            curr_num = matrix[row][column]
+
+            if curr_num == target:
+                return True
+            elif target < curr_num:
+                r = mid - 1
+            else:
+                l = mid + 1
+        
+        return False
         
 # n = 3       
 def main():
-    n = 8
+    matrix =[[1]]
     sol = Solution()
-    print(sol.hammingWeight_bf(n))
-    print(sol.hammingWeight(n))
-    
-    print(sol.reverseBits(4))
-    
-    nums = [3, 0, 1]
-    print(sol.missingNumber(nums))
+    print(sol.searchMatrix(matrix, 2))
+
 
 
     
