@@ -33,13 +33,14 @@ class Solution:
         return res
     
     def getSum(self, a: int, b: int) -> int:
-        while b != 0:
-            carry = (a & b) << 1
-            a = (a ^ b)
+        mask = 0xFFFFFFFF
+        max_int = 2 ** 31
+        while b:
+            sum = (a ^ b) & mask
+            carry = ((a & b) << 1) & mask
+            a = sum
             b = carry
-        return a
-            
-    
+        return a if a <= max_int else ~(a ^ mask)
     # 1 - 001
     # 2 - 010
     # 3 - 011
