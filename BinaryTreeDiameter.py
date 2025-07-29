@@ -1,70 +1,68 @@
-class BinaryTree:
-    def __init__(self, value, left=None, right=None):
-        self.value = value
+from typing import Optional
+
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
         self.left = left
         self.right = right
         
-# O(n) time | O(h) space, where 'n' is the number of nodes in the tree
-# and 'h' is the height of the tree
-def binaryTreeDiameter(tree):
-    global longest_path
-    longest_path = 0
-    calculate_longest_path(tree)
-    return longest_path
-
-
-def calculate_longest_path(node):
-    global longest_path
-    if node is None:
-        return 0
-    left_depth = calculate_longest_path(node.left)
-    right_depth = calculate_longest_path(node.right)
-    
-    current_longest_path = left_depth + right_depth
-    longest_path = max(current_longest_path, longest_path)
-    return max(left_depth, right_depth) + 1
-
-# O(n) time | O(h) space, where 'n' is the number of nodes in the tree
-# and 'h' is the height of the tree
-class Solution():
-    def diameter_of_binaryTree(self, root: BinaryTree) -> int:
-        """
-        :type root: BinaryTree
-        :retype: int
-        """
-        self.diameter = 0
+        
+class Solution:
+    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        self.max_diameter = 0  # global max
         
         def dfs(node):
             if not node:
                 return 0
             
-            left_branch_hight = dfs(node.left)
-            right_branch_hight = dfs(node.right)
+            # Recursive depth calculation
+            left = dfs(node.left)
+            right = dfs(node.right)
             
-            self.diameter = max(self.diameter, left_branch_hight + right_branch_hight)
-            return 1 + max(left_branch_hight, right_branch_hight)
+            # Update diameter at this node
+            self.max_diameter = max(self.max_diameter, left + right)
+            
+            # Return height of current node
+            return 1 + max(left, right)
         
         dfs(root)
-        return self.diameter
+        return self.max_diameter
+
 
 
 def main():
-    tree = BinaryTree(1)
-    
-    tree.left = BinaryTree(3)
-    tree.right = BinaryTree(2)
-    
-    tree.left.left = BinaryTree(7)
-    tree.left.right = BinaryTree(4)
-    
-    tree.left.left.left = BinaryTree(8)
-    tree.left.left.left.left = BinaryTree(9)
-    
-    tree.left.right.right = BinaryTree(5)
-    tree.left.right.right.right = BinaryTree(6)
-    
+    '''
+         1
+        / \
+       2   3
+          / \
+         4   5
+        /     \
+       6       7
+      /         \
+     8           9
+    '''
+    # Build the two deep chains in the right subtree:
+    node8 = TreeNode(8)
+    node6 = TreeNode(6, left=node8)
+    node4 = TreeNode(4, left=node6)
+
+    node9 = TreeNode(9)
+    node7 = TreeNode(7, right=node9)
+    node5 = TreeNode(5, right=node7)
+
+    # Assemble the right subtree under node 3:
+    node3 = TreeNode(3, left=node4, right=node5)
+
+    # Simple left child of the root:
+    node2 = TreeNode(2)
+
+    # Finally, the root:
+    root = TreeNode(1, left=node2, right=node3)
+
     sol = Solution()
-    diameter = sol.diameter_of_binaryTree(tree)
+    diameter = sol.diameterOfBinaryTree(root)
     print(diameter)
     
     
