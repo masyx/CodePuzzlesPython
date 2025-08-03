@@ -48,31 +48,31 @@ class Solution:
         return result
     
     def is_same_tree_recursion(self, p: TreeNode, q: TreeNode) -> bool:
-        if p is None and q is None:
-            return True
         if p is None or q is None:
-            return False
-        if p.val != q.val:
-            return False
+            return p is q
         
-        return self.is_same_tree_recursion(p.left, q.left) \
-            and self.is_same_tree_recursion(p.right, q.right)
+        return (p.val == q.val
+                and self.is_same_tree_recursion(p.left, q.left)
+                and self.is_same_tree_recursion(p.right, q.right))
     
     def is_same_tree_iterative(self, p, q):
-        queue = deque([(p, q)])
-        while queue:
-            node1, node2 = queue.popleft()
-            if not node1 and not node2:
-                continue
-            if not node1 or not node2:
-                return False
-            elif node1.val != node2.val:
-                return False
-            queue.append((node1.left, node2.left))
-            queue.append((node2.right, node2.right))
-        return True
-
+        stack = [(p, q)]
         
+        while stack:
+            p, q = stack.pop()
+            
+            if p is None or q is None:
+                if p is not q:
+                    return False
+                continue
+        
+            if p.val != q.val:
+                return False
+            
+            stack.append((p.left, q.left))
+            stack.append((p.right, q.right))
+        return True
+              
 def main():
     # Creating a simple binary tree manually
     root = TreeNode(1)
@@ -89,7 +89,7 @@ def main():
     root2 = TreeNode(1)
     root2.left = TreeNode(2)
     root2.right = TreeNode(3)
-    root2.left.left = TreeNode(4)
+    root2.left.right = TreeNode(4)
 
     sol2 = Solution()
     # print(sol.dfs_inorder(root, []))
