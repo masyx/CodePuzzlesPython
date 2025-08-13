@@ -1,80 +1,65 @@
-import collections
+from typing import Optional
 
 
-class TreeNode:
-    def __init__(self, val):
+class ListNode:
+    def __init__(self, val = None):
         self.val = val
-        self.left = None
-        self.right = None
+        self.next = None
+        
 
+# l1: 1 -> 3
+# l2: 0 -> 5
+# l3: 
+        
 class Solution:
-    def max_depth_dfs_rec(self, root):
-        if root is None:
-            return 0
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        if not list1:
+            return list2
+        if not list2:
+            return list1
         
-        left = self.max_depth_dfs_rec(root.left)
-        right = self.max_depth_dfs_rec(root.right)
+        dummy = ListNode(0)
+        current = dummy
         
-        return 1 + max(left, right)
+        while list1 and list2:
+            if list1.val < list2.val:
+                current.next = list1
+                list1 = list1.next
+            else:
+                current.next = list2
+                list2 = list2.next
+            current = current.next
+        
+        current.next = list1 or list2
+            
+        return dummy.next
     
-    def max_depth_dfs_iter(self, root):
-        if root is None:
-            return 0
-        stack = [(root, 1)]
-        max_depth = 0
+    def mergeTwoListsRec(self, l1, l2):
+        if not l1:
+            return l2
+        if not l2:
+            return l1
         
-        while stack:
-            node, depth = stack.pop()
-            
-            if node.left:
-                stack.append((node.left, depth + 1))
-            if node.right:
-                stack.append((node.right, depth + 1))
-            
-            max_depth = max(max_depth, depth)
-        
-        return max_depth 
+        if l1.val < l2.val:
+            l1.next = self.mergeTwoListsRec(l1.next, l2)
+            return l1
+        else:
+            l2.next = self.mergeTwoListsRec(l1, l2.next)
+            return l2
             
     
-    def max_depth_bfs_iter(self, root):
-        q = collections.deque()
-        if root:
-            q.append(root)
-        level = 0
-        
-        while q:
-            level += 1
-            for i in range(len(q)):
-                curr = q.popleft()
-                if curr.left:
-                    q.append(curr.left)
-                if curr.right:
-                    q.append(curr.right)
-        return level
-             
 def main():
-    # Visual representation of the tree:
-    #         1
-    #       /   \
-    #      2     3
-    #     / \   /
-    #    4   5 6
-    #     \ 
-    #      9
-    
-    root = TreeNode(1)
-    root.left = TreeNode(2)
-    root.right = TreeNode(3)
-    root.left.left = TreeNode(4)
-    root.left.right = TreeNode(5)
-    root.right.left = TreeNode(6)
-    root.left.left.right = TreeNode(9)
+    l1 = ListNode(1)
+    l1.next = ListNode(3)
+    l2 = ListNode(0)
+    l2.next = ListNode(5)
     
     sol = Solution()
-
-    print(f"Max tree depth is: {sol.max_depth_dfs_rec(root)}")
-    print(f"Max tree depth is: {sol.max_depth_dfs_iter(root)}")
-    print(f"Max tree depth is: {sol.max_depth_bfs_iter(root)}")
+    head = sol.mergeTwoListsRec(l1, l2)
+    
+    while head:
+        print(head.val)
+        head = head.next
 
 
 
