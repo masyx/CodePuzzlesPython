@@ -46,16 +46,31 @@ class Solution:
         else:
             l2.next = self.mergeTwoListsRec(l1, l2.next)
             return l2
+        
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        slow = fast = head
+        for _ in range(n):
+            fast = fast.next
+
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next
+        
+        slow.next = slow.next.next
+        return head
             
     
 def main():
     l1 = ListNode(1)
-    l1.next = ListNode(3)
+    l1.next = ListNode(2)
+    l1.next.next = ListNode(3)
+    
     l2 = ListNode(0)
     l2.next = ListNode(5)
     
     sol = Solution()
-    head = sol.mergeTwoListsRec(l1, l2)
+    #head = sol.mergeTwoListsRec(l1, l2)
+    head = sol.removeNthFromEnd(l1, 3)
     
     while head:
         print(head.val)
