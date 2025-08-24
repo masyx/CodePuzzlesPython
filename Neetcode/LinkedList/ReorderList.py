@@ -101,10 +101,10 @@ class Solution:
         slow.next = previous = None # Cut the list in half
         curr = second
         while curr:
-            next_to_precess = curr.next
+            next_to_process = curr.next
             curr.next = previous
             previous = curr
-            curr = next_to_precess
+            curr = next_to_process
         # Now: 'head' is the start of the first list, 
         # 'previous' is the head of the second reversed half 
         
@@ -116,7 +116,6 @@ class Solution:
             first.next = second
             second.next = tmp1
             first, second = tmp1, tmp2 
-        return head
         # tmp1:       V
         # ll1:    1-2-3-None
         # tmp2:        V
