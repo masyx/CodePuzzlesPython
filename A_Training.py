@@ -1,24 +1,49 @@
 from typing import List, Optional
+from collections import defaultdict
 
 class Solution:
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
-        seen = {nums[0] : 0}
+    def groupAnagrams_sort_1(self, strs: List[str]) -> List[List[str]]:
+        res = defaultdict(list)
+        for s in strs:
+            sorted_s = tuple(sorted(s))
+            res[sorted_s].append(s)
         
-        for i in range(1, len(nums)):
-            possible_match = target - nums[i]
-            if possible_match in seen:
-                return [seen[possible_match], i]
-            seen[nums[i]] = i
-        return None
+        return list(res.values())
+    
+    # O(n * m log m) time | O(n) space
+    def groupAnagrams_sort(self, strs: List[str]) -> List[List[str]]:
+        res = {}
+        for s in strs:
+            sorted_s = tuple(sorted(s))
+            if sorted_s not in res:
+                res[sorted_s] = []
+            res[sorted_s].append(s)
+                
+        
+        return list(res.values())
+    
+    # O(n * m) time | O(n * m) space
+    def groupAnagrams(self, strs):
+        res = defaultdict(list)
+        for s in strs:
+            count = [0] * 26
+            for char in s:
+                # ord('a') is 97, it's its ascii value
+                count[ord(char) - ord('a')] += 1
+            
+            res[tuple(count)].append(s)
+        
+        return list(res.values())
+    
+    
     
     
     
 def main():
-  nums = [2,7,11,15]
-  target = 26
+  strs = ["eat","tea","tan","ate","nat","bat"]
   
   sol = Solution()
-  print(sol.twoSum(nums, target))
+  print(sol.groupAnagrams(strs))
   
   
 if __name__ == "__main__":
