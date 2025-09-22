@@ -49,9 +49,6 @@ class TimeMap:
         Returns the value for a key at a time on or before the given timestamp.
         Uses binary search for an efficient O(log N) lookup.
         """
-        # Retrieve the list of [timestamp, value] pairs for the key.
-        # If the key doesn't exist, self.store[key] would create an empty list,
-        # so the search will correctly return an empty string.
         values = self.store.get(key, [])
         if not values:
             return ""
@@ -71,7 +68,7 @@ class TimeMap:
                 result = stored_value
                 left = mid + 1
             else:
-                # The timestamp at 'mid' is too recent.
+                # The timestamp at 'mid' is too recent(later then our target).
                 # We must search in the left half.
                 right = mid - 1
         
@@ -88,7 +85,7 @@ def main():
     tm.set("alice", "offline", 50)
 
     # Perform get operations
-    print(f'Status at time 5:  "{tm.get("alice", 5)}"')   # Output: ""
+    print(f'Status at time 5:  "{tm.get("alice", 55)}"')   # Output: ""
     print(f'Status at time 10: "{tm.get("alice", 10)}"')  # Output: "online"
     print(f'Status at time 45: "{tm.get("alice", 45)}"')  # Output: "busy"
     print(f'Status at time 50: "{tm.get("alice", 50)}"')  # Output: "offline"
