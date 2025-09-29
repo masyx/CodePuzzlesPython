@@ -1,55 +1,33 @@
-from collections import defaultdict
+class Solution:
+    # 0123
+    # 11n
 
-class TimeMap:
-    """
-    A time-based key-value store.
-    """
-    def __init__(self):
-        """
-        Initializes the data structure.
-        We use a dictionary where each key maps to a list of [timestamp, value] pairs.
-        """
-        self.store = defaultdict(list)
+    # 0123456789 10 11
+    # substituti  o  n
+    # w_p = 12
+    # a_p = 1
+    def validWordAbbreviation(self, word: str, abbr: str) -> bool:
+        word_p = 0 # 12
+        abbr_p = 0 # 3
+        while word_p < len(word)  and abbr_p < len(abbr):
+            if abbr_p < len(abbr) and abbr[abbr_p].isdigit():
+                if abbr[abbr_p] == "0":
+                    return False
+                    
+                abbr_p_start = abbr_p # 0
+                while abbr_p < len(abbr) and abbr[abbr_p].isdigit():
+                    abbr_p += 1 # 2
 
-    def set(self, key: str, value: str, timestamp: int) -> None:
-        """
-        Stores the (key, value) pair with the given timestamp.
-        We assume timestamps are always increasing, so we can just append.
-        """
-        self.store[key].append([timestamp, value])
-
-    def get(self, key: str, timestamp: int) -> str:
-        """
-        Returns the value for a key at a time on or before the given timestamp.
-        Uses binary search for an efficient O(log N) lookup.
-        """
-        # Retrieve the list of [timestamp, value] pairs for the key.
-        # If the key doesn't exist, self.store[key] would create an empty list,
-        # so the search will correctly return an empty string.
-        values = self.store.get(key, [])
-        if not values:
-            return ""
-
-        # Binary search setup
-        result = ""
-        left, right = 0, len(values) - 1
-
-        while left <= right:
-            mid = (left + right) // 2
-            stored_timestamp, stored_value = values[mid]
-
-            if stored_timestamp <= timestamp:
-                # This is a valid candidate for our answer.
-                # We store it and continue searching to the right
-                # to see if a *more recent* valid timestamp exists.
-                result = stored_value
-                left = mid + 1
+                number = int(abbr[abbr_p_start: abbr_p]) # 11
+                word_p += number
             else:
-                # The timestamp at 'mid' is too recent.
-                # We must search in the left half.
-                right = mid - 1
+                if word[word_p] != abbr[abbr_p]:
+                    return False
+                word_p += 1
+                abbr_p += 1
         
-        return result
+        return True if word_p == len(word) and abbr_p == len(abbr) else False
+
         
 
 
@@ -57,20 +35,10 @@ class TimeMap:
     
 def main():
     
-    # Create an instance of the TimeMap
-    tm = TimeMap()
-
-    # Set some values for the key "alice"
-    tm.set("alice", "online", 10)
-    tm.set("alice", "busy", 30)
-    tm.set("alice", "offline", 50)
-
-    # Perform get operations
-    print(f'Status at time 5:  "{tm.get("alice", 5)}"')   # Output: ""
-    print(f'Status at time 10: "{tm.get("alice", 10)}"')  # Output: "online"
-    print(f'Status at time 45: "{tm.get("alice", 45)}"')  # Output: "busy"
-    print(f'Status at time 50: "{tm.get("alice", 50)}"')  # Output: "offline"
-    print(f'Status at time 100: "{tm.get("alice", 100)}"') # Output: "offline"
+    word = "hi"
+    abbr = "1"
+    sol = Solution()
+    print(sol.validWordAbbreviation(word, abbr))
   
   
 if __name__ == "__main__":
