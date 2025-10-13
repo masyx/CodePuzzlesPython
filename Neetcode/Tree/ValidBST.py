@@ -46,20 +46,30 @@ class Solution:
     #
     #
     def isValidBST(self, root) -> bool:
-        def valid(root, min_val = float('-inf'), max_val = float('inf')):
-            if not root:
+        def valid(node, low=float('-inf'), high=float('inf')):
+            if not node:
                 return True
-            #if root.val >= max_val or root.val <= min_val:
-            if not min_val < root < max_val:
+            v = node.val
+            if not low < v < high:
                 return False
-            
-            is_left_valid = valid(root.left, min_val, root.val)
-            is_right_valid = valid(root.right, root.val, max_val)
-            
-            root_is_valid_bst = is_left_valid and is_right_valid
-            
-            return root_is_valid_bst
+            return valid(node.left, low, v) and valid(node.right, v, high)
         return valid(root)
+
+
+    def isValidBST(self, root) -> bool:
+        def valid(node, lo=float('-inf'), hi=float('inf')):
+            if not node:
+                return True
+            v = node.val
+            if not lo < v < hi:
+                return False
+
+            # Short-circuit: only touch right if left is valid
+            if not valid(node.left, lo, v):
+                return False
+            return valid(node.right, v, hi)
+        return valid(root)
+
 
 
 def main():
