@@ -54,18 +54,15 @@ class Solution:
         
         def dfs(node):
             if not node:
-                return 0
+                return 0 # height of empty subtree
             
-            # Recursive depth calculation
-            left_h = dfs(node.left)
-            right_h = dfs(node.right)
+            left_h = dfs(node.left) # height of left subtree
+            right_h = dfs(node.right)# height of right subtree
             
-            # Update diameter at this node
-            curr_diameter = left_h + right_h
+            curr_diameter = left_h + right_h # diameter at this node
             self.max_diameter = max(self.max_diameter, curr_diameter)
             
-            # Return height of current node
-            return 1 + max(left_h, right_h)
+            return 1 + max(left_h, right_h) # Return height of current node
         
         dfs(root)
         return self.max_diameter
