@@ -47,6 +47,29 @@ tokens[i] is either an operator: "+", "-", "*", or "/", or an integer in the ran
 from typing import List
 
 class Solution:
+    def evalRPN_clean(self, tokens: List[str]) -> int:
+        res = 0
+        stack = []
+        opt = {
+            "+": lambda a, b: a + b,
+            "-": lambda a, b: a - b,
+            "*": lambda a, b: a * b,
+            # Use int(a / b) instead of a // b: Python's // floors toward -∞, 
+            # but the problem requires truncation toward 0 (e.g., -7//3 == -3; expected -2).
+            "/": lambda a, b: int(a / b)
+            
+        }
+        
+        for t in tokens:
+            if t not in opt:
+                stack.append(int(t))
+            else:
+                b = stack.pop()
+                a = stack.pop()
+                stack.append(opt[t](a, b))
+        return stack[0]
+    
+    
     def evalRPN(self, tokens: List[str]) -> int:
         if not tokens:
             return None
@@ -78,6 +101,7 @@ def main():
     #tokens = ["2","1","+","3","*"]
     solution = Solution()
     print(solution.evalRPN(tokens))
+    print(solution.evalRPN_clean(tokens))
     
 if __name__ == "__main__":
     main()
