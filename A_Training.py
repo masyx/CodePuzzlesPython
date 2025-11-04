@@ -3,27 +3,30 @@ from typing import List
 
 
 class Solution:
-    def evalRPN(self, tokens: List[str]) -> int:
-        res = 0
-        stack = []
-        opt = {
-            "+": lambda a, b: a + b,
-            "-": lambda a, b: a - b,
-            "*": lambda a, b: a * b,
-            "/": lambda a, b: int(a / b),
-        }
-        
-        for t in tokens:
-            if t not in opt:
-                stack.append(int(t))
+    #  0  1  3  4  5  6
+    # [0  1 45 46 46 47]
+    # l = 0, r = 1, same_count = 1
+    # w = 2, diff = 1
+    
+    def longestConsecutive(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+        nums.sort()
+        curr = 1
+        best = 1
+
+        for i in range(1, len(nums)):
+            if nums[i] - nums[i - 1] == 0:
+                continue
+            elif nums[i] - nums[i - 1] == 1:
+                curr += 1
             else:
-                method = opt[t]
-                val_2 = stack.pop()
-                val_1 = stack.pop()
-                res = method(val_1, val_2)
-                stack.append(res)
+                curr = 1
             
-        return res
+            if curr > best:
+                best = curr
+
+        return best
                 
 
 
@@ -31,10 +34,10 @@ class Solution:
                     
     
 def main():
-    
-    tokens=tokens = ["4","13","5","/","+"]
+    # [0, 10, 45, 46, 46, 47]
+    nums = [0, 10, 45, 46, 46, 47]#[0,3,7,2,5,8,4,6,0,1] #[100,4,200,1,3,2]
     sol = Solution()
-    print(sol.evalRPN(tokens))
+    print(sol.longestConsecutive(nums))
   
   
 if __name__ == "__main__":

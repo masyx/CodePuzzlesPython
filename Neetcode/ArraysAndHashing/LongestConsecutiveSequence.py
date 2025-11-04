@@ -14,24 +14,31 @@ def longest_consec_seq_bf(nums):
     return longest_streak
 
 # O(n log n) time | O(n) space, for sorting in Python 
-def longest_consec_seq_sort(nums: List):
+def longest_consec_seq_sort(self, nums: List[int]) -> int:
     if not nums:
         return 0
 
+    # Sort numbers so consecutive values become neighbors
     nums.sort()
+    best = 1   # longest sequence found so far
+    curr = 1   # current consecutive streak length
 
-    longest_streak = 1
-    current_streak = 1
-
+    # Walk through sorted array and count streaks
     for i in range(1, len(nums)):
-        if nums[i] != nums[i - 1]:
-            if nums[i] == nums[i - 1] + 1:
-                current_streak += 1
-            else:
-                longest_streak = max(longest_streak, current_streak)
-                current_streak = 1
+        # Skip duplicates; they don't break or extend a streak
+        if nums[i] == nums[i-1]:
+            continue
+        # Consecutive: extend current streak
+        if nums[i] == nums[i-1] + 1:
+            curr += 1
+        else:
+            # Gap: reset streak to this single number
+            curr = 1
+        # Track the maximum streak length
+        if curr > best:
+            best = curr
 
-    return max(longest_streak, current_streak)
+    return best
 
 ''' Optimal solution explanation
 This optimized algorithm contains only two changes from the brute force
@@ -61,19 +68,43 @@ In order to set up O(1) containment lookups, we allocate linear space
 for a hash table to store the O(n) numbers in nums. Other than that,
 the space complexity is identical to that of the brute force solution.
 '''
-def longest_consec_seq(nums: List):
+def longest_consec_seq(self, nums: List[int]) -> int:
+    # Use a set for O(1) existence checks
     nums_set = set(nums)
     longest_streak = 0
-    
+
+    # # Treat only "sequence starts" (num-1 not in set) as anchors
     for num in nums_set:
-        if num - 1 not in nums_set:
-            current_streak = 1
-            while num + 1 in nums_set:
+        if num - 1 not in nums_set:  # num is the start of a sequence
+            current_num = num
+            current_streak = 0
+
+            # Count how long this consecutive sequence goes
+            while current_num in nums_set:
                 current_streak += 1
-                num += 1
+                current_num += 1
+
             longest_streak = max(longest_streak, current_streak)
-            
+
     return longest_streak
+
+def longest_consec_seq_cleanest(self, nums: List[int]) -> int:
+    # Use a set for O(1) existence checks
+    s = set(nums)
+    best = 0
+
+    # Treat only "sequence starts" (x-1 not in set) as anchors
+    for x in s:
+        if x - 1 not in s:  # x is the beginning of a sequence
+            y = x
+            # Walk forward while numbers stay consecutive
+            while y in s:
+                y += 1
+            # Length of this sequence is y - x
+            best = max(best, y - x)
+
+    return best
+
 
 def main():
     nums = []
