@@ -31,9 +31,19 @@ class Solution:
         
         for n in nums[k:]:
             if n > heap[0]:
-                heapq.heappop(heap)
-                heapq.heappush(heap, n)
+                heapq.heappushpop(heap, n)
                 
+        return heap[0]
+    
+    def find_kth_largest(self, nums, k):
+        if not nums:
+            return None
+        heap = []
+        for num in nums:
+            if len(heap) < k:
+                heapq.heappush(heap, num)
+            elif num > heap[0]:
+                heapq.heappushpop(heap, num)
         return heap[0]
         
     
@@ -43,7 +53,7 @@ def main():
     k = 4
     sol = Solution()
     print(f"Kth largest element in the array is: {sol.findKthLargest(nums, k)}")
-    
+    print(f"Kth largest element in the array is: {sol.find_kth_largest(nums, k)}")
     
 
 if __name__ == "__main__":
