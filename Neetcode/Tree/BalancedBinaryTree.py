@@ -7,6 +7,9 @@ The number of nodes in the tree is in the range [0, 5000].
 """
 
 
+from typing import Optional
+
+
 class TreeNode:
     def __init__(self, val, left=None, right=None):
         self.val = val
@@ -37,6 +40,24 @@ class Solution:
             return max(left_height, right_height) + 1
         
         return isBalancedHelper(root) != -1
+    
+    def isBalanced(self, root: Optional[TreeNode]) -> bool:
+        def dfs(node):
+            if not node:
+                return True, 0
+
+            l_balanced, l_height = dfs(node.left)
+            if not l_balanced:
+                return False, -1
+
+            r_balanced, r_height = dfs(node.right)
+            if not r_balanced:
+                return False, -1
+
+            node_balanced = abs(l_height - r_height) <= 1
+            return node_balanced, 1 + max(l_height, r_height)
+
+        return dfs(root)[0]
     
 #               1
 #           2       3
