@@ -47,7 +47,7 @@ def groupAnagrams2(strs: List[str]) -> List[List[str]]:
     for string in strs:
         sorted_str = sorted(string)
         res[tuple(sorted_str)].append(string)
-    return res.values()
+    return list(res.values())
         
 # O(n * m) where n in number of strings and m is the length of the string
 # O(n * m) space OR O(n) 
@@ -58,7 +58,7 @@ def groupAnagrams3(strs: List[str]) -> List[List[str]]:
         for char in string:
             chars[ord(char) - ord('a')] += 1
         res[tuple(chars)].append(string)
-    return res.values()
+    return list(res.values())
     
 def main():
     # ["yo", "act", "flop", "tac", "foo", "cat", "oy", "olfp"]
