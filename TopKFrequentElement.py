@@ -21,26 +21,45 @@ It is guaranteed that the answer is unique.
 
 Follow up: Your algorithm's time complexity must be better than O(n log n), where n is the array's size.
 '''
-
+import heapq
 from typing import List
 
 # O(n) time | O(n) space
 def topKFrequent(nums: List[int], k: int) -> List[int]:
-    count = {}
-    freq = [[] for i in range(len(nums) + 1)]
+    freq = {}
+    for num in nums:
+        freq[num] = freq.get(num, 0) + 1
 
-    for n in nums:
-        count[n] = 1 + count.get(n, 0)
-    for n, c in count.items():
-        freq[c].append(n)
-
+    counts = [[] for _ in range(len(nums) + 1)] 
+    
+    for num, count in freq.items():
+        counts[count].append(num)
+        
     res = []
-    for i in range(len(freq) - 1, 0, -1):
-        for n in freq[i]:
-            res.append(n)
+    
+    counts.reverse()
+    for arr in counts:
+        for num in arr:
+            res.append(num)
             if len(res) == k:
                 return res
 
+# O(n log k) time | O(n) space, worst case where all the elements are unique, 
+# dict freq will be of size n
+def top_k_frequent_heap(nums: List[int], k: int) -> List[int]:
+        freq = {}
+        for num in nums:
+            freq[num] = freq.get(num, 0) + 1
+
+        heap = []
+        for num, count in freq.items():
+            if len(heap) < k:
+                heapq.heappush(heap, (freq[num], num))
+            elif count > heap[0][0]:
+                heapq.heappushpop(heap, (freq[num], num))
+
+        return [num for count, num in heap]
+        
 
 '''Time/Space complexity
 Time Complexity Analysis:
@@ -58,7 +77,7 @@ Output list: O(k)
 Overall: O(u + k)
 Since u ≤ n, this simplifies to O(n + k) in the worst case.
 '''
-def top_k_frequent(nums: List[int], k):
+def top_k_frequent_sort(nums: List[int], k):
     counts = {}
     for num in nums:
         counts[num] = counts.get(num, 0) + 1
@@ -71,5 +90,7 @@ def top_k_frequent(nums: List[int], k):
 
 
 if __name__ == "__main__":
-    nums = [7,7,7,7,2,2,2,2,100,3,100,3]
-    print(topKFrequent(nums, 4))
+    nums = [3,0,1,0]
+    k = 3
+    print(top_k_frequent_sort(nums, k))
+    print(top_k_frequent_heap(nums, k))
