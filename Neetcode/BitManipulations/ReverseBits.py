@@ -29,7 +29,6 @@ def reverse_bits(n: int) -> int:
     res = 0
     for i in range(32):
         bit = (n >> i) & 1 # Extract the i-th bit from n
-        # or bit = n & (1 << i)
         res |= (bit << (31 - i)) # Set the corresponding bit in the reversed position
     return res
 
