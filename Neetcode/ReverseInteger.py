@@ -36,6 +36,8 @@ import math
     # Space Complexity:
     #   O(1) since we only use a fixed number of variables regardless of the size of x.
 def reverse_int(x: int) -> int:
+    # MIN = 0x80000000
+    # MAX = 0x7FFFFFFF
     MIN = -2147483648  # -2^31,
     MAX = 2147483647  #  2^31 - 1
 
@@ -47,7 +49,7 @@ def reverse_int(x: int) -> int:
         # the description says that x is int, so actually the input more than int is impossible
         if res > MAX // 10 or (res == MAX // 10 and pop > 7):
             return 0
-        if res < int(MIN / 10) or (res == int(MIN / 10) and pop < -8): # if x is -9463847412, returns 0
+        if res < int(MIN / 10) or (res == int(MIN / 10) and pop < -8): 
             return 0
         res = (res * 10) + pop
 
@@ -61,7 +63,7 @@ def main():
     #print(reverse_int_my(-8463847412))
     
     #print(reverse_rec(2143847412))
-    print(reverse_int(214784741))
+    print(reverse_int(-123))
     
 
 if __name__ == "__main__":
