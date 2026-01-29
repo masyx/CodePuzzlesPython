@@ -8,46 +8,54 @@ class TreeNode:
         self.right = None
 
 class Solution:
-    #               j
-    #          0  1 2
-    # space = [5,11]
-    #             i                  
-    #  0123456789112345           
-    # "HelloPythonWorld" 
-    # res = [Hello Python World]
-    def addSpaces(self, s: str, spaces: List[int]) -> str:
-        res = []
-        s_idx, space_idx = 0, 0
-        for i in range(len(s)):
-            if (space_idx < len(spaces)
-                and i == spaces[space_idx]):
-                res.append(' ')
-                space_idx += 1
-            res.append(s[i])
-        return "".join(res)
+    # [5,1,2,5,4]
+    # [5,1,2]     [5,4]
+    # [5,1] [2]   [5] [4]
+    # [5] [1] recursively went down to single element in an array, start merging by comparing elements in array
+    # [1,5] [2]
+    # [1,2,5]     [4,5]
+    # [1,2,4,5,5]
     
-    # s = "EnjoyYourCoffee" spaces = [5, 9]
-    def addSpaces_2(self, s: str, spaces: List[int]) -> str:
-        res = []
-        prev = 0
-        for curr in spaces:
-            res.append(s[prev:curr] + " ")
-            prev = curr
-        res.append(s[spaces[-1]:])
-        return "".join(res)
     
-                
-            
 
-            
-
-
-                    
+    # [5,1,2,5,4]
+    def sortArray(self, nums):
+        if len(nums) <= 1:
+            return nums
         
+        mid = len(nums) // 2
+        l = self.sortArray(nums[:mid])
+        r = self.sortArray(nums[mid:])
+        
+        def mergeSort(left_arr, right_arr):
+            res = []
+            l_ptr = 0
+            r_ptr = 0
+            
+            while l_ptr < len(left_arr) and r_ptr < len(right_arr):
+                if left_arr[l_ptr] <= right_arr[r_ptr]:
+                    res.append(left_arr[l_ptr])
+                    l_ptr += 1
+                else:
+                    res.append(right_arr[r_ptr])
+                    r_ptr += 1
+                    
+            while l_ptr < len(left_arr):
+                res.append(left_arr[l_ptr])
+                l_ptr += 1
+            
+            while r_ptr < len(right_arr):
+                res.append(right_arr[r_ptr])
+                r_ptr += 1
+                
+            return res
+        
+        return mergeSort(l, r)
+    
+     
         
 if __name__ == "__main__":
-    s = "HelloPythonWorld"
-    spaces = [5,11]
+    arr = []
     sol = Solution()
-    print(sol.addSpaces(s, spaces))
+    print(sol.sortArray(arr))
     
