@@ -44,8 +44,18 @@ def topKFrequent(nums: List[int], k: int) -> List[int]:
             if len(res) == k:
                 return res
 
-# O(n log k) time | O(n) space, worst case where all the elements are unique, 
-# dict freq will be of size n
+'''
+ Time/Space complexity:
+ Time:
+   Build freq map: O(n)
+   Process m unique keys with a size-k min-heap: O(m log k)
+   Build result list from heap: O(k)
+   Total: O(n + m log k)  (worst case m = n -> O(n log k))
+
+ Space:
+   freq map holds m entries: O(m)
+   heap holds up to k entries: O(k)
+   Total: O(m + k)  (worst case m = n -> O(n + k))'''
 def top_k_frequent_heap(nums: List[int], k: int) -> List[int]:
         freq = {}
         for num in nums:

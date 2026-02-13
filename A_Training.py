@@ -1,61 +1,39 @@
-from typing import List
-
-
-class TreeNode:
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
+from __future__ import annotations
+from dataclasses import dataclass
+from typing import Optional, List
 
 class Solution:
-    # [5,1,2,5,4]
-    # [5,1,2]     [5,4]
-    # [5,1] [2]   [5] [4]
-    # [5] [1] recursively went down to single element in an array, start merging by comparing elements in array
-    # [1,5] [2]
-    # [1,2,5]     [4,5]
-    # [1,2,4,5,5]
-    
-    
+    # nums = [1,2,2,3,3], k = 2
+    # freq: 1-1, 2-2, 3-2
+    # i          
+    # buckets: [
+        #0[]
+        #1[1]
+        #2[2,3]
+        #3[]
+        #4[]
+        #5[]
+        #6[]]
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        freq = {}
+        for num in nums:
+            freq[num] = freq.get(num, 0) + 1
+        
+        buckets = [[] for i in range(len(nums) + 1)] # if all numbers is the same number
+        
+        for num, count in freq.items():
+            buckets[count].append(num)
+        
+        res = []
+        for bucket in reversed(buckets):
+            for num in bucket:
+                res.append(num)
+                if len(res) == k:
+                    return res
 
-    # [5,1,2,5,4]
-    def sortArray(self, nums):
-        if len(nums) <= 1:
-            return nums
-        
-        mid = len(nums) // 2
-        l = self.sortArray(nums[:mid])
-        r = self.sortArray(nums[mid:])
-        
-        def mergeSort(left_arr, right_arr):
-            res = []
-            l_ptr = 0
-            r_ptr = 0
-            
-            while l_ptr < len(left_arr) and r_ptr < len(right_arr):
-                if left_arr[l_ptr] <= right_arr[r_ptr]:
-                    res.append(left_arr[l_ptr])
-                    l_ptr += 1
-                else:
-                    res.append(right_arr[r_ptr])
-                    r_ptr += 1
-                    
-            while l_ptr < len(left_arr):
-                res.append(left_arr[l_ptr])
-                l_ptr += 1
-            
-            while r_ptr < len(right_arr):
-                res.append(right_arr[r_ptr])
-                r_ptr += 1
-                
-            return res
-        
-        return mergeSort(l, r)
-    
-     
-        
 if __name__ == "__main__":
-    arr = []
+
+    nums = [1,2,2,3,3]
+    k = 2
     sol = Solution()
-    print(sol.sortArray(arr))
-    
+    print(sol.topKFrequent(nums, k))
