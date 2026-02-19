@@ -38,8 +38,40 @@ class Solution:
             
         return len(heap)
     
+    # meetings = [(0,40),(5,10),(5,10),(15,30),(20,35)] # 3 rooms
+    # idx:                   s
+    # start: [ 0  5  5 15 20]
+    # idx:           e
+    # end:   [10 10 30 35 40]
+    # if start < end we need a room
+    # room = 3
+    def minMeetingRooms_twoPointers(self, intervals: List[List[int]]) -> int:
+        if not intervals:
+            return 0
+        
+        rooms = 0
+        max_rooms = 0
+        starts = sorted([start for start, end in intervals])
+        ends = sorted([end for start, end in intervals])
+        
+        s_ptr = 0
+        e_ptr = 0
+        
+        while s_ptr < len(intervals):
+            if starts[s_ptr] < ends[e_ptr]:
+                rooms += 1
+                s_ptr += 1
+                max_rooms = max(rooms, max_rooms)
+            else:
+                rooms -= 1
+                e_ptr += 1
+            
+        return max_rooms 
+    
     
 if __name__ == "__main__":
     meetings = [(0,40),(5,10),(5,10),(15,30),(20,35)] # 3 rooms
     sol = Solution()
     print(sol.minMeetingRooms(meetings))
+    print(sol.minMeetingRooms_twoPointers(meetings))
+    
