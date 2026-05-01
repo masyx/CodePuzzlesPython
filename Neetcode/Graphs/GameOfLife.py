@@ -48,7 +48,7 @@ from typing import List
 
 class Solution:
     # board = [[0,1,0],[0,0,1],[1,1,1],[0,0,0]]
-    def gameOfLife(self, board: List[List[int]]) -> None:
+    def gameOfLife_extra_space(self, board: List[List[int]]) -> None:
         """
         Do not return anything, modify board in-place instead.
         """
@@ -88,6 +88,62 @@ class Solution:
 
         board[:] = next_board
 
+
+    ''' Explanation:
+        I cannot overwrite cells directly because later neighbor counts need the original board.
+        So I encode transitions:
+        2 means originally live but now dead.
+        3 means originally dead but now live.
+        When counting neighbors, I count only values that were originally live: 1 and 2.
+        Then I do a cleanup pass.
+    '''
+    def gameOfLife(self, board: List[List[int]]) -> None:
+        #    was     now
+        # 0: dead -> dead
+        # 1: live -> live
+        # 2: live -> dead
+        # 3: dead -> live
+
+        rows = len(board)
+        cols = len(board[0])
+        
+        dirs = [(-1,-1), (-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1,-1), (0,-1)]
+
+        def get_next_state(row, col):
+            curr_cell = board[row][col]
+
+            live_cells = 0
+            for dir_r, dir_c in dirs:
+                new_r = row + dir_r
+                new_c = col + dir_c
+                if 0 <= new_r < rows and 0 <= new_c < cols:
+                    if board[new_r][new_c] in (1, 2):
+                        live_cells += 1
+
+            # apply rules
+            is_cell_live = curr_cell == 1
+            if is_cell_live:
+                if live_cells == 2 or live_cells == 3:
+                    return 1
+                else:
+                    return 2
+            else:
+                if live_cells == 3:
+                    return 3
+                else:
+                    return 0
+
+        for r in range(rows):
+            for c in range(cols):
+                board[r][c] = get_next_state(r, c)
+
+        for r in range(rows):
+            for c in range(cols):
+                state = board[r][c]
+                if state == 2:
+                    board[r][c] = 0
+                elif state == 3:
+                    board[r][c] = 1
 
 def main():
     board = [[0,1,0],
